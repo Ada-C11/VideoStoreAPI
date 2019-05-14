@@ -15,10 +15,12 @@ describe Customer do
   end
   describe "relations" do
     it "has associated rentals" do
+      expect(customer).must_respond_to :rentals
       expect(customer.rentals).must_include rentals(:one)
       expect(customer.rentals).must_include rentals(:three)
     end
     it "has associated movies" do
+      expect(customer).must_respond_to :movies
       expect(customer.movies).must_include movies(:test)
       expect(customer.movies).must_include movies(:other_test)
     end
