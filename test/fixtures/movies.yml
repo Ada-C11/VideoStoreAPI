@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  overview: MyString
-  release_date: 2019-05-14
-  inventory: 1
+blacksmith:
+  title: "Blacksmith Of The Banished"
+  overview: "The unexciting life of a boy will be permanently altered as a strange woman enters his life."
+  release_date: 1979-01-18
+  inventory: 10
 
-two:
-  title: MyString
-  overview: MyString
-  release_date: 2019-05-14
+savior:
+  title: "Savior Of The Curse"
+  overview: "The strange woman claims the boy has a DNA strain..." 
+  release_date: 2010-11-05
   inventory: 1
