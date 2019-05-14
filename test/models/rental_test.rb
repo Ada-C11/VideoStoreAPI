@@ -3,8 +3,22 @@ require "test_helper"
 describe Rental do
   let(:rental) { rentals(:two) }
 
-  it "must be valid" do
-    value(rental).must_be :valid?
+  describe "validations" do
+    it "is valid when all fields are present" do
+      result = rental.valid?
+
+      expect(result).must_equal true
+    end
+
+    it "requires a checkout date" do
+      rental.checkout_date = nil
+
+      valid_rental = rental.valid?
+
+      expect(valid_rental).must_equal false
+      expect(rental.errors.messages).must_include :checkout_date
+      expect(rental.errors.messages[:checkout_date]).must_equal ["can't be blank"]
+    end
   end
 
   describe "relations" do
@@ -19,15 +33,6 @@ describe Rental do
     end
   end
 
-  describe "validations" do
-    it "requires a checkout date" do
-      rental.checkout_date = nil
-
-      valid_rental = rental.valid?
-
-      expect(valid_rental).must_equal false
-      expect(rental.errors.messages).must_include :checkout_date
-      expect(rental.errors.messages[:checkout_date]).must_equal ["can't be blank"]
-    end
-  end
+  # describe "custom methods" do
+  # end
 end
