@@ -2,12 +2,12 @@
 
 class MoviesController < ApplicationController
   def zomg
-    render json: { message: "it works!" }
+    render json: { message: 'it works!' }
   end
 
   def index
     movies = Movie.all
-    render json: movies.as_json(only: [:id, :title, :release_date])
+    render json: movies.as_json(only: %i[id title release_date])
   end
 
   def show
@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
     if movie
       render json: movie.as_json(only: %i[title overview release_date inventory]), status: :ok
     else
-      render json: { ok: false, message: "Movie not found" }, status: :not_found
+      render json: { ok: false, message: 'Movie not found' }, status: :not_found
     end
   end
 
@@ -34,6 +34,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :overview, :release_date, :inventory)
+    params.require(:movie).permit(:title, :overview, :release_date, :inventory, :available_inventory)
   end
 end
