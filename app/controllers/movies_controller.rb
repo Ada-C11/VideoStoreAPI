@@ -9,7 +9,24 @@ class MoviesController < ApplicationController
     if movie
       render json: movie.as_json(only: [:title, :overview, :release_date, :inventory, :available_inventory]), status: :ok
     else
-      render json: {errors: ["Movie with id: #{params[:id]} was not found"]}, status: :not_found
+      render json: { errors: ["Movie with id: #{params[:id]} was not found"] }, status: :not_found
     end
+  end
+
+  def create
+    @movie = Movie.new(movie_params)
+    if @movie.save
+      flash[:success] = "Movie successfully added to database"
+      redirect_to @movie
+    else
+      flash[:error] = "Something went wrong; could not add movie"
+      render "new"
+    end
+  end
+
+  private
+
+  def movie_params
+    params.require(:movie).permit(:title, :overview, :release_date, :inventory)
   end
 end
