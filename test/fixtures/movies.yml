@@ -3,11 +3,11 @@
 one:
   title: Good Will Hunting
   overview: Matt Damon and Robin Williams in Boston.
-  release_date: 1997
+  release_date: 1997-08-10
   inventory: 3
 
 two:
   title: 21 Jump Street
   overview: Jonah Hill and Channing Tatum go undercover as high school students.
-  release_date: 2012
+  release_date: 2012-11-09
   inventory: 2
