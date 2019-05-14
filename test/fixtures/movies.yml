@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  overview: MyString
-  release_date: 2019-05-14
+movie1:
+  title: Amelie
+  overview: Feel good hipster movie about love and being kind to others
+  release_date: 2002-05-14
   inventory: 1
 
-two:
-  title: MyString
-  overview: MyString
-  release_date: 2019-05-14
-  inventory: 1
+movie2:
+  title: Finding Nemo
+  overview: A baby fish loses his mother in a horrible attack and goes on a big adventure
+  release_date: 2005-05-14
+  inventory: 2
