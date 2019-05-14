@@ -2,7 +2,7 @@
 
 class MoviesController < ApplicationController
   def zomg
-    render json: { message: 'it works!' }
+    render json: { message: "it works!" }
   end
 
   def index
@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
     if movie
       render json: movie.as_json(only: %i[title overview release_date inventory available_inventory]), status: :ok
     else
-      render json: { ok: false, message: 'Movie not found' }, status: :not_found
+      render json: { ok: false, message: "Movie not found" }, status: :not_found
     end
   end
 
