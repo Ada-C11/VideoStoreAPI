@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+shelley:
   name: Shelley Rocha
   address: 292-5216 Ipsum Rd
   city: Hillsboro
@@ -11,7 +11,7 @@ one:
 
 
 
-two:
+curran:
   name: Curran Stout
   address: 658-1540 Erat Rd.
   city: San Francisco
