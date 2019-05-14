@@ -1,19 +1,14 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
-<<<<<<< HEAD
 require "minitest/rails"
 require "minitest/reporters"  # for Colorized output
-=======
-require "minitest/rails"require "minitest/reporters"  # for Colorized output
->>>>>>> 397dc42028afe3acc2ddbd39bf2358f5ca18f18b
 #  For colorful output!
 Minitest::Reporters.use!(
   Minitest::Reporters::SpecReporter.new,
   ENV,
   Minitest.backtrace_filter
 )
-
 
 # To add Capybara feature tests add `gem "minitest-rails-capybara"`
 # to the test group in the Gemfile and uncomment the following:
