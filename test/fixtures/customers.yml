@@ -8,6 +8,7 @@ joe:
   state: MyString
   postal_code: MyString
   phone: MyString
+  movies_checked_out_count: 1
 
 carly:
   name: "Carly"
@@ -17,3 +18,4 @@ carly:
   state: MyString
   postal_code: MyString
   phone: MyString
+  movies_checked_out_count: 1
