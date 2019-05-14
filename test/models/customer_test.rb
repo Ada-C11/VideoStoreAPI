@@ -27,6 +27,7 @@ describe Customer do
   describe "relationships" do 
     it "has many rentals" do 
       customer = Customer.first 
+      customer.must_respond_to :rentals
       customer.rentals.each do |rental|
         rental.must_be_instance_of Rental 
       end
