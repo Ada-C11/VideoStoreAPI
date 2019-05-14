@@ -30,7 +30,6 @@ describe MoviesController do
           overview: 'A woman gives up her ability to talk for a man.',
           release_date: "1989-08-15",
           inventory: 15,
-          available_inventory: 15
         } }
     end
 
