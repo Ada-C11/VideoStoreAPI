@@ -51,9 +51,4 @@ describe MoviesController do
       end.wont_change "Movie.count"
     end
   end
-
-  describe "checkin" do
-    it "decrements customer's checked_out_count" do
-    end
-  end
 end

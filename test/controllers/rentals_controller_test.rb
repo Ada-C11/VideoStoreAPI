@@ -1,4 +1,5 @@
 require "test_helper"
+require 'pry'
 
 describe RentalsController do
   describe "checkin" do
@@ -14,5 +15,24 @@ describe RentalsController do
 
       expect
     end
+  describe "checkout" do
+    let(:rental_data) do
+      { rental:
+        {
+          customer_id: customers(:joe).id,
+          movie_id: movies(:one).id
+        } }
+    end
+    it "must create a new rental" do
+      expect {
+        post checkout_path, params: rental_data
+      }.must_change "Rental.count"
+    end
+
+    it "must change the available_inventory of the checkout out movie" do
+      
+    end
+
+
   end
 end
