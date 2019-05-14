@@ -38,18 +38,24 @@ describe Customer do
 
     it "can have 0 rental" do
       expect(@cust_with_no_rental.rentals.count).must_equal 0
+      expect(@cust_with_no_rental.rentals).must_equal []
     end
 
     it "can have 1 or more rentals" do
       expect(@customer.rentals.count).must_equal 2
+      expect(@customer.rentals.first).must_equal rentals(:rental_1)
+      expect(@customer.rentals.last).must_equal rentals(:rental_2)
     end
 
     it "can have 0 movie" do
       expect(@cust_with_no_rental.movies.count).must_equal 0
+      expect(@cust_with_no_rental.rentals).must_equal []
     end
 
     it "can have 1 or more movie" do
       expect(@customer.movies.count).must_equal 2
+      expect(@customer.rentals.first).must_equal rentals(:rental_1)
+      expect(@customer.rentals.last).must_equal rentals(:rental_2)
     end
   end
 end
