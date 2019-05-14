@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_05_14_220129) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "movies_checked_out_count", default: 0
   end
 
   create_table "movies", force: :cascade do |t|
