@@ -126,6 +126,7 @@ describe MoviesController do
         movie_id: Movie.first.id,
       }
     }
+
     it "can rent a movie" do
       expect {
         post checkout_path(rental_data)
@@ -145,6 +146,36 @@ describe MoviesController do
       }.wont_change "Rental.count"
 
       must_respond_with :bad_request
+    end
+  end
+
+  describe "checkin" do
+    let(:rental_data) {
+      {
+        customer_id: Customer.first.id,
+        movie_id: Movie.first.id,
+      }
+    }
+
+    it "returns a 200 ok for successfully checked in rentals" do
+      #checkout so that we can checkin
+      expect {
+        post checkout_path(rental_data)
+      }.must_change "Rental.count", +1
+
+      expect {
+        post checkin_path(rental_data)
+      }.wont_change "Rental.count"
+
+      must_respond_with :success
+    end
+
+    it "returns not found for not found rental" do
+      expect {
+        post checkin_path(rental_data)
+      }.wont_change "Rental.count"
+
+      must_respond_with :not_found
     end
   end
 end

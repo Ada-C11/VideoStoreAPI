@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
       render json: movie.as_json(only: [:id, :inventory, :overview, :release_date, :title]),
              status: :ok
     else
-      render json: { ok: false, errors: { movie: ["Movie not found"] } },
+      render json: {ok: false, errors: {movie: ["Movie not found"]}},
              status: :not_found
     end
   end
@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
     if is_successful
       render json: movie.as_json(only: [:id, :inventory, :overview, :release_date, :title]), status: :ok
     else
-      render json: { ok: false, errors: movie.errors.messages }, status: :bad_request
+      render json: {ok: false, errors: movie.errors.messages}, status: :bad_request
     end
   end
 
@@ -29,13 +29,30 @@ class MoviesController < ApplicationController
     rental = Rental.new(rental_params)
     rental.checkout_date = Date.today
     rental.due_date = rental.checkout_date + 7.days
+    rental.currently_checked_out = true
 
     is_successful = rental.save
     if is_successful
-      render json: rental.as_json(only: [:due_date]),
-             status: :ok
+      render json: rental.as_json(only: [:due_date]), status: :ok
     else
-      render json: { ok: false, errors: rental.errors.messages }, status: :bad_request
+      render json: {ok: false, errors: rental.errors.messages}, status: :bad_request
+    end
+  end
+
+  def checkin
+    rental = Rental.find_by(movie_id: rental_params[:movie_id], customer_id: rental_params[:customer_id])
+    if rental
+      rental.currently_checked_out = false
+
+      is_successful = rental.save
+
+      if is_successful
+        render json: {ok: true, message: "successfully checked in!"}, status: :ok
+      else
+        render json: {ok: false, errors: rental.errors.messages}, status: :bad_request
+      end
+    else
+      render json: {ok: false, errors: {rental: ["Rental not found"]}}, status: :not_found
     end
   end
 
