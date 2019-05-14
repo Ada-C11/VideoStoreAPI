@@ -7,11 +7,6 @@ describe MoviesController do
     get movies_path
     value(response).must_be :success?
   end
-  describe "show" do
-    it "should get show" do
-      get movie_path(Movie.first)
-      value(response).must_be :successful?
-    end
 
   describe 'show' do
     it 'should get show' do
@@ -33,8 +28,9 @@ describe MoviesController do
         {
           title: 'The Little Mermaid',
           overview: 'A woman gives up her ability to talk for a man.',
-          release_date: 1989,
-          inventory: 15
+          release_date: "1989-08-15",
+          inventory: 15,
+          available_inventory: 15
         } }
     end
 
@@ -42,14 +38,19 @@ describe MoviesController do
       expect do
         post movies_path, params: movie_data
       end.must_change 'Movie.count', 1
+
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body).must_include 'id'
       value(response).must_be :success?
     end
 
-    it "returns an error for invalid movie data" do
-      
+    it 'returns an error for invalid movie data' do
+      movie_data[:movie][:title] = nil
+
+      expect do
+        post movies_path, params: movie_data
+      end.wont_change 'Movie.count'
     end
   end
 end
