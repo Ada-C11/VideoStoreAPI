@@ -14,4 +14,14 @@ describe Rental do
     expect(rental.valid?).must_equal false
     rental.reload
   end
+  
+  it "cannot be created with an invalid customer" do
+    params = {
+      due_date: DateTime.now,
+      movie_id: movies(:one).id,
+      customer_id: -1,
+    }
+    
+    expect { Rental.new(params) }.wont_change "Rental.count"
+  end
 end
