@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   # get 'zomg', to: 'movies#zomg', as: 'zomg'
   resources :customers, only: [:index]
   resources :movies, only: [:index, :show, :create]
-  get 'zomg', to: 'movies#zomg', as: 'zomg'
+
+  get "zomg", to: "movies#zomg", as: "zomg"
 end

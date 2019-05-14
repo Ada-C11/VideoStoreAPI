@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
   def index
     params[:sort] ? movies = Movie.order(params[:sort]) : movies = Movie.all
 
-    render json: movies.as_json, status: :ok
+    render json: movies.as_json(only: [:id, :inventory, :overview, :release_date, :title]), status: :ok
   end
 
   def show
@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
     movie = Movie.new(movie_params)
 
     if movie.save
-      render json: new_movie.as_json(only: [:id]), status: :ok
+      render json: movie.as_json(only: [:id]), status: :ok
     else
       render json: {
         errors: movie.errors.messages,

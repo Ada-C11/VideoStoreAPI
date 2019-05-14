@@ -14,7 +14,7 @@ describe MoviesController do
     end
 
     it "returns correct movie fields" do
-      movie_fields = ["id", "release_date", "title", "overview", "inventory"]
+      movie_fields = ["id", "inventory", "overview", "release_date", "title"]
 
       get movies_path
       body = JSON.parse(response.body)
