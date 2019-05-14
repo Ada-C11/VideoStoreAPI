@@ -1,3 +1,5 @@
+require "pry"
+
 class MoviesController < ApplicationController
   def index
     movies = Movie.all
@@ -10,12 +12,14 @@ class MoviesController < ApplicationController
     if movie
       render json: movie.as_json(only: [:id, :title, :overview, :release_date, :inventory]), status: :ok
     else
-      render json: {errors: ["The movie with id #{id} was not found"]}, status: :not_found
+      render json: { errors: ["The movie with id #{id} was not found"] }, status: :not_found
     end
   end
 
   def create
     movie = Movie.new(movie_params)
+
+    movie.release_date = Date.parse(params[:release_date])
 
     if movie.save
       render json: { id: movie.id }, status: :ok
@@ -28,6 +32,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :overview, :release_date, :inventory)
+    params.permit(:title, :overview, :release_date, :inventory)
   end
 end
