@@ -4,4 +4,7 @@ class Customer < ApplicationRecord
   validates :postal_code, presence: true
   validates :phone, presence: true
   validates :movies_checked_out_count, presence: true
+
+  has_many :rentals
+  has_many :movies, through: :rentals
 end
