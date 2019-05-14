@@ -9,28 +9,28 @@ describe Customer do
     it "must be valid with valid data" do
       @customer.must_be :valid?
     end
-  
+
     it "will not be valid without name" do
       @customer.name = nil
       expect(@customer.valid?).must_equal false
     end
-  
+
     it "will not be valid without registered_at" do
       @customer.registered_at = nil
       expect(@customer.valid?).must_equal false
     end
-  
+
     it "will not be valid without postal_code" do
       @customer.postal_code = nil
       expect(@customer.valid?).must_equal false
     end
-  
+
     it "will not be valid without phone" do
       @customer.phone = nil
       expect(@customer.valid?).must_equal false
     end
   end
-  
+
   describe "relations" do
     before do
       @cust_with_no_rental = customers(:customer_2)
@@ -71,7 +71,7 @@ describe Customer do
       @customer.reload
 
       expect(@customer.movies.count).must_equal 3
-      expect(@customer.movies.last).must_equal new_movie      
+      expect(@customer.movies.last).must_equal new_movie
     end
   end
 end
