@@ -7,17 +7,17 @@ describe MoviesController do
       must_respond_with :success
     end
 
-    #   it "returns json" do
-    #     get customers_path
-    #     expect(response.header["Content-Type"]).must_include "json"
-    #   end
+    it "returns json" do
+      get movies_path
+      expect(response.header["Content-Type"]).must_include "json"
+    end
 
-    #   it "returns an Array" do
-    #     get customers_path
+    it "returns an Array" do
+      get movies_path
 
-    #     body = JSON.parse(response.body)
-    #     body.must_be_kind_of Array
-    #   end
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Array
+    end
 
     #   it "returns all of the customers" do
     #     get customers_path
