@@ -7,7 +7,7 @@ one:
   state: MyString
   postal_code: MyString
   phone: MyString
-  registered_at: DateTime.new(2019,2,3,4,5,6)
+  registered_at: 2019-05-14 12:24:39
   movies_checked_out_count: 1
 
 two:
@@ -17,5 +17,5 @@ two:
   state: MyString
   postal_code: MyString
   phone: MyString
-  registered_at: DateTime.now
+  registered_at: 2019-05-14 12:24:39
   movies_checked_out_count: 1
