@@ -36,7 +36,7 @@ describe MoviesController do
     end
   end
 
-  # # this is from ada pets
+  # # this is from ada pets -- might not work at all lol
   # describe "show" do
   #   # This bit is up to you!
   #   it "can get a pet" do
