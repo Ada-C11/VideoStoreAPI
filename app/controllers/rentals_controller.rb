@@ -13,6 +13,7 @@ class RentalsController < ApplicationController
       customer = Customer.find_by(id: rental.customer_id)
       customer.movies_checked_out_count += 1
       customer.save
+      render status: :ok
     else
       render json: { ok: false, message: rental.errors.messages }, status: :bad_request
     end
