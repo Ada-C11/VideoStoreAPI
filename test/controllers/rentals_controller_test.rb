@@ -13,6 +13,13 @@ describe RentalsController do
       expect {
         post rental_path, params: rental_data
       }.must_change "Rental.count", +1
+
+      new_rental = Rental.last
+
+      must_respond_with :success
+
+      body = JSON.parse(response.body)
+      expet(body).must_be_kind_of Hash
     end
   end
 end
