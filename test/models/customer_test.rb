@@ -2,16 +2,10 @@ require "test_helper"
 
 describe Customer do
   let (:customer) { customers(:one) }
-  before do
-    @customer = Customer.new(
-      name: "test_name",
-      phone: "132-456-7890",
-      registered_at: DateTime.now,
-    )
-  end
+  let (:movie) { movies(:one) }
 
   it "must be valid given good data" do
-    expect(@customer).must_be :valid?
+    expect(customer).must_be :valid?
   end
 
   it "requires name, phone, registered_at" do
@@ -22,5 +16,17 @@ describe Customer do
       expect(customer.valid?).must_equal false
       customer.reload
     end
+  end
+  
+  it "can have a rental" do
+    rental_count = customer.rentals.count
+    rental = Rental.create!(
+      customer_id: customer.id,
+      movie_id: movie.id,
+      due_date: DateTime.now,
+    )
+    expect(rental.customer).must_be_kind_of Customer
+    expect(rental.customer.id).must_equal customer.id
+    expect(customer.rentals.count).must_equal (rental_count + 1)
   end
 end

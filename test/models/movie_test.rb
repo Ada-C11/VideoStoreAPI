@@ -33,7 +33,8 @@ describe Movie do
       movie_id: movie.id,
       due_date: DateTime.now,
     )
-    expect(rental.valid?).must_equal true
+    expect(rental.movie).must_be_kind_of Movie
+    expect(rental.movie.id).must_equal movie.id
     expect(movie.rentals.first.id).must_equal rental.id
   end
 end
