@@ -62,5 +62,20 @@ describe MoviesController do
 
       must_respond_with :success
     end
+
+    it "does not create a new movie provided invalid data" do
+      movie_data[:title] = nil
+
+      expect {
+        post movies_path, params: movie_data
+      }.wont_change "Movie.count"
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "title"
+
+      must_respond_with :bad_request
+    end
   end
 end
