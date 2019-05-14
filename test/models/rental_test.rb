@@ -18,4 +18,16 @@ describe Rental do
       rental.customer.must_be_kind_of Customer
     end
   end
+
+  describe "validations" do
+    it "requires a checkout date" do
+      rental.checkout_date = nil
+
+      valid_rental = rental.valid?
+
+      expect(valid_rental).must_equal false
+      expect(rental.errors.messages).must_include :checkout_date
+      expect(rental.errors.messages[:checkout_date]).must_equal ["can't be blank"]
+    end
+  end
 end
