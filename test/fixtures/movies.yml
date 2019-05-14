@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  overview: MyString
-  release_date: 2019-05-14
-  inventory: 1
+harrypotter:
+  title: Harry Potter and the Sorcerer's Stone
+  overview: Yer a wizard, Harry.
+  release_date: 2001-11-04
+  inventory: 10
 
-two:
-  title: MyString
-  overview: MyString
-  release_date: 2019-05-14
-  inventory: 1
+toalltheboys:
+  title: To All the Boys I've Loved Before
+  overview: Peter Kavinsky 5ever!!!
+  release_date: 2018-08-17
+  inventory: 3
