@@ -40,6 +40,6 @@ describe CustomersController do
         customer.keys.sort.must_equal keys
       end
     end
-  end
 
+  end
 end
