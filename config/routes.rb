@@ -9,4 +9,5 @@ Rails.application.routes.draw do
 
   # post 'movies/', to: 'movies#create'
 
+  get '/customers', to: 'customers#index', as: 'customers'
 end
