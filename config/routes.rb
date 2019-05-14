@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   ### get "/movies/:id", to: movies#show
   ### post "/movies", to: movies#create
 
-  # get "/customers", to: customers#index
+  get "/customers", to: "customers#index"
 
   # Which controller do these routes route to?
   # post "/rentals/check-out", to:
