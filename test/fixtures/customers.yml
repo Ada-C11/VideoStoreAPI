@@ -4,8 +4,20 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+customer_1:
+  name: "Bob"
+  registered_at: Wed, 29 Apr 2015 14:54:14 UTC +00:00
+  address: "101 Dalmation St"
+  city: "Disneytown"
+  state: "CA"
+  postal_code: "90210"
+  phone: "(111) 111-1111"
+  
+customer_2:
+  name: "Mac"
+  registered_at: Fri, 22 May 2015 16:56:42 UTC +00:00
+  address: "102 Dalmation St"
+  city: "Disneytown"
+  state: "CA"
+  postal_code: "90210"
+  phone: "(111) 111-1111"
