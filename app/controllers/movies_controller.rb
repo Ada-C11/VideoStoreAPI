@@ -2,10 +2,13 @@
 
 class MoviesController < ApplicationController
   def zomg
-    render json: { message: 'it works!' }
+    render json: { message: "it works!" }
   end
 
-  def index; end
+  def index
+    movies = Movie.all
+    render json: movies.as_json(only: [:id, :title, :release_date])
+  end
 
   def show; end
 
