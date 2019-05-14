@@ -31,4 +31,40 @@ describe MoviesController do
       end
     end
   end
+
+  describe "create" do
+    let(:movie_data) {
+       {
+        "title": "Totally Legit Movie Title",
+        "overview": "It's a totally legit movie.",
+        "release_date": Date.current,
+        "inventory": 10,
+      }
+    }
+
+    it "creates a new movie given valid data" do
+      expect {
+        post movies_path, params: movie_data 
+      }.must_change "Movie.count", 1
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+    end
+
+    it "returns an error for invalid movie data" do
+      movie_data["title"] = nil
+
+      expect {
+        post movies_path, params: movie_data
+      }.wont_change "Movie.count"
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "title"
+      must_respond_with :bad_request
+    end
+  end
 end
