@@ -13,8 +13,15 @@ describe MoviesController do
       body.length.must_equal Movie.count
     end
 
-    # it "" do
+    it "returns correct movie fields" do
+      movie_fields = ["id", "release_date", "title", "overview", "inventory"]
 
-    # end
+      get movies_path
+      body = JSON.parse(response.body)
+
+      body.each do |movie|
+        movie.keys.sort.must_equal movie_fields
+      end
+    end
   end
 end
