@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe MoviesController do
-<<<<<<< HEAD
   let(:movie_data) {
     {
       title: "Mulan",
@@ -10,7 +9,6 @@ describe MoviesController do
       inventory: 10,
     }
   }
-=======
   describe "index" do
     it "is a real working route" do
       get movies_path
@@ -46,7 +44,6 @@ describe MoviesController do
     end
   end
 
->>>>>>> c86bf8bce396cdbf930147a8ce5535eb9243e881
   describe "show" do
     it "can get a movie by id" do
       movie = movies.first
@@ -69,7 +66,7 @@ describe MoviesController do
   describe "create" do
     it "creates a movie with good data" do
       expect {
-        post movies_path, params: { movie: movie_data }
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       body = JSON.parse(response.body)
@@ -85,7 +82,7 @@ describe MoviesController do
       movie_data["title"] = nil
 
       expect {
-        post movies_path, params: { movie: movie_data }
+        post movies_path, params: movie_data
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)
