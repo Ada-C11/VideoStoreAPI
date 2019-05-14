@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: Tim Riggin
+customer_one:
+  name: Tim Riggins
   registered_at: 2019-05-14 12:51:05
   address: 1758 Juniper Road
   city: Dillon 
@@ -9,7 +9,7 @@ one:
   postal_code: 10128
   phone: (484)-453-3434
 
-two:
+customer_two:
   name: Matt Saracen
   registered_at: 2019-05-14 12:51:05
   address: 456 Football Lane
