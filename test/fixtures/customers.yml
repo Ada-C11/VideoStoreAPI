@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+sophie:
   name: sophie
   registered_at: 2019-05-14 13:29:22
   address: 123Street
@@ -9,7 +9,7 @@ one:
   postal_code: 98002
   phone: 123-123-1234
 
-two:
+nara:
   name: nara
   registered_at: 2019-05-14 13:29:22
   address: 456Street
