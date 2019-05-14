@@ -75,11 +75,10 @@ describe MoviesController do
   end
 
   describe "create" do
+    it "makes a new movie" do
+    end
 
-  it "makes a new movie" do
-  end
-
-  it "returns an error for invalid movie data" do
-
+    it "returns an error for invalid movie data" do
+    end
   end
 end
