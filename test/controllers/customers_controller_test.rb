@@ -18,7 +18,7 @@ describe CustomersController do
       get customer_path(Customer.last.id + 1)
       must_respond_with :not_found
       body = JSON.parse(response.body)
-      expect(body["errors"]).must_be_kind_of Array
+      expect(body["errors"]).must_be_kind_of Hash
     end
   end
 end
