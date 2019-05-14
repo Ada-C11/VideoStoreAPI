@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 class MoviesController < ApplicationController
-  def index
+  def zomg
+    render json: { message: 'it works!' }
   end
 
-  def show
-  end
+  def index; end
 
-  def create
-  end
+  def show; end
+
+  def create; end
 end
