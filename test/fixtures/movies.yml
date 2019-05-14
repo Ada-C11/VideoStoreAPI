@@ -5,16 +5,19 @@ movie_1:
   overview: Many nerds fly through nerds eating nerds
   release_date: 2019-05-10
   inventory: 5
+  available_inventory: 5
 
 movie_2:
   title: Over the coast
   overview: Bird flys over the coast very very far
   release_date: 2019-05-13
   inventory: 8
+  available_inventory: 8
     
 movie_3:
   title: Over the coast II
   overview: Bird flys over the coast very very far twice and then get lost
   release_date: 2019-05-14
   inventory: 3
+  available_inventory: 3
     

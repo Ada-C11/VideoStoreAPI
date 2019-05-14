@@ -27,6 +27,11 @@ describe Movie do
       movie.inventory = nil
       expect(movie.valid?).must_equal false
     end
+
+    it "will not be valid if missing  available_inventory" do
+      movie.available_inventory = nil
+      expect(movie.valid?).must_equal false
+    end
   end
 
   describe "relationships" do
