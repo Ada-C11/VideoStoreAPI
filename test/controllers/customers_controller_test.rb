@@ -37,13 +37,13 @@ describe CustomersController do
       body.length.must_equal Customer.count
     end
 
-    # it "returns pets with exactly the required fields" do
-    #   keys = %w(age human id name)
-    #   get pets_path
-    #   body = JSON.parse(response.body)
-    #   body.each do |pet|
-    #     pet.keys.sort.must_equal keys
-    #   end
-    # end
+    it "returns customers with exactly the required fields" do
+      keys = %w(name registered_at postal_code)
+      get pets_path
+      body = JSON.parse(response.body)
+      body.each do |pet|
+        customers.keys.sort.must_equal keys
+      end
+    end
   end
 end
