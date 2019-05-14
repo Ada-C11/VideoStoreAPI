@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
     movie = Movie.find_by(id: params[:id])
 
     if movie #if movie is not nil
-      render json: movie.as_json(only: [:id, :inventory, :overview, :title, :release_date]), status: :ok
+      render json: movie.as_json(only: [:id, :inventory, :overview, :title, :release_date, :available_inventory]), status: :ok
     else
       render json: {ok: false, errors: "Movie not found"}, status: :not_found
     end
@@ -27,6 +27,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :overview, :release_date, :inventory)
+    params.require(:movie).permit(:title, :overview, :release_date, :inventory, :available_inventory)
   end
 end
