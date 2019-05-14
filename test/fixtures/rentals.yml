@@ -3,7 +3,18 @@
 one:
   checkout: 2019-05-14 13:21:20
   due: 2019-05-14 13:21:20
+  customer: shelley
+  movie: test
+
 
 two:
   checkout: 2019-05-14 13:21:20
   due: 2019-05-14 13:21:20
+  customer: curran
+  movie: other_test
+
+three:
+  checkout: 2019-05-14 13:21:20
+  due: 2019-05-14 13:21:20
+  customer: shelley
+  movie: other_test

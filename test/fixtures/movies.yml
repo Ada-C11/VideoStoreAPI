@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  overview: MyString
+test:
+  title: Test Movie
+  overview: This is a test movie
   release_date: 2019-05-14 13:18:14
   inventory: 1
 
-two:
-  title: MyString
-  overview: MyString
+other_test:
+  title: Other Test Movie
+  overview: This is also a test movie
   release_date: 2019-05-14 13:18:14
-  inventory: 1
+  inventory: 5
