@@ -31,6 +31,7 @@ describe RentalsController do
         movie_id: movies(:one).id,
       } }
     end
+
     it "must create a new rental" do
       expect do
         post checkout_path, params: rental_data
@@ -47,6 +48,33 @@ describe RentalsController do
 
     it "must change the movies_checked_out count of the customer" do
       count = customers(:joe).movies_checked_out_count
+
+      post checkout_path, params: rental_data
+
+      expect(customers(:joe).reload.movies_checked_out_count).must_equal count + 1
+    end
+
+    it "will render error messages if any data is invalid" do
+      rental_data[:rental][:customer_id] = nil
+
+      expect {
+        post checkout_path params: rental_data
+      }.wont_change "Rental.count"
+
+      body = JSON.parse(response.body)
+      expect(body["message"]).must_include "customer_id"
+    end
+
+    it "will render error message if there is not enough inventory to checkout" do
+      movies(:one).available_inventory = 0
+      movies(:one).save
+
+      expect {
+        post checkout_path, params: rental_data
+      }.wont_change "Rental.count"
+
+      body = JSON.parse(response.body)
+      expect(body["message"]).must_equal "Not enough copies in inventory"
     end
   end
 end
