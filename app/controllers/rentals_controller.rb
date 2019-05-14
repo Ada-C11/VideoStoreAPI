@@ -34,6 +34,8 @@ class RentalsController < ApplicationController
       customer.save
       movie.available_inventory += 1
       movie.save
+      render status: :ok
+      return
     else
       render json: { ok: false, message: rental.errors.messages }, status: :bad_request
     end
