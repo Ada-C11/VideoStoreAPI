@@ -23,5 +23,17 @@ describe MoviesController do
         movie.keys.sort.must_equal movie_fields
       end
     end
+
+    it "can sort movies by their fields" do
+      get movies_path(sort: :title)
+      body = JSON.parse(response.body)
+
+      must_respond_with :success
+      expect(body.first["title"]).must_equal movies(:one)["title"]
+
+      get movies_path(sort: :release_date)
+      body = JSON.parse(response.body)
+      expect(body.first["title"]).must_equal movies(:two)["title"]
+    end
   end
 end
