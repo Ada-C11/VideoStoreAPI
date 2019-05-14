@@ -1,5 +1,12 @@
 class CustomersController < ApplicationController
-  def zomg
-    render json: { :zomg => "it works"}
-  end 
+  def index
+
+  end
+
+  def show
+
+  end
+  # def zomg
+  #   render json: { :zomg => "it works"}
+  # end 
 end
