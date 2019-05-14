@@ -14,13 +14,11 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new(movie_params)
+    movie = Movie.new(movie_params)
     if @movie.save
-      flash[:success] = "Movie successfully added to database"
-      redirect_to @movie
+      render json: { id: movie.id }
     else
-      flash[:error] = "Something went wrong; could not add movie"
-      render "new"
+      render_error(:bad_request, movie.errors.messages)
     end
   end
 
