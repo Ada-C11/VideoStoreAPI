@@ -11,3 +11,10 @@ movie_2:
   overview: Bird flys over the coast very very far
   release_date: 2019-05-13
   inventory: 8
+    
+movie_3:
+  title: Over the coast II
+  overview: Bird flys over the coast very very far twice and then get lost
+  release_date: 2019-05-14
+  inventory: 3
+    
