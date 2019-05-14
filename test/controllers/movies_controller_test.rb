@@ -19,20 +19,20 @@ describe MoviesController do
       body.must_be_kind_of Array
     end
 
-    #   it "returns all of the customers" do
-    #     get customers_path
+    it "returns all of the movies" do
+      get movies_path
 
-    #     body = JSON.parse(response.body)
-    #     body.length.must_equal Customer.count
-    #   end
+      body = JSON.parse(response.body)
+      body.length.must_equal Movie.count
+    end
 
-    #   it "returns customers with exactly the required fields" do
-    #     keys = %w(id name registered_at postal_code phone)
-    #     get customers_path
-    #     body = JSON.parse(response.body)
-    #     body.each do |customer|
-    #       customer.keys.must_equal keys
-    #     end
-    #   end
+    it "returns movies with exactly the required fields" do
+      keys = %w(id title release_date)
+      get movies_path
+      body = JSON.parse(response.body)
+      body.each do |movie|
+        movie.keys.must_equal keys
+      end
+    end
   end
 end
