@@ -24,6 +24,19 @@ class RentalsController < ApplicationController
 
   def checkin
     rental = Rental.where(["movie_id = ? and customer_id = ? and checked_in = ?", params[:rental][:movie_id], params[:rental][:customer_id], false]).first
+
+    customer = Customer.find_by(id: params[:rental][:customer_id])
+    movie = Movie.find_by(id: params[:rental][:movie_id])
+
+    rental.checked_in = true
+    if rental.save
+      customer.movies_checked_out_count -= 1
+      customer.save
+      movie.available_inventory += 1
+      movie.save
+    else
+      render json: { ok: false, message: rental.errors.messages }, status: :bad_request
+    end
   end
 
   private

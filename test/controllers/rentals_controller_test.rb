@@ -19,8 +19,21 @@ describe RentalsController do
       post checkin_path, params: @rental_params
       @customer.reload
       @movie.reload
+
       expect(@customer.movies_checked_out_count).must_equal old_customer_value - 1
       expect(@movie.available_inventory).must_equal old_movie_value + 1
+    end
+
+    it "won't change the count in the db" do
+      expect {
+        post checkin_path, params: @rental_params
+      }.wont_change "Rental.count"
+    end
+
+    it "sets the checked_in value to true" do
+      post checkin_path, params: @rental_params
+      @rental.reload
+      expect(@rental.checked_in).must_equal true
     end
   end
 
