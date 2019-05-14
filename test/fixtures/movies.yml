@@ -4,8 +4,20 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+showdown: 
+  title: Show down in little tokyo
+  overview: A movie about street fighting
+  release_date: 2017-03-14
+  inventory: 7
+
+pride: 
+  title: Pride and Prejudice
+  overview: I'm full of pride but your prejudice
+  release_date: 2009-02-17
+  inventory: 5
+
+sense: 
+  title: Sense and sensibility
+  overview: You have no sense!
+  release_date: 2008-12-14
+  inventory: 2
