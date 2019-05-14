@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  overview: MyString
-  release_date: 
-  inventory: 1
+  title: Good Will Hunting
+  overview: Matt Damon and Robin Williams in Boston.
+  release_date: 1997
+  inventory: 3
 
 two:
-  title: MyString
-  overview: MyString
-  release_date: 
-  inventory: 1
+  title: 21 Jump Street
+  overview: Jonah Hill and Channing Tatum go undercover as high school students.
+  release_date: 2012
+  inventory: 2
