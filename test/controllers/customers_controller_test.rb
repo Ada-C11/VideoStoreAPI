@@ -29,11 +29,11 @@ describe CustomersController do
       get customers_path
 
       body = JSON.parse(response.body)
-      body.length.must_equal customer.count
+      body.length.must_equal Customer.count
     end
 
     it "returns customers with exactly the required fields" do
-      keys = %w(name phone registered_at postal_code)
+      keys = %w(id name postal_code registered_at)
       get customers_path
       body = JSON.parse(response.body)
       body.each do |customer|
