@@ -48,18 +48,18 @@ describe MoviesController do
   end
 
   describe "create" do
-    let(:movie_data) {
+    let(:movie_data) 
       {
         title: "Inside Out", 
         overview: "Lesson about your emotions",
         release_date: 06-19-2015,
         inventory: 23
       }
-    }
+    
 
     it "creates a new movie given valid data" do
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       body = JSON.parse(response.body)
@@ -76,7 +76,7 @@ describe MoviesController do
       movie_data["title"] = nil
 
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)
