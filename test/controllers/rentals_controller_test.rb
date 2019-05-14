@@ -31,5 +31,15 @@ describe RentalsController do
 
       must_respond_with :bad_request
     end
+
+    it "won't create new rental with invalid movie" do
+      rental_data["movie_id"] = -7
+
+      expect {
+        post rental_path, params: rental_data
+      }.wont_change "Rental.count"
+
+      must_respond_with :bad_request
+    end
   end
 end
