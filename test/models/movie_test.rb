@@ -26,4 +26,8 @@ describe Movie do
     expect(movie).must_respond_to :rentals
     expect(movie.rentals).must_include rentals(:one)
   end
+
+  it "can return the number currently available" do
+    expect(movie.number_available).must_equal 0
+  end
 end

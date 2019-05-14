@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Rental do
   let(:rental) {
-    rentals(:one)
+    rentals(:two)
   }
 
   it "must be valid" do
