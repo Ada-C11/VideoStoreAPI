@@ -45,4 +45,31 @@ describe MoviesController do
   #   get movies_create_url
   #   value(response).must_be :success?
   # end
+
+
+  describe "show" do
+    it "returns a movie with exactly require fields" do
+      keys = %w(available_inventory inventory overview release_date title)
+      get movie_path(movies(:movie1))
+      body = JSON.parse(response.body)
+      body.keys.sort.must_equal keys
+    end
+
+    it "should get movie details route with correct information" do
+      get movie_path(movies(:movie1))
+      body = JSON.parse(response.body)
+      body["title"].must_equal movies(:movie1).title
+      body["overview"].must_equal movies(:movie1).overview
+      body["inventory"].must_equal movies(:movie1).inventory
+      must_respond_with :success
+
+    end
+
+    it "should not show details for a movie that does not exist" do
+      get movie_path(-1)
+      must_respond_with :bad_request
+    end
+
+
+  end
 end
