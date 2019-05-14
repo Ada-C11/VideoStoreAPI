@@ -3,17 +3,9 @@
 require 'test_helper'
 
 describe MoviesController do
-<<<<<<< HEAD
-  describe "index" do
-    it "should get index" do
-      get movies_path
-      value(response).must_be :successful?
-    end
-=======
   it 'should get index' do
     get movies_path
     value(response).must_be :success?
->>>>>>> 4066d05521e6d052329a5565f470625aab8f4142
   end
   describe "show" do
     it "should get show" do
@@ -21,21 +13,6 @@ describe MoviesController do
       value(response).must_be :successful?
     end
 
-<<<<<<< HEAD
-    it "renders an error if ID is invalid" do
-      get movie_path(Movie.last.id + 1)
-      must_respond_with :not_found
-
-      error = JSON.parse(response.body)
-      expect(error["errors"]).must_be_kind_of Array
-    end
-  end
-
-  describe "create" do
-    it "should get create" do
-      post movies_path
-      value(response).must_be :successful?
-=======
   describe 'show' do
     it 'should get show' do
       get movies_path(movies(:one))
@@ -73,7 +50,6 @@ describe MoviesController do
 
     it "returns an error for invalid movie data" do
       
->>>>>>> 4066d05521e6d052329a5565f470625aab8f4142
     end
   end
 end
