@@ -2,6 +2,8 @@ require "test_helper"
 
 describe Rental do
   let(:rental) { rentals(:two) }
+  let(:customer) { customers(:hana) }
+  let(:movie) { movies(:toalltheboys) }
 
   describe "validations" do
     it "is valid when all fields are present" do
@@ -30,6 +32,26 @@ describe Rental do
     it "has a customer" do
       rental.must_respond_to :customer
       rental.customer.must_be_kind_of Customer
+    end
+
+    it "requires a movie" do
+      rental.movie = nil
+
+      valid_rental = rental.valid?
+
+      expect(valid_rental).must_equal false
+      expect(rental.errors.messages).must_include :movie
+      expect(rental.errors.messages[:movie]).must_equal ["must exist"]
+    end
+
+    it "requires a customer" do
+      rental.customer = nil
+
+      valid_rental = rental.valid?
+
+      expect(valid_rental).must_equal false
+      expect(rental.errors.messages).must_include :customer
+      expect(rental.errors.messages[:customer]).must_equal ["must exist"]
     end
   end
 
