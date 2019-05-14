@@ -23,12 +23,12 @@ describe CustomersController do
       expect(response.header["Content-Type"]).must_include "json"
     end
 
-    # it "returns an Array" do
-    #   get pets_path
+    it "returns an Array" do
+      get customers_path
 
-    #   body = JSON.parse(response.body)
-    #   body.must_be_kind_of Array
-    # end
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Array
+    end
 
     # it "returns all of the pets" do
     #   get pets_path
