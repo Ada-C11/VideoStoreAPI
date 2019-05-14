@@ -32,26 +32,30 @@ describe Movie do
   describe "relationships" do
     describe "rentals, has_many" do
       it "can have 0 rentals" do
+        movie = movies(:movie_3)
+        expect(movie.rentals).must_equal []
       end
 
       it "can have 1 or more rentals" do
+        expect(movie.rentals).must_equal [rentals(:rental_1)]
       end
     end
 
-    describe "customers, many/through"  do 
+    describe "customers, many/through" do
       it "can have 0 customers" do
+        movie = movies(:movie_3)
+        expect(movie.customers).must_equal []
       end
 
       it "can have 1 or more customers" do
+        expect(movie.customers).must_equal [customers(:customer_1)]
+        rental = Rental.new()
+        movie.rentals << rental
+        customers(:customer_2).rentals << rental
+        movie.reload
+        expect(movie.customers.sort).must_equal [customers(:customer_1), customers(:customer_2)].sort
       end
     end
   end
 end
 
-# has_many :rentals
-# has_many :customers, through: :rentals
-
-# validates :title, presence: true
-# validates :overview, presence: true
-# validates :release_date, presence: true
-# validates :inventory, presence: true
