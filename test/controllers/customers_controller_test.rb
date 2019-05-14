@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe CustomersController do
-
   describe "index" do
     it "is a real working route" do
       get customers_path
@@ -28,7 +27,7 @@ describe CustomersController do
     end
 
     it "returns customers with exactly the required fields" do
-      keys = %w(id name registered_at address city state postal_code phone)
+      keys = %w(id movies_checked_out_count name phone postal_code registered_at)
       get customers_path
       body = JSON.parse(response.body)
       body.each do |customer|
