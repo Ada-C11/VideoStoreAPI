@@ -30,12 +30,12 @@ describe CustomersController do
       body.must_be_kind_of Array
     end
 
-    # it "returns all of the pets" do
-    #   get pets_path
+    it "returns all of the customers" do
+      get customers_path
 
-    #   body = JSON.parse(response.body)
-    #   body.length.must_equal Pet.count
-    # end
+      body = JSON.parse(response.body)
+      body.length.must_equal Customer.count
+    end
 
     # it "returns pets with exactly the required fields" do
     #   keys = %w(age human id name)
