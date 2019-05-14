@@ -24,4 +24,6 @@ describe Customer do
       expect(rentals).must_include rental2
     end
   end
+
+
 end
