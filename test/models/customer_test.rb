@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Customer do
   describe "validations" do 
-    let(:customer) { customers(:one) }
+    let(:customer) { customers(:hana) }
 
     it "must be valid" do
       value(customer).must_be :valid?
