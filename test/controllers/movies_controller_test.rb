@@ -89,7 +89,7 @@ describe MoviesController do
 
     it "creates a new movie given valid data" do
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       body = JSON.parse(response.body)
@@ -107,7 +107,7 @@ describe MoviesController do
       movie_data["title"] = nil
 
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)
@@ -115,6 +115,35 @@ describe MoviesController do
       expect(body).must_be_kind_of Hash
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "title"
+      must_respond_with :bad_request
+    end
+  end
+
+  describe "checkout" do
+    let(:rental_data) {
+      {
+        customer_id: Customer.first.id,
+        movie_id: Movie.first.id,
+      }
+    }
+    it "can rent a movie" do
+      expect {
+        post checkout_path(rental_data)
+      }.must_change "Rental.count", +1
+
+      new_rental = Rental.find_by(customer_id: Customer.first.id, movie_id: Movie.first.id)
+      # expect(new_rental.checkout_date).must_equal Date.today
+      # expect(new_rental.due_date).must_equal Date.today + 7.days
+      must_respond_with :success
+    end
+
+    it "returns an error for with invalid data" do
+      rental_data[:customer_id] = nil
+
+      expect {
+        post checkout_path(rental_data)
+      }.wont_change "Rental.count"
+
       must_respond_with :bad_request
     end
   end
