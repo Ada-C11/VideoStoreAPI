@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class RentalsController < ApplicationController
   def checkout
     rental = Rental.new(movie_id: params[:movie_id], customer_id: params[:customer_id], checkout_date: Date.today, due_date: (Date.today + 7))
     movie = Movie.find_by(id: rental.movie_id)
     if movie.available_inventory <= 0
-      render json: { ok: false, message: "Not enough copies in inventory" }, status: :bad_request
+      render json: { ok: false, message: 'Not enough copies in inventory' }, status: :bad_request
     else
       movie.available_inventory -= 1
     end
@@ -20,6 +22,9 @@ class RentalsController < ApplicationController
   end
 
   def checkin
+    rental = Rental.where(["movie_id = ? and customer_id = ? and checked_in = ?", params[:movie_id], params[:customer_id], false]).first
+
+    
   end
 
   private
