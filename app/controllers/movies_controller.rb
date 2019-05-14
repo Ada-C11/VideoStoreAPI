@@ -3,5 +3,6 @@ class MoviesController < ApplicationController
   end
 
   def zomg
+    render json: { message: "It works!" }
   end
 end
