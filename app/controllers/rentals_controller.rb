@@ -5,7 +5,7 @@ class RentalsController < ApplicationController
     rental = Rental.new(movie_id: params[:rental][:movie_id], customer_id: params[:rental][:customer_id], checkout_date: Date.today, due_date: (Date.today + 7))
     movie = Movie.find_by(id: rental.movie_id)
     if movie.available_inventory == 0
-      render json: { ok: false, message: "Not enough copies in inventory" }, status: :bad_request
+      render json: { ok: false, message: 'Not enough copies in inventory' }, status: :bad_request
       return
     else
       movie.available_inventory -= 1
@@ -23,7 +23,7 @@ class RentalsController < ApplicationController
   end
 
   def checkin
-    rental = Rental.where(["movie_id = ? and customer_id = ? and checked_in = ?", params[:rental][:movie_id], params[:rental][:customer_id], false]).first
+    rental = Rental.where(['movie_id = ? and customer_id = ? and checked_in = ?', params[:rental][:movie_id], params[:rental][:customer_id], false]).first
 
     customer = Customer.find_by(id: params[:rental][:customer_id])
     movie = Movie.find_by(id: params[:rental][:movie_id])
@@ -33,7 +33,8 @@ class RentalsController < ApplicationController
       customer.save
       movie.available_inventory += 1
       movie.save
-      render statuus: :ok
+      render status: :ok
+      return
     else
       render json: { ok: false, message: rental.errors.messages }, status: :bad_request
     end
