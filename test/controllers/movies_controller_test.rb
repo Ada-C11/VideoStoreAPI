@@ -48,14 +48,15 @@ describe MoviesController do
       {
         title: "Wandering Earth",
         overview: "The earth is flying around",
-        release_date: "2019-02-02",
+        release_date: Date.parse("2019-02-02"),
         inventory: 20,
+        available_inventory: 20,
       }
     }
 
     it "creates a new movie given valid data" do
       expect {
-        post movies_path, params: { movie: movie_data }
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       body = JSON.parse(response.body)
