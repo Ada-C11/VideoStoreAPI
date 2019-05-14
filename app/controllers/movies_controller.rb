@@ -27,13 +27,13 @@ class MoviesController < ApplicationController
   end
 
   def create
-    new_movie = Movie.new(movie_params)
+    movie = Movie.new(movie_params)
 
-    if new_movie.save
+    if movie.save
       render json: new_movie.as_json(only: [:id]), status: :ok
     else
       render json: {
-        errors: new_movie.errors.messages,
+        errors: movie.errors.messages,
       }, status: :bad_request
     end
   end
