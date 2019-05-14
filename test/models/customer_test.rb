@@ -29,6 +29,11 @@ describe Customer do
       @customer.phone = nil
       expect(@customer.valid?).must_equal false
     end
+
+    it "will not be valid without movies_checked_out_count" do
+      @customer.movies_checked_out_count = nil
+      expect(@customer.valid?).must_equal false
+    end
   end
 
   describe "relations" do
