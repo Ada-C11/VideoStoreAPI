@@ -7,7 +7,7 @@ rental1:
   due_date: 2019-05-14
 
 rental2:
-  customer: customer 2
+  customer: customer 1
   movie: movie1
   check_out_date: 2019-05-14
   due_date: 2019-05-14
