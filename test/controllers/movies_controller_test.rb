@@ -35,4 +35,22 @@ describe MoviesController do
       end
     end
   end
+
+  # # this is from ada pets
+  # describe "show" do
+  #   # This bit is up to you!
+  #   it "can get a pet" do
+  #     get pet_path(pets(:two).id)
+  #     must_respond_with :success
+  #   end
+
+  #   it "responds with error code and message if not found" do
+  #     invalid_id = -1
+  #     get pet_path(invalid_id)
+  #     must_respond_with :not_found
+  #     body = JSON.parse(response.body)
+  #     body.keys.first.must_equal "error"
+  #     expect(body["error"]).must_equal "This pet doesn't exist :("
+  #   end
+  # end
 end
