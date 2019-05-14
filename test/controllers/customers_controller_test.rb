@@ -18,10 +18,10 @@ describe CustomersController do
       must_respond_with :success
     end
 
-    # it "returns json" do
-    #   get pets_path
-    #   expect(response.header["Content-Type"]).must_include "json"
-    # end
+    it "returns json" do
+      get customers_path
+      expect(response.header["Content-Type"]).must_include "json"
+    end
 
     # it "returns an Array" do
     #   get pets_path
