@@ -38,6 +38,10 @@ describe Movie do
 
       it "can have 1 or more rentals" do
         expect(movie.rentals).must_equal [rentals(:rental_1)]
+        rental = Rental.new()
+        movie.rentals << rental
+        customers(:customer_2).rentals << rental
+        expect(movie.rentals.sort).must_equal [rentals(:rental_1), rental].sort
       end
     end
 
@@ -58,4 +62,3 @@ describe Movie do
     end
   end
 end
-
