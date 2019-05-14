@@ -42,4 +42,46 @@ describe MoviesController do
       end
     end
   end
+  # need to come back to this create test
+  describe "create" do
+    let(:movie_data) {
+      {
+        title: "Jack",
+        overview: 7,
+        release_date: "Captain Barbossa",
+        inventory: 20,
+      }
+    }
+
+    it "creates a new pet given valid data" do
+      expect {
+        post pets_path, params: { pet: pet_data }
+      }.must_change "Pet.count", 1
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+
+      pet = Pet.find(body["id"].to_i)
+
+      expect(pet.name).must_equal pet_data[:name]
+      must_respond_with :success
+    end
+
+    it "returns an error for invalid pet data" do
+      # arrange
+      pet_data["name"] = nil
+
+      expect {
+        post pets_path, params: { pet: pet_data }
+      }.wont_change "Pet.count"
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "name"
+      must_respond_with :bad_request
+    end
+  end
 end
