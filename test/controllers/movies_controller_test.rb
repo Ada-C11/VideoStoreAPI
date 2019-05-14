@@ -10,6 +10,7 @@ describe MoviesController do
 
       body = JSON.parse(response.body)
       body.must_be_kind_of Array
+      body.length.must_equal Movie.count
     end
 
     # it "" do
