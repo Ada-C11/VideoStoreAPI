@@ -11,16 +11,25 @@ describe Customer do
     it "must have a name" do 
       customer.name = nil 
       customer.valid?.must_equal false 
+
+      expect(customer.errors.messages).must_include :name 
+      expect(customer.errors.messages[:name]).must_equal ["can't be blank"]
     end
 
     it "must be type datetime for registered at" do 
-      customer.registered_at = "this is not a date"
+      customer.registered_at = nil
       customer.valid?.must_equal false
+
+      expect(customer.errors.messages).must_include :registered_at
+      expect(customer.errors.messages[:registered_at]).must_equal ["can't be blank"]
     end
 
     it "must have a postal code" do 
       customer.postal_code = nil 
       customer.valid?.must_equal false 
+
+      expect(customer.errors.messages).must_include :postal_code 
+      expect(customer.errors.messages[:postal_code]).must_equal ["can't be blank"]
     end
   end
 
