@@ -45,17 +45,33 @@ describe Customer do
       expect(@customer.rentals.count).must_equal 2
       expect(@customer.rentals.first).must_equal rentals(:rental_1)
       expect(@customer.rentals.last).must_equal rentals(:rental_2)
+
+      new_rental = Rental.new()
+      movie = movies(:movie_2)
+      movie.rentals << new_rental
+
+      @customer.rentals << new_rental
+      @customer.reload
+      expect(@customer.rentals.count).must_equal 3
+      expect(@customer.rentals.last).must_equal new_rental
     end
 
-    it "can have 0 movie" do
+    it "can have 0 movie through rentals" do
       expect(@cust_with_no_rental.movies.count).must_equal 0
-      expect(@cust_with_no_rental.rentals).must_equal []
+      expect(@cust_with_no_rental.movies).must_equal []
     end
 
-    it "can have 1 or more movie" do
+    it "can have 1 or more movie through rentals" do
       expect(@customer.movies.count).must_equal 2
-      expect(@customer.rentals.first).must_equal rentals(:rental_1)
-      expect(@customer.rentals.last).must_equal rentals(:rental_2)
+      expect(@customer.movies.first).must_equal movies(:movie_2)
+      expect(@customer.movies.last).must_equal movies(:movie_1)
+
+      new_movie = movies(:movie_3)
+      @customer.movies << new_movie
+      @customer.reload
+
+      expect(@customer.movies.count).must_equal 3
+      expect(@customer.movies.last).must_equal new_movie      
     end
   end
 end
