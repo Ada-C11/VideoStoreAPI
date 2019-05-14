@@ -4,10 +4,10 @@ one:
   customer_id: 1
   movie_id: 1
   checkout_date: 2019-05-14
-  due_date: 2019-05-14
+  due_date: 2019-05-21
 
 two:
   customer_id: 1
   movie_id: 1
   checkout_date: 2019-05-14
-  due_date: 2019-05-14
+  due_date: 2019-05-21
