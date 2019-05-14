@@ -20,6 +20,10 @@ class MoviesController < ApplicationController
   def create
     movie = Movie.new(movie_params)
 
+    if params[:release_date]
+      movie.release_date = Date.parse(params[:release_date]).strftime('%Y-%m-%d')
+    end
+
     if movie.save
       render json: { id: movie.id }, status: :ok
     else

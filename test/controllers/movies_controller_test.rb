@@ -48,7 +48,7 @@ describe MoviesController do
       {
         title: "Jack",
         overview: "Captain Barbossa",
-        release_date: Time.now,
+        release_date: "2019-05-14",
         inventory: 7,
       }
     }
@@ -64,6 +64,7 @@ describe MoviesController do
       movie = Movie.find_by(title: "Jack")
 
       expect(movie.title).must_equal movie_data[:title]
+      expect(movie.release_date).must_be_kind_of Date
       must_respond_with :success
     end
 
