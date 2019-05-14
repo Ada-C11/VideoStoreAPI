@@ -46,4 +46,7 @@ describe Customer do
       end
     end
   end
+
+  # describe "custom methods" do
+  # end
 end
