@@ -21,5 +21,15 @@ describe RentalsController do
       body = JSON.parse(response.body)
       expet(body).must_be_kind_of Hash
     end
+
+    it "won't create new rental with invalid customer" do
+      rental_data["customer_id"] = -7
+
+      expect {
+        post rental_path, params: rental_data
+      }.wont_change "Rental.count"
+
+      must_respond_with :bad_request
+    end
   end
 end
