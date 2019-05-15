@@ -4,7 +4,7 @@ describe RentalsController do
   describe "checkout" do
     let(:rental_data) {
       {
-        movie_id: movies(:one).movie_id,
+        movie_id: movies(:one).id,
         customer_id: customers(:one).id,
       }
     }
@@ -68,7 +68,7 @@ describe RentalsController do
     end
 
     it "does not check in if parameters are missing" do
-      movie = movies(:scream)
+      movie = movies(:one)
       expect {
         post checkin_path, params: {movie_id: movie.id}
       }.wont_change "Rental.count"
