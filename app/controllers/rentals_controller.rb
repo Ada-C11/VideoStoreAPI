@@ -1,4 +1,5 @@
 class RentalsController < ApplicationController
+
   def checkout
     rental = Rental.new(rental_params)
     customer = find_customer
@@ -28,5 +29,8 @@ class RentalsController < ApplicationController
 
   def find_movie
     return Movie.find_by(id: rental_params[:movie_id])
+
+  def checkin
+
   end
 end
