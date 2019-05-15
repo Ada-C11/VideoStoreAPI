@@ -8,6 +8,7 @@ customer_one:
   state: Texas
   postal_code: 10128
   phone: (484)-453-3434
+  movies_checked_out_count: 2
 
 customer_two:
   name: Matt Saracen
@@ -17,3 +18,4 @@ customer_two:
   state: Texas
   postal_code: 10128
   phone: (456)-454-3435
+  movies_checked_out_count: 0

@@ -4,7 +4,7 @@ describe RentalsController do
   describe "checkout" do
     let(:rental_data) {
       {
-        customer_id: customers(:customer_one).id,
+        customer_id: customers(:customer_two).id,
         movie_id: movies(:movie_one).id,
       }
     }
@@ -40,25 +40,47 @@ describe RentalsController do
       must_respond_with :bad_request
     end
 
-    it "increases customers movies_checked_out_count by 1" do
-      # rental_data2 = {
-        rental = {
-          customer_id: customers(:customer_two).id,
-          movie_id: movies(:movie_one).id,
-        }
-     # }
-    
-      customer = customers(:customer_one)
-      # customer_checkout_count = customer.movies_checked_out_count
-  
-        post checkout_path, params: rental
-      
-        expect(customer.movies_checked_out_count).must_equal 1
-      
+    it "increases customers movies_checked_out_count by 1 when given valid data" do
+      customer = customers(:customer_two)
+
+      post checkout_path, params: rental_data
+
+      customer.reload
+
+      expect(customer.movies_checked_out_count).must_equal 1
     end
 
-    it "decreases movie available inventory count by 1" do
+    it "does not increase customers movies_checked_out_count by 1 when given invalid data" do
+      rental_data["customer_id"] = nil
 
+      customer = customers(:customer_two)
+
+      post checkout_path, params: rental_data
+
+      customer.reload
+
+      expect(customer.movies_checked_out_count).must_equal 0
+    end
+
+    it "decreases movie available inventory count by 1 when given valid data" do
+      movie = movies(:movie_one)
+
+      post checkout_path, params: rental_data
+
+      movie.reload
+
+      expect(movie.available_inventory).must_equal 2
+    end
+
+    it "won't decrease movie available inventory count by 1 when given invalid data" do
+      rental_data["customer_id"] = nil
+      movie = movies(:movie_one)
+
+      post checkout_path, params: rental_data
+
+      movie.reload
+
+      expect(movie.available_inventory).must_equal 3
     end
   end
 
@@ -87,6 +109,16 @@ describe RentalsController do
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "Rental not found"
       must_respond_with :bad_request
+    end
+
+    it "decreases customers movies_checked_out_count by 1 when given valid data" do
+      customer = customers(:customer_one)
+
+      post checkin_path, params: rental_data
+
+      customer.reload
+
+      expect(customer.movies_checked_out_count).must_equal 1
     end
   end
 end

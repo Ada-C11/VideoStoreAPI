@@ -19,6 +19,12 @@ class RentalsController < ApplicationController
   def checkin
     rental = Rental.find_by(customer_id: params[:customer_id], movie_id: params[:movie_id])
     if rental
+      customer = Customer.find_by(id: params[:customer_id])
+      customer.movies_checked_out_count -= 1
+      customer.save
+      movie = Movie.find_by(id: params[:movie_id])
+      movie.available_inventory += 1
+      movie.save
       rental.destroy
       render json: {ok: true, messages: "Rental checked in successfully"}, status: :ok
     else
