@@ -5,10 +5,9 @@ class RentalsController < ApplicationController
     movie = Movie.find_by(id: params[:movie_id])
 
     if rental
-      rental.check_in_date = Date.current
-      movie.inventory += 1
-      movie.save
-      # adjust customer check out count?
+      rental.set_check_in
+      movie.increase_inventory
+
       render json: rental.as_json(only: [:id, :check_in_date]), status: :ok
     else
       render json: { errors: ["Rental not found"] }, status: :bad_request
