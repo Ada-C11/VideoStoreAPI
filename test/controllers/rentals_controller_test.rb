@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe RentalsController do
-  describe "creating rental" do
+  describe "checkout" do
     let(:rental_data) {
       {
         movie_id: movies(:one).movie_id,
