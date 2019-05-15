@@ -3,6 +3,7 @@ require "test_helper"
 describe RentalsController do
   let(:customer) { customers(:jessica) }
   let(:movie) { movies(:harrypotter) }
+  let(:rental) { rentals(:one) }
   let(:rental_data) {
     {
       customer_id: customer.id,
@@ -70,6 +71,30 @@ describe RentalsController do
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "customer"
       must_respond_with :bad_request
+    end
+  end
+
+  describe "check_in" do 
+    it "updates rental for valid request" do 
+      expect {
+        post check_in_path(rental.id)
+      }.wont_change "Rental.count"
+
+      rental.reload 
+      expect(rental.checkin_date).must_equal Date.current
+            
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+      must_respond_with :success
+    end
+
+    it "won't update rental for invalid rental id" do 
+      expect { 
+        post check_in_path(-1)
+      }.wont_change "Rental.count"
+
+      must_respond_with :not_found
     end
   end
 end

@@ -13,6 +13,19 @@ class RentalsController < ApplicationController
   end
 
   def check_in
+    rental = Rental.find_by(id: params[:id])
+    unless rental 
+      head :not_found
+      return 
+    end
+    
+    rental.checkin_date = Date.current
+
+    if rental.save
+      render status: :ok, json: {id: rental.id}
+    else 
+      render status: :bad_request, json: {errors: rental.errors.messages}
+    end
   end
 
   private
