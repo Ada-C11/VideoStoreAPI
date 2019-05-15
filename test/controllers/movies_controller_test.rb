@@ -1,6 +1,8 @@
 require "test_helper"
 
 describe MoviesController do
+  let(:movie) { movies(:harrypotter) }
+
   describe "index" do
     it "is a real working route" do
       get movies_path
@@ -37,9 +39,8 @@ describe MoviesController do
   end
 
   describe "show" do
-    # This bit is up to you!
     it "can get a movie" do
-      get movie_path(movies(:harrypotter).id)
+      get movie_path(movie.id)
       must_respond_with :success
     end
 
@@ -50,6 +51,26 @@ describe MoviesController do
       body = JSON.parse(response.body)
       body.keys.first.must_equal "errors"
       expect(body["errors"]).must_include "Movie with ID #{invalid_id} not found"
+    end
+
+    it "returns json" do
+      get movie_path(movie.id)
+      expect(response.header["Content-Type"]).must_include "json"
+    end
+
+    it "returns a single Hash" do
+      get movie_path(movie.id)
+
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+    end
+
+    it "returns movie with exactly the required fields and correct title" do
+      keys = %w(title overview release_date inventory)
+      get movie_path(movie.id)
+      body = JSON.parse(response.body)
+      body.keys.must_equal keys
+      body["title"].must_equal "Harry Potter and the Sorcerer's Stone"
     end
   end
 end
