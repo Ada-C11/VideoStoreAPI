@@ -39,12 +39,10 @@ describe MoviesController do
   describe "create" do
     let(:movie_params) {
       {
-        movie: {
-          title: "Thing",
-          overview: "Test",
-          release_date: "2019-01-01",
-          inventory: 0,
-        },
+        title: "Thing",
+        overview: "Test",
+        release_date: "2019-01-01",
+        inventory: 0,
       }
     }
 
@@ -59,12 +57,12 @@ describe MoviesController do
       expect(body).must_include "id"
 
       movie = Movie.find(body["id"].to_i)
-      expect(movie.title).must_equal movie_params[:movie][:title]
+      expect(movie.title).must_equal movie_params[:title]
       must_respond_with :success
     end
 
     it "returns an error for invalid movie data" do
-      movie_params[:movie][:title] = nil
+      movie_params[:title] = nil
 
       expect {
         post movies_path(movie_params)
