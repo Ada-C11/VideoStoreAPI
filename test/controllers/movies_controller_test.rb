@@ -37,6 +37,13 @@ describe MoviesController do
     end
   end
 
+  describe "show" do
+    it "can show a movie" do
+      get movie_path(movies(:one).id)
+      must_respond_with :success
+    end
+  end
+
   describe "create" do
     let(:movie_data) {
       {
