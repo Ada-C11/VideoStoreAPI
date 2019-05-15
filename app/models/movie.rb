@@ -11,8 +11,16 @@ class Movie < ApplicationRecord
     return available
   end
 
+  def increase_inventory
+    if self.inventory
+      self.update(inventory: self.inventory += 1)
+    else
+      return false
+    end
+  end
+
   def decrease_inventory
-    if inventory > 0 
+    if inventory > 0
       self.update(inventory: inventory - 1)
     end
     return inventory

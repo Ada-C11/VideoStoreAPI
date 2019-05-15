@@ -21,4 +21,28 @@ describe Rental do
       expect(rental.movie).must_equal movie
     end
   end
+
+  describe "custom methods" do
+    describe "set_check_in" do
+      it "must set the check_in_date" do
+        orig_check_in = rental.check_in_date
+
+        rental.set_check_in
+        rental.reload
+
+        assert_nil(orig_check_in)
+        expect(rental.check_in_date).must_equal Date.current
+      end
+
+      it "will return false and error messages given an invalid rental" do
+        rental = Rental.create
+
+        expect(rental.set_check_in).must_equal false
+        expect(rental.errors.messages).must_include :movie
+        expect(rental.errors.messages).must_include :customer
+        expect(rental.errors.messages[:movie]).must_equal ["must exist"]
+        expect(rental.errors.messages[:customer]).must_equal ["must exist"]
+      end
+    end
+  end
 end
