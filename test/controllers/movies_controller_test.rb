@@ -48,6 +48,12 @@ describe MoviesController do
       body = JSON.parse(response.body)
       body["ok"].must_equal false
       body["errors"].must_equal "Movie not found"
+      expect(response.header["Content-Type"]).must_include "json"
+    end
+
+    it "still returns JSON if the request is bogus" do
+      get movie_path("bogus")
+      expect(response.header["Content-Type"]).must_include "json"
     end
   end
 
@@ -74,6 +80,21 @@ describe MoviesController do
 
       expect(movie.title).must_equal movie_data[:title]
       must_respond_with :success
+    end
+
+    it "returns an error for invalid movie data" do
+      movie_data["inventory"] = nil
+
+      expect {
+      post movies_path, params: { movie:movie_data }
+    }.wont_change "Movie.count"
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "inventory"
+      must_respond_with :bad_request
     end
   end
 end
