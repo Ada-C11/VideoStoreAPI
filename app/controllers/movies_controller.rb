@@ -17,7 +17,11 @@ class MoviesController < ApplicationController
 
   def create
     movie = Movie.new(movie_params)
-    movie.save
+    if movie.save
+      render json: movie.as_json(only: [:id, :title, :release_date, :overview, :inventory, :available_inventory])
+    else
+      render json: { errors: movie.errors.messages }, status: :bad_request
+    end
   end
 
   def zomg
