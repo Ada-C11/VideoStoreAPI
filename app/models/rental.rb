@@ -4,7 +4,7 @@ class Rental < ApplicationRecord
 
   def check_in
     if self.checkin_date != nil
-      raise RuntimeError("Already checked in!")
+      render json: { "errors": ["Already checked in"]}, status: :bad_request
     end
     self.checkin_date = Date.today
   end
