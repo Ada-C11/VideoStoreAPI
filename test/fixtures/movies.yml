@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: Incredibles
+  overview: Family of superheroes. 
+  release_date: 2018-06-15
+  inventory: 10
+
+two:
+  title: Toy Story
+  overview: Woody, Buzz Lightyear and the rest of the gang embark on a road trip with Bonnie and a new toy named Forky. 
+  release_date: 2018-06-21
+  inventory: 9
