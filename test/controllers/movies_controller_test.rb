@@ -38,6 +38,26 @@ describe MoviesController do
     end
   end
 
+  describe "show" do
+    before do
+      @movie = movies(:blacksmith)
+    end
+    it "can get a movie" do
+      get movie_path(@movie)
+
+      must_respond_with :success
+    end
+
+    it "returns a movie with the required fields" do
+      keys = %w(available_inventory id inventory overview release_date title)
+
+      get movie_path(@movie.id)
+
+      body = JSON.parse(response.body)
+      body.keys.sort.must_equal keys
+    end
+  end
+
   # it "should get zomg" do
   #   get movies_zomg_url
   #   value(response).must_be :success?
