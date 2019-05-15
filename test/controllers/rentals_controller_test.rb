@@ -59,6 +59,7 @@ describe RentalsController do
       }.wont_change "Rental.count"
 
       body = JSON.parse(response.body)
+      expect(movie.available_inventory).must_equal 0
       expect(body).must_include "errors"
       must_respond_with :bad_request
     end
