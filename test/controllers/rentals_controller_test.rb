@@ -5,13 +5,13 @@ describe RentalsController do
     let(:rental_data) {
       {
         movie_id: movies(:one).id,
-        customer_id: customers(:one).id,
+        customer_id: customers(:two).id,
       }
     }
 
     it "can create a new rental provided valid data" do
       expect {
-        post checkin_path, params: rental_data
+        post checkout_path, params: rental_data
       }.must_change "Rental.count", +1
 
       new_rental = Rental.last
@@ -26,7 +26,7 @@ describe RentalsController do
       rental_data["customer_id"] = -7
 
       expect {
-        post checkin_path, params: rental_data
+        post checkout_path, params: rental_data
       }.wont_change "Rental.count"
 
       must_respond_with :bad_request
@@ -36,7 +36,7 @@ describe RentalsController do
       rental_data["movie_id"] = -7
 
       expect {
-        post checkin_path, params: rental_data
+        post checkout_path, params: rental_data
       }.wont_change "Rental.count"
 
       must_respond_with :bad_request
