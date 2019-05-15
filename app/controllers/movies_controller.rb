@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
   def index
     params[:sort] ? movies = Movie.order(params[:sort]) : movies = Movie.all
 
-    render json: movies.as_json(only: [:id, :inventory, :overview, :release_date, :title]), status: :ok
+    render json: movies.as_json(only: [:id, :available_inventory, :inventory, :overview, :release_date, :title]), status: :ok
   end
 
   def show
