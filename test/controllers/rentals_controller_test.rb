@@ -54,34 +54,6 @@ describe RentalsController do
       }.must_change "Rental.count", +1
     end
 
-    it "changes the inventory of checked out movie" do
-      start_inventory = movies(:movie1).inventory
-      rental_params = {
-        customer_id: customers(:customer1).id,
-        movie_id: movies(:movie1).id,
-      }
-
-      post check_out_path(rental_params)
-
-      end_inventory = Movie.find_by(id: movies(:movie1).id).inventory
-      expect(end_inventory).must_equal start_inventory - 1
-    end
-
-    it "changes the inventory of checked out movie when it checked out more than once" do
-      start_inventory = movies(:movie1).inventory
-      rental_params = {
-        customer_id: customers(:customer1).id,
-        movie_id: movies(:movie1).id,
-      }
-
-      post check_out_path(rental_params)
-      post check_out_path(rental_params)
-      post check_out_path(rental_params)
-
-      end_inventory = Movie.find_by(id: movies(:movie1).id).inventory
-      expect(end_inventory).must_equal start_inventory - 3
-    end
-
     it "does not check out for a customer that does not exist" do
       rental_params = {
         customer_id: -1,
