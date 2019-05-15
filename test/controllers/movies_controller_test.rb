@@ -56,6 +56,21 @@ describe MoviesController do
       body = JSON.parse(response.body)
       body.keys.sort.must_equal keys
     end
+
+    it "still returns JSON if the movie is bogus" do
+      get movie_path(id: -1)
+      expect(response.header["Content-Type"]).must_include "json"
+    end
+
+    it "returns not_found for a nonexistant movie" do
+      get movie_path(id: -1)
+      must_respond_with :not_found
+    end
+
+    it "still returns JSON if the request is bad" do
+      get movie_path("bad data")
+      expect(response.header["Content-Type"]).must_include "json"
+    end
   end
 
   # it "should get zomg" do
