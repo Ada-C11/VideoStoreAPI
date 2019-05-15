@@ -4,8 +4,16 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  title: "Babe 2: Pig in the City"
+  inventory: 2
+  overview: "This post-modern gothic addresses themes of loyalty and sacrifice in the context of the inescapable cruelties of proto-urban nihilism."
+  release_date: 1998-10-15
+  available_inventory: 2
+
+two:
+  title: "So I Married an Axe Murderer"
+  inventory: 4
+  overview: "A parable about trust, friendship, and the strong bonds of family in San Francisco's bustling early-'90s poetry/butcher-shop scene."
+  release_date: 1993-10-15
+  available_inventory: 4

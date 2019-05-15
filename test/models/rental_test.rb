@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Rental do
-  let(:rental) { rentals(:rentalone) }
+  let(:rental) { rentals(:one) }
 
   describe "validations" do
     it "is valid if all fields are present" do
