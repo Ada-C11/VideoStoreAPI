@@ -6,7 +6,7 @@ describe Movie do
       movie = movies(:movie_one)
       movie.must_respond_to :rentals
       movie.rentals.each do |rental|
-      rental.must_be_kind_of Rental
+        rental.must_be_kind_of Rental
       end
     end
   end
@@ -24,8 +24,14 @@ describe Movie do
       movie.errors.messages.must_include :inventory
     end
 
-    it "accepts valid a new movie including an inventory" do
+    it "requires title" do
       movie = Movie.new(inventory: 5)
+      movie.valid?.must_equal false
+      movie.errors.messages.must_include :title
+    end
+
+    it "is valid if movie includes an inventory and title" do
+      movie = Movie.new(title: "The Departed", inventory: 5)
       movie.valid?.must_equal true
     end
   end
