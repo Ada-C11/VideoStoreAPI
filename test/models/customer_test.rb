@@ -26,8 +26,8 @@ describe Customer do
     end
 
     it "returns empty array if no rentals" do
-      customer2 = customers(:one)
-      expect(customer2.rentals).must_equal [2]
+      customer2 = customers(:three)
+      expect(customer2.rentals).must_equal []
     end
   end
 end

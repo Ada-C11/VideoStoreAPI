@@ -21,3 +21,12 @@ two:
   postal_code: "98102"
   phone: "313-555-1212"
   movies_checked_out_count: 10
+
+three:
+  name: "igor"
+  address: "1250 2nd Ave."
+  city: "Seattle"
+  state: "WA"
+  postal_code: "98102"
+  phone: "310-555-1212"
+  movies_checked_out_count: 0
