@@ -3,19 +3,30 @@
 one:
   customer: sophie
   movie: one
-  checkin_date: nil
   checkout_date: 2019-05-14
+  checkin_date: nil
   due_date: 2019-05-21
 
 two:
   customer: sophie
   movie: two
   checkout_date: 2019-06-14
+  checkin_date: 2019-06-17
   due_date: 2019-06-21
 
 three: 
   customer: nara
   movie: two
   checkout_date: 2019-06-14
+  checkin_date: nil
   due_date: 2019-06-21
+
+four:
+  customer: sophie
+  movie: one
+  checkout_date: 2019-03-14
+  checkin_date: 2019-03-17
+  due_date: 2019-03-21
+
+
 

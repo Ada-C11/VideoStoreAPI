@@ -31,16 +31,4 @@ describe Rental do
       expect(rental.movie).must_equal movie
     end
   end
-
-  describe "check_in" do
-    it "can check in with today's date" do
-      rental = Rental.new(customer: customer,
-                          movie: movie,
-                          checkout_date: Date.today - 14,
-                          due_date: Date.today - 7,
-                          checkin_date: nil)
-      rental.check_in
-      expect(rental.checkin_date).must_equal Date.today
-    end
-  end
 end

@@ -7,7 +7,7 @@ class MovieTest < ActiveSupport::TestCase
     value(movie.valid?).must_equal true
   end
 
-  it "requires title, overview, inventory, release date" do 
+  it "requires title, overview, inventory, release date" do
     required_fields = [:title, :overview, :inventory, :release_date]
 
     required_fields.each do |field|
@@ -24,7 +24,7 @@ class MovieTest < ActiveSupport::TestCase
   end
 
   it "returns available inventory" do
-    expect(movie.available_inventory).must_equal 8
+    expect(movie.available_inventory).must_equal 9
   end
 
   it "returns 0 when there are no available inventory" do
