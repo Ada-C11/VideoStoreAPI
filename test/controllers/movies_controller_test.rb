@@ -40,6 +40,7 @@ describe MoviesController do
       
       body.each do |movie|
         movie.keys.sort.must_equal keys
+        movie.keys.length.must_equal keys.length
       end
     end
   end
@@ -52,10 +53,12 @@ describe MoviesController do
       must_respond_with :ok
     end
     
-    it "throws an error if a movie can't be found" do
+    it "returns a BAD REQUEST and is returned as JSON if a movie can't be found" do
       get movie_path(-1)
       
       must_respond_with :bad_request
+      
+      expect(response.header["Content-Type"]).must_include "json"
       
       body = JSON.parse(response.body)
       
@@ -78,10 +81,17 @@ describe MoviesController do
         post movies_path, params: { movie: movie_data }
       }.must_change "Movie.count", + 1
       
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+      
+      movie = Movie.find(body["id"].to_i)
+      
+      expect(movie.title).must_equal movie_data[:title] 
       must_respond_with :success
     end
   
-    it "does not create a new movie, and throws an error if given bad data" do
+    it "does not create a new movie, and returns BAD REQUEST if given bad data" do
       movie_data["title"] = nil
       
       expect {
@@ -90,6 +100,8 @@ describe MoviesController do
       
       body = JSON.parse(response.body)
       
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
       expect(body["errors"]).must_include "title"
       must_respond_with :bad_request
     end
