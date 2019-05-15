@@ -10,5 +10,10 @@ one:
   checkout_date: 2019-5-15
   due_date: 2019-5-22
 
-two: {}
-# column: value
+two: 
+  customer: one
+  movie: one
+  checkout_date: 2019-5-15
+  due_date: 2019-5-22
+
+
