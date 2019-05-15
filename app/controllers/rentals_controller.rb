@@ -31,7 +31,6 @@ class RentalsController < ApplicationController
                           customer_id: customer.id)
       if rental.save
         render json: { id: rental.id, inventory: movie.inventory }, status: :ok
-        movie.decrease_inventory
       else
         error = rental.errors.messages
       end

@@ -7,22 +7,8 @@ class Movie < ApplicationRecord
   validates :inventory, presence: true, numericality: true
 
   def available_inventory
-    available = inventory - rentals.count
+    available = inventory - Rental.where(check_in_date: nil).count
     return available
   end
 
-  def increase_inventory
-    if self.inventory
-      self.update(inventory: self.inventory += 1)
-    else
-      return false
-    end
-  end
-
-  def decrease_inventory
-    if inventory > 0
-      self.update(inventory: inventory - 1)
-    end
-    return inventory
-  end
 end
