@@ -6,4 +6,13 @@ class Customer < ApplicationRecord
     customer.movies_checked_out_count += 1
     customer.save
   end
+
+  def self.checkin_movies_count(customer)
+    if customer.movies_checked_out_count >= 1
+      customer.movies_checked_out_count -= 1
+      customer.save
+    else
+      return false
+    end
+  end
 end

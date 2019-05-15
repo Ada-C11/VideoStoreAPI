@@ -15,13 +15,10 @@ class Movie < ApplicationRecord
     end
   end
 
-  def self.checkin_inventory(movie, customer)
-    if movie.available_inventory < movie.inventory && customer.movies_checked_out_count > 0
+  def self.checkin_inventory(movie,customer)
+    if movie.available_inventory < movie.inventory && Customer.checkin_movies_count(customer)
       movie.available_inventory += 1
       movie.save
-
-      customer.movies_checked_out_count -= 1
-      customer.save
     else
       return false
     end

@@ -15,7 +15,9 @@ class RentalsController < ApplicationController
     rental.checkout_date = cur_date
     rental.due_date = cur_date + 7
     successful = rental.save
+
     if successful
+      Customer.checkout_movies_count(@customer)
       render json: {id: rental.id}, status: :ok
     else
       render json: {errors: rental.errors.messages},
