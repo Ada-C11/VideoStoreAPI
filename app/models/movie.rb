@@ -10,4 +10,11 @@ class Movie < ApplicationRecord
     available = inventory - rentals.count
     return available
   end
+
+  def decrease_inventory
+    if inventory > 0 
+      self.update(inventory: inventory - 1)
+    end
+    return inventory
+  end
 end
