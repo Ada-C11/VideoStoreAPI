@@ -15,7 +15,7 @@ describe Customer do
       city: "Seattle",
       state: "WA",
       postal_code: '98199',
-      phone: 512-555-555)
+      phone: "512-555-555")
     expect(no_name.valid?).must_equal false
   end
 
