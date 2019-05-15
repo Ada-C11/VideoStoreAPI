@@ -13,7 +13,7 @@ describe MoviesController do
       expect(response["Content-Type"]).must_include "json"
     end
 
-    it "response will be a hash" do
+    it "response will be a Array" do
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Array
     end
@@ -32,9 +32,39 @@ describe MoviesController do
     end
   end
 
+  describe "show" do
+    let(:movie) { movies(:movie_1) }
+    before do
+      get movie_path(movie.id)
+    end
+    it "will get a 200 ok response" do
+      must_respond_with :ok
+    end
+
+    it "response will be json" do
+      expect(response["Content-Type"]).must_include "json"
+    end
+
+    it "response will be a hash" do
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+    end
+
+    it "returns 1 movies" do
+      body = JSON.parse(response.body)
+      expect(body["title"]).must_equal movie.title
+    end
+
+    it "returns pets with exactly the required fields" do
+      req_fields = ["available_inventory", "id", "inventory", "overview", "release_date", "title"]
+      body = JSON.parse(response.body)
+      expect(body.keys.sort).must_equal req_fields.sort
+    end
+  end
+
   describe "create" do
     let(:movie_data) {
-       {
+      {
         "title": "Totally Legit Movie Title",
         "overview": "It's a totally legit movie.",
         "release_date": Date.current,
@@ -44,12 +74,12 @@ describe MoviesController do
 
     it "creates a new movie given valid data" do
       expect {
-        post movies_path, params: movie_data 
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       must_respond_with :success
 
-      expect(response.header['Content-Type']).must_include 'json'
+      expect(response.header["Content-Type"]).must_include "json"
 
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
@@ -65,7 +95,7 @@ describe MoviesController do
 
       must_respond_with :bad_request
 
-      expect(response.header['Content-Type']).must_include 'json'
+      expect(response.header["Content-Type"]).must_include "json"
 
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
