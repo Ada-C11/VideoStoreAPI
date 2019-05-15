@@ -1,9 +1,9 @@
 class CustomersController < ApplicationController
   def index
     
-    if params[:sort] && params[:n]
+    if params[:sort]== "name" || params[:sort]== "registered_at" || params[:sort] == "postal_code"  && params[:n]
       customers = Customer.all.order(params[:sort]).paginate(page: params[:p], per_page: params[:n])
-    elsif params[:sort]
+    elsif params[:sort] == "name" || params[:sort]== "registered_at" || params[:sort] == "postal_code"
         customers = Customer.all.order(params[:sort])
     elsif params[:n] && params[:p]
         customers = Customer.all.paginate(page: params[:p], per_page: params[:n])
