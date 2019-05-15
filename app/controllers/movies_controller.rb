@@ -18,4 +18,10 @@ class MoviesController < ApplicationController
   def zomg
     render json: { message: "It works!" }
   end
+
+  private
+
+  def movie_params
+    params.permit(:title, :release_date, :overview, :inventory)
+  end
 end
