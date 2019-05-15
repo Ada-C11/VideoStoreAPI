@@ -30,6 +30,7 @@ describe MoviesController do
       must_respond_with :ok
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Array
+      expect(body).must_equal []
     end
 
     it "returns pets with exactly the required fields" do
