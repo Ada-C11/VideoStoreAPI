@@ -3,12 +3,13 @@ require 'date'
 class RentalsController < ApplicationController
   def checkout
     if rental_params[:customer_id] && rental_params[:movie_id]
+      movie = Movie.find_by(rental.movie_id)
       rental = Rental.new(rental_params)
-      if rental.is_available?
+      if rental.is_available? && movie 
         rental.checkout_date = Date.today
         rental.due_date = Date.today + 1.week
         if rental.save
-          movie = Movie.find(rental.movie_id)
+          
           movie.reduce_inventory
           render json: rental.as_json(only: [:customer_id, :movie_id] ), status: :ok
         else
