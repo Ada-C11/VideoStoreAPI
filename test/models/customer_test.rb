@@ -9,6 +9,16 @@ describe Customer do
     expect(customer.valid?).must_equal true
   end
 
+  it "is not valid without a name" do
+    no_name = Customer.new(registered_at: "2019-05-14 12:53:58",
+      address: "123 Computer Way",
+      city: "Seattle",
+      state: "WA",
+      postal_code: '98199',
+      phone: 512-555-555)
+    expect(no_name.valid?).must_equal false
+  end
+
   describe "relations" do
     it "can have zero rentals" do
       rentals = customer.rentals
@@ -23,6 +33,7 @@ describe Customer do
       expect(rentals).must_include rental1
       expect(rentals).must_include rental2
     end
+
   end
 
 
