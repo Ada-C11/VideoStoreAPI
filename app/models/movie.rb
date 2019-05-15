@@ -1,4 +1,5 @@
 class Movie < ApplicationRecord
+  before_create :set_inventory_default
   has_many :rentals
 
   validates :title, :overview, :release_date, :inventory, presence: true
@@ -12,5 +13,11 @@ class Movie < ApplicationRecord
       end
     end
     return self.inventory - checkedout
+  end
+
+  private
+
+  def set_inventory_default
+    self.available_inventory = self.inventory
   end
 end
