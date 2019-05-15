@@ -4,6 +4,12 @@ class RentalsController < ApplicationController
     rental.checkout_date = Date.today
     rental.due_date = Date.today + 7
     if rental.save
+      customer = Customer.find_by(id: params[:customer_id])
+      customer.movies_checked_out_count += 1
+      customer.save
+      movie = Movie.find_by(id: params[:movie_id])
+      movie.available_inventory -= 1
+      movie.save
       render json: rental.as_json(only: [:customer_id, :movie_id, :checkout_date, :due_date, :id]), status: :ok
     else
       render json: {ok: false, errors: rental.errors.messages}, status: :bad_request

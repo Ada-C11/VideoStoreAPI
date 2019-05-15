@@ -39,6 +39,27 @@ describe RentalsController do
       expect(body["errors"]).must_include "customer_id"
       must_respond_with :bad_request
     end
+
+    it "increases customers movies_checked_out_count by 1" do
+      # rental_data2 = {
+        rental = {
+          customer_id: customers(:customer_two).id,
+          movie_id: movies(:movie_one).id,
+        }
+     # }
+    
+      customer = customers(:customer_one)
+      # customer_checkout_count = customer.movies_checked_out_count
+  
+        post checkout_path, params: rental
+      
+        expect(customer.movies_checked_out_count).must_equal 1
+      
+    end
+
+    it "decreases movie available inventory count by 1" do
+
+    end
   end
 
   describe "checkin" do

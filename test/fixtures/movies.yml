@@ -5,9 +5,12 @@ movie_one:
   overview: Matt Damon and Robin Williams in Boston.
   release_date: 1997-08-10
   inventory: 3
+  available_inventory: 3
 
 movie_two:
   title: 21 Jump Street
   overview: Jonah Hill and Channing Tatum go undercover as high school students.
   release_date: 2012-11-09
   inventory: 2
+  available_inventory: 2
+
