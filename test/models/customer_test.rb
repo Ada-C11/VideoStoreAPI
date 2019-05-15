@@ -54,5 +54,17 @@ describe Customer do
 
       expect(customer.movies_checked_out_count).must_equal 1
     end
+
+    it "returns a value that takes into account rentals that have been checked back in for movies_checked_out_count" do
+      Rental.destroy_all
+      movie = Movie.first
+      customer = Customer.first
+      rental = Rental.new(rental_data)
+      rental.prepare_for_checkout
+      rental.currently_checked_out = false
+
+      rental.save
+      expect(customer.movies_checked_out_count).must_equal 0
+    end
   end
 end
