@@ -23,6 +23,15 @@ describe MoviesController do
       expect(body.length).must_equal Movie.count
     end
 
+    it "0 movies returns an empty array w/ ok status" do
+      Rental.destroy_all
+      Movie.destroy_all
+      get movies_path
+      must_respond_with :ok
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Array
+    end
+
     it "returns pets with exactly the required fields" do
       req_fields = %w(id title release_date)
       body = JSON.parse(response.body)
