@@ -109,20 +109,19 @@ describe MoviesController do
       must_respond_with :success
     end
 
-    #   it "returns an error for invalid pet data" do
-    #     # arrange
-    #     pet_data["name"] = nil
+    it "returns an error for invalid movie data" do
+      movie_data["title"] = nil
 
-    #     expect {
-    #       post pets_path, params: {pet: pet_data}
-    #     }.wont_change "Pet.count"
+      expect {
+        post movies_path, params: movie_data
+      }.wont_change "Movie.count"
 
-    #     body = JSON.parse(response.body)
+      body = JSON.parse(response.body)
 
-    #     expect(body).must_be_kind_of Hash
-    #     expect(body).must_include "errors"
-    #     expect(body["errors"]).must_include "name"
-    #     must_respond_with :bad_request
-    #   end
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "title"
+      must_respond_with :bad_request
+    end
   end
 end
