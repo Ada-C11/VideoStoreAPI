@@ -1,6 +1,14 @@
 class CustomersController < ApplicationController
   def index
-    customers = Customer.all
+    if params[:sort]
+      customers = Customer.order(params[:sort])
+    else
+      customers = Customer.all
+    end
+
+    if params[:n]
+    end
+
     render status: :ok, json: customers.as_json(only: [:id, :name, :registered_at, :postal_code, :phone, :movies_checked_out_count])
   end
 
