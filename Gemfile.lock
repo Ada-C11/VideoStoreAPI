@@ -87,6 +87,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
+    oj (3.7.12)
     pg (1.1.4)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -94,6 +95,8 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     puma (3.12.1)
+    rabl (0.14.1)
+      activesupport (>= 2.3.14)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -161,9 +164,11 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   minitest-rails
   minitest-reporters
+  oj
   pg (>= 0.18, < 2.0)
   pry-rails
   puma (~> 3.11)
+  rabl
   rails (~> 5.2.3)
   simplecov
   spring

@@ -72,5 +72,15 @@ describe MoviesController do
       body.keys.must_equal keys
       body["title"].must_equal "Harry Potter and the Sorcerer's Stone"
     end
+
+    it "returns json even if movie is deleted" do 
+      deleted_movie = movies(:deletedmovie)
+      movie_id = deleted_movie.id
+      deleted_movie.destroy 
+
+      get movie_path(movie_id)
+      must_respond_with :not_found
+      expect(response.header["Content-Type"]).must_include "json"
+    end
   end
 end

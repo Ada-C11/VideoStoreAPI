@@ -11,3 +11,9 @@ toalltheboys:
   overview: Peter Kavinsky 5ever!!!
   release_date: 2018-08-17
   inventory: 3
+
+deletedmovie:
+  title: Test Movie Title
+  overview: This was meant to be deleted anyway
+  release_date: 2019-05-14
+  inventory: 1
