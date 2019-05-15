@@ -10,9 +10,9 @@ describe Customer do
   end
 
   describe "relationships" do
-    it "can have 0 rentals" do
+    it "returns all the rentals" do
       customer.rentals
-      expect(customer.rentals.count).must_equal 0
+      expect(customer.rentals.count).must_equal 2
     end
 
     it "can have 1 or more rentals" do
