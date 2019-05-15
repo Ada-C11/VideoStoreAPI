@@ -39,8 +39,20 @@ describe Customer do
   end
 
   describe "custom methods" do
+    let(:rental_data) {
+      {
+        customer_id: Customer.first.id,
+        movie_id: Movie.first.id,
+      }
+    }
     it "returns a value for movies_checked_out_count" do
-      expect(customer.movies_checked_out_count).must_equal 0
+      Rental.destroy_all
+      movie = Movie.first
+      customer = Customer.first
+      rental = Rental.new(rental_data)
+      rental.prepare_for_checkout
+
+      expect(customer.movies_checked_out_count).must_equal 1
     end
   end
 end
