@@ -10,6 +10,21 @@ describe MoviesController do
     it "returns 404 for a movie that doesn't exist" do
       get movie_path(-1)
       must_respond_with :error
+      expect(response.header['Content-Type']).must_include 'json'
+    end
+
+    it "returns an Hash" do
+      get movie_path(Movie.first.id)
+
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+    end
+
+    it "returns the movie with exactly the required fields" do
+      keys = %w(id title release_date)
+      get movie_path(Movie.first.id)
+      body = JSON.parse(response.body)
+      body.keys.must_equal keys
     end
   end
 

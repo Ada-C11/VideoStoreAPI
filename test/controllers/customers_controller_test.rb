@@ -30,8 +30,4 @@ describe CustomersController do
       end
     end
   end
-
-  describe "show" do
-    
-  end
 end
