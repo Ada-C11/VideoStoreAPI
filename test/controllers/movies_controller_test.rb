@@ -57,7 +57,6 @@ describe MoviesController do
       get movie_path(-1)
       
       must_respond_with :bad_request
-      
       expect(response.header["Content-Type"]).must_include "json"
       
       body = JSON.parse(response.body)
