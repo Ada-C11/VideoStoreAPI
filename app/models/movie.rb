@@ -2,7 +2,8 @@ class Movie < ApplicationRecord
   before_create :set_inventory_default
   has_many :rentals
 
-  validates :title, :overview, :release_date, :inventory, presence: true
+  validates :title, :overview, :release_date, presence: true
+  validates :inventory, :available_inventory, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   def available_inventory
     checkedout = 0
