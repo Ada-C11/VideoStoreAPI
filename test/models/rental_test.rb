@@ -13,5 +13,19 @@ describe Rental do
       rental.reload
     end
   end
+
+  describe "relations" do
+    it "relates to a customer" do
+      r = rentals(:one)
+      r.must_respond_to :customer
+      r.customer.must_be_kind_of Customer
+    end
+
+    it "relates to a movie" do
+      r = rentals(:one)
+      r.must_respond_to :movie
+      r.movie.must_be_kind_of Movie
+    end
+  end
 end
 
