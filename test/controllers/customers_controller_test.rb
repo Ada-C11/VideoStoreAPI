@@ -81,5 +81,30 @@ describe CustomersController do
       body = JSON.parse(response.body)
       expect(body.first["name"]).must_equal "Tim Riggins"
     end
+
+    it "returns an empty array if page in query is beyond content pages" do
+      get "/customers?n=1&p=3"
+
+      body = JSON.parse(response.body)
+      expect(body).must_equal []
+      body.must_be_kind_of Array
+    end
+
+    it "sorts by id if given invalid sort param" do
+
+      Customer.destroy_all
+      customer1 = Customer.create(name: "Test 1")
+      customer1.id = 1
+      customer1.save
+      customer2 = Customer.create(name: "Test 2")
+      customer2.id = 2
+      customer2.save
+
+      get "/customers?sort=cat"
+
+      body = JSON.parse(response.body)
+      expect(body.first["name"]).must_equal "Test 1"
+      expect(body.first["id"]).must_equal 1
+    end
   end
 end
