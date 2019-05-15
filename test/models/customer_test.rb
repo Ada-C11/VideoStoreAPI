@@ -16,13 +16,31 @@ describe Customer do
     end
 
     it "can have 1 or more rentals" do
-      rental = Rental.create(customer_id: customer.id,
-                             movie_id: movie.id,
-                             checkout_date: Date.today,
-                             due_date: Date.today + 7)
+      first_rental = rentals(:one)
+      first_rental.customer_id = customer.id
+      first_rental.movie_id = movies(:one).id
+      first_rental.save
 
-      customer.rentals << rental
-      expect(customer.rentals).must_include rental
+      second_rental = rentals(:two)
+      second_rental.customer_id = customer.id
+      second_rental.movie_id = movies(:two).id
+      second_rental.save
+      expect(customer.rentals).must_include first_rental
+      expect(customer.rentals).must_include second_rental
+    end
+  end
+
+  describe "movies_checked_out_count" do
+    it "can get the number of movies checked out" do
+      first_rental = rentals(:one)
+      first_rental.customer_id = customer.id
+      first_rental.movie_id = movies(:one).id
+      first_rental.save
+      second_rental = rentals(:two)
+      second_rental.customer_id = customer.id
+      second_rental.movie_id = movies(:two).id
+      second_rental.save
+      expect(customer.movies_checked_out_count).must_equal 2
     end
   end
 end
