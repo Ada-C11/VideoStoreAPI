@@ -3,6 +3,13 @@
 one:
   movie: one
   customer: one
-  check_out: 2019-05-15
+  checkout: 2019-05-15
+  due_date: 2019-05-22
+  status: "Checked Out"
+
+two:
+  movie_id: 2
+  customer_id: 2
+  checkout: 2019-05-15
   due_date: 2019-05-22
   status: "Checked Out"
