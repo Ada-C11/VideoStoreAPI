@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
     if movie
       render json: movie.as_json(only: [:id, :title, :overview, :release_date, :inventory, :available_inventory]), status: :ok
     else
-      render json: { errors: ["The movie with id #{id} was not found"] }, status: :not_found
+      render json: {errors: ["The movie with id #{id} was not found"]}, status: :not_found
     end
   end
 
@@ -22,9 +22,9 @@ class MoviesController < ApplicationController
     movie.release_date = Date.parse(params[:release_date])
 
     if movie.save
-      render json: { id: movie.id }, status: :ok
+      render json: {id: movie.id}, status: :ok
     else
-      render json: { errors: movie.errors.messages },
+      render json: {errors: movie.errors.messages},
              status: :bad_request
     end
   end
