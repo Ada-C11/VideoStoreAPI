@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :show, :create]
   resources :customers, only: [:index]
 
-  get "/zomg", to: "zomg#index"
+  post "/rentals/check-out", to: "rentals#checkout", as: "checkout"
 end
