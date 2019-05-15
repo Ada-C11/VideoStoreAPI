@@ -14,7 +14,7 @@ class RentalsController < ApplicationController
     rental = Rental.find_by(customer_id: params[:customer_id], movie_id: params[:movie_id])
     if rental
       rental.destroy
-      render json: {ok: true, messages: "Rental checked in successfully"}, status: :success
+      render json: {ok: true, messages: "Rental checked in successfully"}, status: :ok
     else
       render json: {ok: false, errors: "Rental not found"}, status: :bad_request
     end
