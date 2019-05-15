@@ -7,7 +7,4 @@ class CustomersController < ApplicationController
   def show
   end
 
-  # def zomg
-  #   render json: { :zomg => "it works"}
-  # end
 end
