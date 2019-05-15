@@ -2,19 +2,8 @@
 
 one:
   checkout_date: 2019-05-14
-  due_date: MyString
-  date: MyString
+  due_date: 2019-05-21
 
 two:
   checkout_date: 2019-05-14
-  due_date: MyString
-  date: MyString
-
-three:
-  checkout_date: 2019-05-14
-  due_date: MyString
-  date: MyString
-  customer_id: 1
-  movie_id: 2
-
-  
+  due_date: 2019-05-21
