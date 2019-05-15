@@ -5,7 +5,7 @@ class RentalsController < ApplicationController
 
   def checkout
     unless Movie.checkout_inventory(@movie)
-      render json: { errors: ["There are no copies of movie #{@movie.id} avaibale"] }, status: :bad_request
+      render json: {errors: ["There are no copies of movie #{@movie.id} avaibale"]}, status: :bad_request
       return
     end
 
@@ -16,9 +16,9 @@ class RentalsController < ApplicationController
 
     if rental.save
       @customer.checkout_movies_count
-      render json: { id: rental.id }, status: :ok
+      render json: {id: rental.id}, status: :ok
     else
-      render json: { errors: rental.errors.messages },
+      render json: {errors: rental.errors.messages},
              status: :bad_request
     end
   end
@@ -27,9 +27,9 @@ class RentalsController < ApplicationController
     successful = Movie.checkin_inventory(@movie, @customer)
 
     if successful
-      render json: { ok: "successfully checked in movie" }
+      render json: {ok: "Successfully checked in movie"}
     else
-      render json: { errors: "this movie was not checked out" }
+      render json: {errors: "This movie has not been checked out"}, status: :bad_request
     end
   end
 
@@ -39,7 +39,7 @@ class RentalsController < ApplicationController
     movie_id = params[:movie_id]
     @movie = Movie.find_by(id: movie_id)
     unless @movie
-      render json: { errors: ["The movie with id #{movie_id} was not found"] }, status: :not_found
+      render json: {errors: ["The movie with id #{movie_id} was not found"]}, status: :not_found
       return
     end
   end
@@ -49,7 +49,7 @@ class RentalsController < ApplicationController
     @customer = Customer.find_by(id: customer_id)
 
     unless @customer
-      render json: { errors: ["The customer with id #{customer_id} was not found"] }, status: :not_found
+      render json: {errors: ["The customer with id #{customer_id} was not found"]}, status: :not_found
       return
     end
   end
