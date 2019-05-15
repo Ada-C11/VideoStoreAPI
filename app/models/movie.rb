@@ -5,7 +5,7 @@ class Movie < ApplicationRecord
   validates :title, :inventory, presence: true
 
   def number_available
-    checked_out = self.rentals.select { |rental| (rental.due > DateTime.now) && (!rental.returned) }.count
+    checked_out = self.rentals.select { |rental| !rental.returned }.count
 
     return inventory - checked_out
   end

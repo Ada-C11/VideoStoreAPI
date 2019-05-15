@@ -24,5 +24,8 @@ describe Customer do
       expect(customer.movies).must_include movies(:test)
       expect(customer.movies).must_include movies(:other_test)
     end
+    it "can return the number of movies currently checked out" do
+      expect(customer.checked_out_count).must_equal 2
+    end
   end
 end
