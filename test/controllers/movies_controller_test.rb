@@ -48,14 +48,14 @@ describe MoviesController do
   end
 
   describe "create" do
-    let(:movie_data) 
+    let(:movie_data) {
       {
         title: "Inside Out", 
         overview: "Lesson about your emotions",
-        release_date: 06-19-2015,
+        release_date: "2015-06-15",
         inventory: 23
       }
-    
+    }
 
     it "creates a new movie given valid data" do
       expect {

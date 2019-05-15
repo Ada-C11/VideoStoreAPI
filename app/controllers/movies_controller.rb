@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
   def show
     movie = Movie.find_by(id: params[:id])
     if movie
-      render json: movie.as_json(:methods => [:available_inventory], except: [:id,:created_at, :updated_at]), status: :ok
+      render json: movie.as_json(except: [:id,:created_at, :updated_at], :methods => [:available_inventory]), status: :ok
     else
       render json: { "errors": ["Movie was not found"]},
         status: :not_found
@@ -25,6 +25,6 @@ class MoviesController < ApplicationController
 
   private 
     def movie_params
-      params.permit(:title, :overview, :release_date, :intentory)
+      params.permit(:title, :overview, :release_date, :inventory)
     end
 end
