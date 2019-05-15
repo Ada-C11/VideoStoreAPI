@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 
   get '/customers', to: 'customers#index', as: 'customers'
 
-  post '/rentals/check-in', to: 'rentals#checkin', as: 'checkin'
+  post '/rentals/check-in', to: 'movies#checkin', as: 'checkin'
 
-  post '/rentals/check-out', to: 'rentals#checkout', as: 'checkout'
+  post '/rentals/check-out', to: 'movies#checkout', as: 'checkout'
 
 end
 
