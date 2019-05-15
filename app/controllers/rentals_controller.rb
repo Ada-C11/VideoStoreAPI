@@ -1,7 +1,6 @@
 class RentalsController < ApplicationController
   def check_in
     rental = Rental.find_by(customer_id: params[:customer_id], movie_id: params[:movie_id], check_in_date: nil)
-    customer = Customer.find_by(id: params[:customer_id])
     movie = Movie.find_by(id: params[:movie_id])
 
     if rental
