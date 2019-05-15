@@ -3,10 +3,10 @@ class Movie < ApplicationRecord
   validates :title, :overview, :inventory, :release_date, presence: true
   
   def available_inventory
-    if self.inventory
-      available_inventory = self.inventory - self.rentals.count
+    if self.inventory > 0
+      available_inventory = self.inventory - self.rentals.where(checkin_date: nil).count
     else
-      available_inventory = nil
+      available_inventory = 0
     end
   end
 end
