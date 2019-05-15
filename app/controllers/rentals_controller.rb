@@ -8,6 +8,7 @@ class RentalsController < ApplicationController
       rental.set_check_in
       movie.increase_inventory
 
+      # include what to do if set_check_in, or increase_inventory fail?
       render json: rental.as_json(only: [:id, :check_in_date]), status: :ok
     else
       render json: { errors: ["Rental not found"] }, status: :bad_request

@@ -12,6 +12,10 @@ class Movie < ApplicationRecord
   end
 
   def increase_inventory
-    self.update(inventory: self.inventory += 1)
+    if self.inventory
+      self.update(inventory: self.inventory += 1)
+    else
+      return false
+    end
   end
 end
