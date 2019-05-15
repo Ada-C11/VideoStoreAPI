@@ -37,4 +37,12 @@ describe Movie do
     expect(rental.movie.id).must_equal movie.id
     expect(movie.rentals.first.id).must_equal rental.id
   end
+
+  describe "set available inventory" do
+    it "sets available inventory to current inventory" do
+      movie.set_available_inventory
+      expect(movie.available_inventory).must_equal movie.inventory
+      expect(movie.available_inventory).must_be_kind_of Integer
+    end
+  end
 end
