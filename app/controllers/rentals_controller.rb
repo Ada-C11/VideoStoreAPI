@@ -23,7 +23,7 @@ class RentalsController < ApplicationController
   end
 
   def checkin
-    rental = Rental.find_by(id: params[:id])
+    rental = Rental.find_by(customer_id: params[:customer_id], movie_id: params[:movie_id])
 
     if rental
       if rental.update(checkin_date: Date.today)
