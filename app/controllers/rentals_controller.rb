@@ -11,6 +11,14 @@ class RentalsController < ApplicationController
   end
 
   def check_in
+    rental = Rental.find_by(rental_params)
+    if rental
+      rental.update(return_date: Time.now)
+      render status: :ok, json: { id: rental.id }
+    else
+      render json: { ok: false, messages: ["Rental not found"] },
+        status: :not_found
+    end
   end
 
   private
