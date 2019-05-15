@@ -1,4 +1,5 @@
 class Movie < ApplicationRecord
+  has_many :rentals
   before_create :set_available_inventory_default
 
   validates :title, presence: true
