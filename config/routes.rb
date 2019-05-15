@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
   post '/rentals/checkin', to: 'rentals#checkin', as: 'checkin'
 
+  post '/rentals/checkout', to: 'rentals#checkout', as: 'checkout'
+
 end
 
