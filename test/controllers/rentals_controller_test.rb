@@ -1,4 +1,5 @@
 require "test_helper"
+require "pry"
 
 describe RentalsController do
   let(:rental_data) {
@@ -10,10 +11,13 @@ describe RentalsController do
 
   describe "check_out" do
     it "should create a new rental check_out given valid data" do
+      current_checkouts = customers(:one).movies_checked_out_count
+
       expect {
         post new_check_out_path, params: rental_data
       }.must_change "Rental.count", 1
 
+      customers(:one).reload
       expect(customers(:one).movies_checked_out_count).must_equal 1
 
       body = JSON.parse(response.body)

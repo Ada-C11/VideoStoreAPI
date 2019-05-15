@@ -7,6 +7,9 @@ class RentalsController < ApplicationController
     if rental.save
       customer = Customer.find_by(id: rental.customer_id)
       customer.rental_ids << rental.id
+      checkouts = customer.movies_checked_out_count
+      checkouts += 1
+      customer.update_attributes(movies_checked_out_count: checkouts)
       movie = Movie.find_by(id: rental.movie_id)
       movie.rental_ids << rental.id
       render status: :ok, json: rental.as_json(only: [:id, :check_out, :due_date])
