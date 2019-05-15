@@ -36,4 +36,13 @@ describe Rental do
       expect(rental.movie).must_be_kind_of Movie
     end
   end
+  
+  describe "Due Date" do
+    it "sets a due date when a rental is created" do
+      params = {
+        movie_id: movies(:one).id,
+        customer_id: -1,
+      }
+    end
+  end
 end

@@ -4,4 +4,8 @@ class Rental < ApplicationRecord
 
   validates_associated :customer, :movie
   validates :due_date, presence: true
+  
+  def due_date
+    DateTime.now + 7.days
+  end
 end
