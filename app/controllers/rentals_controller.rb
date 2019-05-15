@@ -28,7 +28,6 @@ class RentalsController < ApplicationController
       movie = Movie.find_by(id: params[:movie_id])
       movie.available_inventory += 1
       movie.save
-      rental.destroy
       render json: {ok: true, messages: "Rental checked in successfully"}, status: :ok
     else
       render json: {ok: false, errors: "Rental not found"}, status: :bad_request

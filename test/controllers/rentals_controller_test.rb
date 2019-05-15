@@ -99,12 +99,7 @@ describe RentalsController do
         movie_id: movies(:movie_one).id,
       }
     }
-    it "destroys checkout when given valid data" do
-      expect {
-        post checkin_path, params: rental_data
-      }.must_change "Rental.count", -1
-    end
-
+ 
     it "it returns an error if rental is not found" do
       rental_data["customer_id"] = customers(:customer_two).id
       expect {
