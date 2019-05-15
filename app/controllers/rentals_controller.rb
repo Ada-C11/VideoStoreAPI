@@ -14,7 +14,8 @@ class RentalsController < ApplicationController
 
   def checkin
     rental = Rental.find_by(movie_id: params[:movie_id],
-                            customer_id: params[:customer_id])
+                            customer_id: params[:customer_id],
+                            returned: false)
     unless rental
       render status: :not_found, json: { errors: ["The rental you requested was not found"] }
       return
