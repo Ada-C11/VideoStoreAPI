@@ -30,6 +30,7 @@ describe MoviesController do
       must_respond_with :ok
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Array
+      expect(body).must_equal []
     end
 
     it "returns pets with exactly the required fields" do
@@ -46,6 +47,7 @@ describe MoviesController do
     before do
       get movie_path(movie.id)
     end
+
     it "will get a 200 ok response" do
       must_respond_with :ok
     end
@@ -68,6 +70,13 @@ describe MoviesController do
       req_fields = ["available_inventory", "id", "inventory", "overview", "release_date", "title"]
       body = JSON.parse(response.body)
       expect(body.keys.sort).must_equal req_fields.sort
+    end
+
+    it "invalid movie id with return not found" do
+      get movie_path(-1)
+      must_respond_with :not_found
+      body = JSON.parse(response.body)
+      expect(body["errors"]).must_equal "movie" => ["No movie by this id found"]
     end
   end
 
