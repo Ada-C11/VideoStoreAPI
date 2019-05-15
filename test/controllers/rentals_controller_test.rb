@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe RentalsController do
-  
   describe "checkout" do
     let(:rental_data) {
       {
@@ -30,14 +29,42 @@ describe RentalsController do
       rental_data["customer_id"] = nil
 
       expect {
-      post checkout_path, params: rental_data
-    }.wont_change "Rental.count"
+        post checkout_path, params: rental_data
+      }.wont_change "Rental.count"
 
       body = JSON.parse(response.body)
 
       expect(body).must_be_kind_of Hash
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "customer_id"
+      must_respond_with :bad_request
+    end
+  end
+
+  describe "checkin" do
+    let(:rental_data) {
+      {
+        customer_id: customers(:customer_one).id,
+        movie_id: movies(:movie_one).id,
+      }
+    }
+    it "destroys checkout when given valid data" do
+      expect {
+        post checkin_path, params: rental_data
+      }.must_change "Rental.count", -1
+    end
+
+    it "it returns an error if rental is not found" do
+      rental_data["customer_id"] = customers(:customer_two).id
+      expect {
+        post checkin_path, params: rental_data
+      }.wont_change "Rental.count"
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "Rental not found"
       must_respond_with :bad_request
     end
   end
