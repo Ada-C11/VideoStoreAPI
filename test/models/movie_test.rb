@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PetTest < ActiveSupport::TestCase
+class MovieTest < ActiveSupport::TestCase
   let(:movie) { movies(:one)}
 
   it "can be created" do
@@ -20,7 +20,15 @@ class PetTest < ActiveSupport::TestCase
   end
 
   it "returns all the rentals" do
-    movie.rentals
-    expect(movie.rentals.count).must_equal 1
+    expect(movie.rentals.count).must_equal 2
+  end
+
+  it "returns available inventory" do
+    expect(movie.available_inventory).must_equal 8
+  end
+
+  it "returns 0 when there are no available inventory" do
+    movie.inventory = 0
+    expect(movie.available_inventory).must_equal 0
   end
 end
