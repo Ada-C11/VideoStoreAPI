@@ -2,7 +2,7 @@ class MoviesController < ApplicationController
   def index
     movies = Movie.all
 
-    render status: :ok, json: movies.as_json(only: [:title, :release_data, :overview, :inventory, :available_inventory])
+    render status: :ok, json: movies.as_json(only: [:id, :title, :release_date, :overview, :inventory, :available_inventory])
   end
 
   def zomg
