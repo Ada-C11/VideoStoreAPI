@@ -27,11 +27,9 @@ class MoviesController < ApplicationController
 
   def checkout
     rental = Rental.new(rental_params)
-    rental.checkout_date = Date.today
-    rental.due_date = rental.checkout_date + 7.days
-    rental.currently_checked_out = true
 
-    is_successful = rental.save
+    is_successful = rental.prepare_for_checkout
+
     if is_successful
       render json: rental.as_json(only: [:due_date]), status: :ok
     else
