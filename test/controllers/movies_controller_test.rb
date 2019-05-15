@@ -13,7 +13,7 @@ describe MoviesController do
     end
     
     it "returns movies with exactly the required fields" do
-      keys = %w(inventory overview release_date title )
+      keys = %w( inventory overview release_date title )
       get movies_path
       
       body = JSON.parse(response.body)
@@ -25,8 +25,10 @@ describe MoviesController do
   end
   
   describe "Show" do
+  
     it "can get a movie" do
       get movie_path(movies(:two))
+      
       must_respond_with :ok
     end
     
@@ -34,13 +36,16 @@ describe MoviesController do
       get movie_path(-1)
       
       must_respond_with :bad_request
+      
+      body = JSON.parse(response.body)
+      
+      expect(body["error"]).must_equal "Unable to find movie"
     end
   end
   
   describe "Create" do
-    it "can create a new movie" do
-      movie_data = {
-        movie: {
+    let(:movie_data) {
+       {
           title: "Rush Hour 2",
           overview: "best movie ever",
           release_date: Date.new(2001, 11, 2),
@@ -48,12 +53,25 @@ describe MoviesController do
         }
       }
       
+    it "can create a new movie using good data" do
       expect {
-        post movies_path, params: movie_data
+        post movies_path, params: { movie: movie_data }
       }.must_change "Movie.count", + 1
       
       must_respond_with :success
     end
-  end
   
+    it "does not create a new movie, and throws an error if given bad data" do
+      movie_data["title"] = nil
+      
+      expect {
+        post movies_path, params: { movie: movie_data }
+      }.wont_change "Movie.count"
+      
+      body = JSON.parse(response.body)
+      
+      expect(body["errors"]).must_include "title"
+      must_respond_with :bad_request
+    end
+  end
 end
