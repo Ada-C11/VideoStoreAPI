@@ -55,3 +55,4 @@ group :test do
 end
 
 gem 'simplecov', require: false, group: :test
+gem 'will_paginate', '~> 3.1.6'

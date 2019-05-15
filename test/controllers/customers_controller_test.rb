@@ -57,5 +57,29 @@ describe CustomersController do
       expect(body.first["name"]).must_equal "Test 1"
       expect(body.first["id"]).must_equal 1
     end
+
+    it "paginates the customer index" do
+      Customer.destroy_all
+      customer1 = Customer.create(name: "Test 1")
+      customer1.id = 1
+      customer1.save
+      customer2 = Customer.create(name: "Test 2")
+      customer2.id = 2
+      customer2.save
+
+      get "/customers?n=1&p=2"
+
+      body = JSON.parse(response.body)
+      expect(body.first["name"]).must_equal "Test 2"
+      expect(body.first["id"]).must_equal 2
+    end
+
+    it "paginates and sorts by name" do
+
+      get "/customers?sort=name&n=1&p=2"
+
+      body = JSON.parse(response.body)
+      expect(body.first["name"]).must_equal "Tim Riggins"
+    end
   end
 end
