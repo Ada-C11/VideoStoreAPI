@@ -20,4 +20,4 @@ three:
   due: 2019-05-14 13:21:20
   customer: shelley
   movie: other_test
-  returned: false
+  returned: true
