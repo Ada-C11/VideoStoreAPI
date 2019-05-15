@@ -12,7 +12,7 @@ class RentalsController < ApplicationController
         render_error(:bad_request, rental.errors.messages)
       end
     else
-      render_error(:forbidden, "No movie in available inventory.")
+      render_error(:forbidden, "Not in stock.")
     end
   end
 
