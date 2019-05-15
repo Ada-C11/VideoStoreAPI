@@ -6,6 +6,37 @@ describe MoviesController do
       get movies_path
       must_respond_with :success
     end
+
+    it "returns all of the movies" do
+      get movies_path
+      body = JSON.parse(response.body)
+      expect(body.length).must_equal Movie.count
+    end
+
+    it "returns JSON" do
+      get movies_path
+      expect(response.header['Content-Type']).must_include 'json'
+      must_respond_with :success
+    end
+
+    it "body returns an array" do
+      get movies_path
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Array
+    end
+    
+    it "returns movies with exactly the required fields" do
+      keys = %w(id release_date title)
+
+      get movies_path
+
+      body = JSON.parse(response.body)
+
+      body.each do |movie|
+        expect(movie.keys.sort).must_equal keys
+        expect(movie.keys.length).must_equal keys.length
+      end
+    end
   end
 
   describe "show" do
@@ -44,6 +75,5 @@ describe MoviesController do
       expect(movie.title).must_equal movie_data[:title]
       must_respond_with :success
     end
-
   end
 end
