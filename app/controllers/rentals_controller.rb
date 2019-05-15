@@ -15,6 +15,7 @@ class RentalsController < ApplicationController
     rental.due_date = cur_date + 7
 
     if rental.save
+      Customer.checkout_movies_count(@customer)
       render json: { id: rental.id }, status: :ok
     else
       render json: { errors: rental.errors.messages },
@@ -23,7 +24,7 @@ class RentalsController < ApplicationController
   end
 
   def checkin
-    successful = Movie.checkin_inventory(@movie)
+    successful = Movie.checkin_inventory(@movie, @customer)
 
     if successful
       render json: { ok: "successfully checked in movie" }
@@ -41,7 +42,6 @@ class RentalsController < ApplicationController
       render json: { errors: ["The movie with id #{movie_id} was not found"] }, status: :not_found
       return
     end
-    return @movie
   end
 
   def find_customer
@@ -52,6 +52,5 @@ class RentalsController < ApplicationController
       render json: { errors: ["The customer with id #{customer_id} was not found"] }, status: :not_found
       return
     end
-    return @customer
   end
 end
