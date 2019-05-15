@@ -5,6 +5,7 @@ one:
   due: 2019-05-21 13:21:20
   customer: shelley
   movie: test
+  returned: false
 
 
 two:
@@ -12,9 +13,11 @@ two:
   due: 2019-05-14 13:21:20
   customer: curran
   movie: other_test
+  returned: false
 
 three:
   checkout: 2019-05-14 13:21:20
   due: 2019-05-14 13:21:20
   customer: shelley
   movie: other_test
+  returned: false
