@@ -71,6 +71,23 @@ describe MoviesController do
       get movie_path("bad data")
       expect(response.header["Content-Type"]).must_include "json"
     end
+
+    describe "create" do
+      let(:movie_data) {
+        {
+          title: "Test Story",
+          overview: "Two people test their code for homework",
+          release_date: 2019 - 01 - 18,
+          inventory: 3,
+        }
+      }
+
+      it "creates a new movie given valid data" do
+        expect {
+          post movies_path, params: { movie: movie_data }
+        }.must_change "Movie.count", 1
+      end
+    end
   end
 
   # it "should get zomg" do

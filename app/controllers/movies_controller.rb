@@ -15,6 +15,11 @@ class MoviesController < ApplicationController
     end
   end
 
+  def create
+    movie = Movie.new(movie_params)
+    movie.save
+  end
+
   def zomg
     render json: { message: "It works!" }
   end
@@ -22,6 +27,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.permit(:title, :release_date, :overview, :inventory)
+    params.require(:movie).permit(:title, :release_date, :overview, :inventory)
   end
 end
