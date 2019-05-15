@@ -1,5 +1,4 @@
 
-
 class RentalsController < ApplicationController
   before_action :find_customer, only: [:checkout, :checkin]
   before_action :find_movie, only: [:checkout, :checkin]
@@ -14,8 +13,8 @@ class RentalsController < ApplicationController
     cur_date = Date.today
     rental.checkout_date = cur_date
     rental.due_date = cur_date + 7
-    successful = rental.save
-    if successful
+
+    if rental.save
       render json: { id: rental.id }, status: :ok
     else
       render json: { errors: rental.errors.messages },
@@ -40,6 +39,7 @@ class RentalsController < ApplicationController
     @movie = Movie.find_by(id: movie_id)
     unless @movie
       render json: { errors: ["The movie with id #{movie_id} was not found"] }, status: :not_found
+      return
     end
     return @movie
   end
@@ -47,8 +47,10 @@ class RentalsController < ApplicationController
   def find_customer
     customer_id = params[:customer_id]
     @customer = Customer.find_by(id: customer_id)
+
     unless @customer
-      render json: { errors: ["The customer with id #{custoemr_id} was not found"] }, status: :not_found
+      render json: { errors: ["The customer with id #{customer_id} was not found"] }, status: :not_found
+      return
     end
     return @customer
   end

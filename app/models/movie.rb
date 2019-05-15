@@ -1,5 +1,3 @@
-require "pry"
-
 class Movie < ApplicationRecord
   validates :title, presence: true
   validates :inventory, presence: true
@@ -7,7 +5,6 @@ class Movie < ApplicationRecord
   has_many :rentals
 
   def self.checkout_inventory(movie)
-    binding.pry
     if movie.available_inventory >= 1
       movie.available_inventory -= 1
     else
