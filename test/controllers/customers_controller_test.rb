@@ -35,6 +35,19 @@ describe CustomersController do
         customer.keys.sort.must_equal keys.sort
       end
     end
+
+    it "loads even when there is no customer" do
+      Rental.destroy_all
+      Customer.destroy_all
+
+      get customers_path
+      must_respond_with :success
+
+      expect(response.header['Content-Type']).must_include 'json'
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Array
+      body.length.must_equal 0
+    end
   end
 
 
