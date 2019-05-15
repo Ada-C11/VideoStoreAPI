@@ -72,7 +72,7 @@ describe MoviesController do
 
     it "creates a new movie given valid data" do
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       body = JSON.parse(response.body)
@@ -90,7 +90,7 @@ describe MoviesController do
       movie_data["title"] = nil
 
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: { movie: movie_data }
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)
