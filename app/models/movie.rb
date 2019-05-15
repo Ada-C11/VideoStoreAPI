@@ -1,7 +1,7 @@
 class Movie < ApplicationRecord
   has_many :rentals
 
-  validates :title, presence: true
+  validates :title, :overview, :release_date, :inventory, presence: true
 
   def available_inventory
     checkedout = 0

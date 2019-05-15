@@ -16,6 +16,14 @@ describe Movie do
 
       movie.reload
     end
+
+    it "has required fields" do
+      fields = [:title, :overview, :release_date, :inventory]
+
+      fields.each do |field|
+        expect(movie).must_respond_to field
+      end
+    end
   end
 
   describe "available_inventory" do
