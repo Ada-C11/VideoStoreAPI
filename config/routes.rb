@@ -6,9 +6,10 @@ Rails.application.routes.draw do
 
   get "/zomg", to: "customers#zomg", as: "zomg"
 
-# GET /movies show all movies
-# GET /movies/:id shows a movie with the provided id
-# POST /movies add a movie to the collection
+  
+  resources :rentals
+  post "rentals/check-out", to: "rentals#checkout", as: "checkout"
+  post "rentals/check-in", to: "rentals#checkin", as: "checkin"
 end
 
 
