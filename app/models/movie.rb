@@ -2,7 +2,7 @@ require "pry"
 
 class Movie < ApplicationRecord
   validates :title, presence: true
-  validates :inventory, presence: true
+  validates :inventory, presence: true, numericality: {only_integer: true, greater_than: 0}
 
   has_many :rentals
 
@@ -15,7 +15,7 @@ class Movie < ApplicationRecord
     end
   end
 
-  def self.checkin_inventory(movie,customer)
+  def self.checkin_inventory(movie, customer)
     if movie.available_inventory < movie.inventory && Customer.checkin_movies_count(customer)
       movie.available_inventory += 1
       movie.save
