@@ -5,6 +5,8 @@ class Movie < ApplicationRecord
   validates :title, presence: :true
 
   def available_inventory
-    return self.inventory
+    current_rentals = Rental.where(movie_id: self.id, currently_checked_out: true)
+    avail_inventory = inventory - current_rentals.length
+    return avail_inventory
   end
 end

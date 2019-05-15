@@ -39,9 +39,21 @@ describe Movie do
   end
 
   describe "custom methods" do
-    let(:movie) { Movie.first }
-    it "will return a value for movies_checked out" do
-      expect(movie.available_inventory).must_equal movie.inventory
+    let(:rental_data) {
+      {
+        customer_id: Customer.first.id,
+        movie_id: Movie.first.id,
+      }
+    }
+
+    it "will return correct value for movies_checked out" do
+      Rental.destroy_all
+      movie = Movie.first
+      customer = Customer.first
+      rental = Rental.new(rental_data)
+      rental.prepare_for_checkout
+
+      expect(movie.available_inventory).must_equal (movie.inventory - 1)
     end
   end
 end

@@ -43,7 +43,7 @@ describe Rental do
         expect(@rental.prepare_for_checkout).must_equal true
 
         expect(@rental.checkout_date).must_equal Date.today
-        # expect(@rental.due_date).must_equal (Date.today + 7.days) UNCOMMENT AFTER FIXING DATATYPE THROUGH MIGRATION
+        expect(@rental.due_date).must_equal (Date.today + 7.days)
         expect(@rental.currently_checked_out).must_equal true
       end
 
