@@ -22,7 +22,7 @@ describe RentalsController do
       expect(body).must_be_kind_of Hash
     end
 
-    it "won't create new rental with invalid customer" do
+    it "won't create new rental provided invalid customer" do
       rental_data["customer_id"] = -7
 
       expect {
@@ -32,7 +32,7 @@ describe RentalsController do
       must_respond_with :bad_request
     end
 
-    it "won't create new rental with invalid movie" do
+    it "won't create new rental provided invalid movie" do
       rental_data["movie_id"] = -7
 
       expect {
@@ -44,7 +44,7 @@ describe RentalsController do
   end
 
   describe "checkin" do
-    it "performs checkin for valid rental" do
+    it "performs checkin provided valid data" do
       movie = movies(:one)
       customer = customers(:one)
       expect {
@@ -58,7 +58,7 @@ describe RentalsController do
       expect(body).must_include "status"
     end
 
-    it "does not checkin provided invalid params" do
+    it "does not checkin provided invalid data" do
       movie = movies(:one)
       expect {
         post checkin_path, params: {customer_id: -7, movie_id: movie.id}
@@ -67,7 +67,7 @@ describe RentalsController do
       must_respond_with :not_found
     end
 
-    it "does not check in if parameters are missing" do
+    it "does not checkin if missing data" do
       movie = movies(:one)
       expect {
         post checkin_path, params: {movie_id: movie.id}
