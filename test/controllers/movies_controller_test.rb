@@ -9,8 +9,34 @@ describe MoviesController do
       value(response).must_be :success?
     end
 
-    it 'should get the correct path with query parameters' do
+    it 'should get the correct path with query title' do
       assert_recognizes({ controller: 'movies', action: 'index', sort: 'title' }, '/movies', sort: 'title')
+
+      get movies_path, params: { sort: 'title' }
+      must_respond_with :ok
+    end
+
+    it 'should get the correct path with query :p' do
+      assert_recognizes({ controller: 'movies', action: 'index', p: 2 }, '/movies', p: 2)
+
+      get movies_path, params: { p: 2 }
+      must_respond_with :ok
+    end
+
+    it 'should get the correct path with query :n' do
+      assert_recognizes({ controller: 'movies', action: 'index', n: 2 }, '/movies', n: 2)
+
+      get movies_path, params: { n: 2 }
+      must_respond_with :ok
+    end
+
+    it 'renders an error if any query params are invalid' do
+      get movies_path, params: { sort: 'cheese' }
+
+      body = JSON.parse(response.body)
+
+      must_respond_with :not_found
+      expect(body['message']).must_equal 'Query params not valid'
     end
   end
 
