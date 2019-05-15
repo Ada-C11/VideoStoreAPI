@@ -8,7 +8,7 @@ describe Movie do
   end
 
   it "requires a title" do
-    required_fields = [:title]
+    
     movie[:title] = nil
 
     expect(movie.valid?).must_equal false
