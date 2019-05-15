@@ -5,11 +5,15 @@ one:
   overview: Blue aliens on beautiful planet defeat sky people.
   release_date: 2009-12-18
   inventory: 5
-  available_inventory: 4
 
 two:
   title: Star Wars
   overview: A long time ago, in a galaxy far, far away.
   release_date: 1977-05-25
   inventory: 20
-  available_inventory: 17
+
+three:
+  title: Terror in the Outback
+  overview: Teen smut written by Laneia, you're welcome.
+  release_date: 2019-05-15
+  inventory: 1
