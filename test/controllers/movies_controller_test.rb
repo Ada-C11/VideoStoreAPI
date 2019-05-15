@@ -38,9 +38,15 @@ describe MoviesController do
   end
 
   describe "show" do
-    it "can show a movie" do
+    it "can show a movie provided valid id" do
       get movie_path(movies(:one).id)
       must_respond_with :success
+    end
+
+    it "responds with not found for invalid/nonexistant movie" do
+      invalid_id = -7
+      get movie_path(invalid_id)
+      must_respond_with :not_found
     end
   end
 
