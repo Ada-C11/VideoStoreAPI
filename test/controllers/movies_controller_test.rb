@@ -50,7 +50,7 @@ describe MoviesController do
     end
 
     it "returns correct movie fields" do
-      movie_fields = ["inventory", "overview", "release_date", "title"]
+      movie_fields = ["available_inventory", "inventory", "overview", "release_date", "title"]
 
       get movie_path(movies(:one).id)
       body = JSON.parse(response.body)
