@@ -28,6 +28,16 @@ describe Movie do
     end
   end
 
+  describe "validation" do
+    it "requires a title" do
+      movie.title = nil
+      valid_movie = movie.valid?
+
+      expect(valid_movie).must_equal false
+      expect(movie.errors.messages).must_include :title
+    end
+  end
+
   describe "custom methods" do
     let(:movie) { Movie.first }
     it "will return a value for movies_checked out" do
