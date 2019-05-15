@@ -8,6 +8,17 @@ describe MoviesController do
       must_respond_with :success
     end
 
+    it "returns json" do
+      get movies_path
+      expect(response.header["Content-Type"]).must_include "json"
+    end
+    
+    it "returns an array" do
+      get movies_path
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Array
+    end
+    
     it 'succeeds when there are no movies' do
       Movie.all do |movie|
         movie.destroy
@@ -16,6 +27,15 @@ describe MoviesController do
       get movies_path
 
       must_respond_with :success
+    end
+
+    it "returns movies with exactly the required fields" do
+      keys = %w[id title release_date]
+      get movies_path
+      body = JSON.parse(response.body)
+      body.each do |movie|
+        movie.keys.must_equal keys
+      end
     end
   end
 
@@ -48,7 +68,7 @@ describe MoviesController do
 
     it "be able to create a new movie given valid data" do
       expect {
-        post movies_path, params: { movie: movie_data}
+        post movies_path, params: movie_data
       }.must_change "Movie.count", 1
 
       body = JSON.parse(response.body)
@@ -66,13 +86,13 @@ describe MoviesController do
       movie_data["title"] = nil
 
       expect {
-        post movies_path, params: { movie: movie_data}
+        post movies_path, params: movie_data
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body).must_include "errors"
-      expect(body["errors"]).must_equal [{"title"=>["can't be blank"]}]
+      expect(body["errors"]).must_equal "title"=>["can't be blank"]
       must_respond_with :bad_request
 
     end
