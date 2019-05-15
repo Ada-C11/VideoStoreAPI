@@ -1,0 +1,16 @@
+GET /customers
+GET /movies
+GET /movies/:id
+  id
+POST /movies
+  overview    string    Descriptive summary of the movie
+  release_date    string YYYY-MM-DD    Date the movie was released
+  inventory    integer    Quantity available in the video store
+
+POST /rentals/check-out
+  customer_id	integer	ID of the customer checking out this film
+  movie_id	integer	ID of the movie to be checked out
+
+POST /rentals/check-in
+  customer_id	integer	ID of the customer checking in this film
+  movie_id	integer	ID of the movie to be checked in
