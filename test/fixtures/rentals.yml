@@ -4,11 +4,20 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  checkout_date: Date.today - 4
+  due_date: Date.today + 2
+  customer: one
+  movie: two
 
-three: {}
-# column: value
+two:
+  checkout_date: Date.today - 4
+  due_date: Date.today + 2
+  customer: one
+  movie: one
+
+three:
+  checkout_date: Date.today - 1
+  due_date: Date.today + 5
+  customer: two
+  movie: one
