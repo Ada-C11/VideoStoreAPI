@@ -5,9 +5,11 @@ rental1:
   movie: movie1
   check_out_date: 2019-05-14
   due_date: 2019-05-14
+  check_in_date: nil
 
 rental2:
   customer: customer 1
   movie: movie1
   check_out_date: 2019-05-14
   due_date: 2019-05-14
+  check_in_date: 2019-05-14
