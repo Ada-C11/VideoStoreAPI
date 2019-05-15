@@ -3,5 +3,9 @@ Rails.application.routes.draw do
   # get 'zomg', to: 'movies#zomg', as: 'zomg'
   resources :customers, only: [:index]
   resources :movies, only: [:index, :show, :create]
-  get 'zomg', to: 'movies#zomg', as: 'zomg'
+
+  post "/rentals/checkout", to: "rentals#checkout", as: "checkout"
+  post "/rentals/checkin", to: "rentals#checkin", as: "checkin"
+
+  get "zomg", to: "movies#zomg", as: "zomg"
 end
