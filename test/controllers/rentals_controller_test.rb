@@ -51,4 +51,43 @@ describe RentalsController do
       must_respond_with :bad_request
     end
   end
+
+  describe "check_in" do
+    it "should assign the check in date given valid data" do
+      current_checkouts = customers(:one).movies_checked_out_count
+      post new_check_out_path, params: rental_data
+      post check_in_path, params: rental_data
+
+      customers(:one).reload
+      expect(customers(:one).movies_checked_out_count).must_equal 0
+
+      movies(:one).reload
+      inventory = movies(:one).inventory
+      expect(movies(:one).available_inventory).must_equal inventory
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+      expect(body).must_include "check_out"
+      expect(body).must_include "check_in"
+      expect(body).must_include "due_date"
+
+      rental = Rental.find(body["id"].to_i)
+
+      expect(rental.check_in).must_equal Date.today
+
+      must_respond_with :success
+    end
+
+    it "returns an error for invalid rental data" do
+      post check_in_path
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_include "customer"
+      must_respond_with :bad_request
+    end
+  end
 end
