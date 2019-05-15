@@ -25,5 +25,12 @@ describe Movie do
 
       expect(num_available).must_equal 4
     end
+
+    it "can calculate available_inventory for movie with no rentals" do
+      movie = movies(:three)
+      num_available = movie.available_inventory
+
+      expect(num_available).must_equal movie.inventory
+    end
   end
 end
