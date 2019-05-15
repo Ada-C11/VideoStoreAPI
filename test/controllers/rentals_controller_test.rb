@@ -19,7 +19,7 @@ describe RentalsController do
       must_respond_with :success
 
       body = JSON.parse(response.body)
-      expet(body).must_be_kind_of Hash
+      expect(body).must_be_kind_of Hash
     end
 
     it "won't create new rental with invalid customer" do
