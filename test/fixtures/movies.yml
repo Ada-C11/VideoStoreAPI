@@ -14,3 +14,9 @@ movie_two:
   inventory: 2
   available_inventory: 2
 
+movie_three:
+  title: Revolutionary Road 
+  overview: Good and sad 
+  release_date: 2005-10-01
+  inventory: 2
+  available_inventory: 0

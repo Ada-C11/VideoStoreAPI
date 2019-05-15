@@ -82,6 +82,14 @@ describe RentalsController do
 
       expect(movie.available_inventory).must_equal 3
     end
+
+    it "won't allow a checkout if movie stock is 0 " do
+      rental_data["movie_id"] = movies(:movie_three).id
+
+      expect {
+        post checkout_path, params: rental_data
+      }.wont_change "Rental.count"
+    end
   end
 
   describe "checkin" do

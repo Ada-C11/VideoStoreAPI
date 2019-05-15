@@ -1,9 +1,12 @@
 class RentalsController < ApplicationController
   def checkout
     rental = Rental.new(customer_id: params[:customer_id], movie_id: params[:movie_id])
+    movie = Movie.find_by(id: params[:movie_id])
     rental.checkout_date = Date.today
     rental.due_date = Date.today + 7
-    if rental.save
+    if movie.available_inventory == 0
+      render json: {ok: false, errors: "Movie is out of stock"}, status: :bad_request
+    elsif rental.save
       customer = Customer.find_by(id: params[:customer_id])
       customer.movies_checked_out_count += 1
       customer.save
