@@ -3,6 +3,7 @@
 one:
   customer: sophie
   movie: one
+  checkin_date: nil
   checkout_date: 2019-05-14
   due_date: 2019-05-21
 
