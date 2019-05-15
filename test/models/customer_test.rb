@@ -39,5 +39,8 @@ describe Customer do
   end
 
   describe "custom methods" do
+    it "returns a value for movies_checked_out_count" do
+      expect(customer.movies_checked_out_count).must_equal 0
+    end
   end
 end

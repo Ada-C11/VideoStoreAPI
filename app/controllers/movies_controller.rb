@@ -7,10 +7,10 @@ class MoviesController < ApplicationController
   def show
     movie = Movie.find_by(id: params[:id])
     if movie
-      render json: movie.as_json(only: [:id, :inventory, :overview, :release_date, :title]),
+      render json: movie.as_json(only: [:id, :inventory, :overview, :release_date, :title], methods: [:available_inventory]),
              status: :ok
     else
-      render json: {ok: false, errors: {movie: ["Movie not found"]}},
+      render json: { ok: false, errors: { movie: ["Movie not found"] } },
              status: :not_found
     end
   end
@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
     if is_successful
       render json: movie.as_json(only: [:id, :inventory, :overview, :release_date, :title]), status: :ok
     else
-      render json: {ok: false, errors: movie.errors.messages}, status: :bad_request
+      render json: { ok: false, errors: movie.errors.messages }, status: :bad_request
     end
   end
 
@@ -33,7 +33,7 @@ class MoviesController < ApplicationController
     if is_successful
       render json: rental.as_json(only: [:due_date]), status: :ok
     else
-      render json: {ok: false, errors: rental.errors.messages}, status: :bad_request
+      render json: { ok: false, errors: rental.errors.messages }, status: :bad_request
     end
   end
 
@@ -45,12 +45,12 @@ class MoviesController < ApplicationController
       is_successful = rental.save
 
       if is_successful
-        render json: {ok: true, message: "successfully checked in!"}, status: :ok
+        render json: { ok: true, message: "successfully checked in!" }, status: :ok
       else
-        render json: {ok: false, errors: rental.errors.messages}, status: :bad_request
+        render json: { ok: false, errors: rental.errors.messages }, status: :bad_request
       end
     else
-      render json: {ok: false, errors: {rental: ["Rental not found"]}}, status: :not_found
+      render json: { ok: false, errors: { rental: ["Rental not found"] } }, status: :not_found
     end
   end
 
