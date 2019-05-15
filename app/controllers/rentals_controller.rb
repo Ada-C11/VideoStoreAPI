@@ -3,18 +3,13 @@ class RentalsController < ApplicationController
     rental = Rental.new(rental_params)
 
     rental.checkout_date = Date.current
+    rental.due_date = rental.checkout_date + 7
+
     if rental.save
-      rental.due_date = rental.checkout_date + 7
       render status: :ok, json: {id: rental.id}
     else
       render status: :bad_request, json: {errors: rental.errors.messages}
     end
-    # rental = Rental.new
-    
-    # rental.checkout_date = Date.current
-    # rental.due_date = rental.checkout_date + 7
-
-    # rental.save
   end
 
   def check_in
