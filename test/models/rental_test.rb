@@ -55,15 +55,15 @@ describe Rental do
     end
   end
 
-  describe "custom methods" do
-    it "sets checkout date to current date" do
-      new_rental = Rental.new
-      expect(new_rental.checkout_date).must_equal Date.today
-    end
+  # describe "custom methods" do
+  #   it "sets checkout date to current date" do
+  #     new_rental = Rental.new
+  #     expect(new_rental.checkout_date).must_equal Date.current
+  #   end
 
-    it "sets due date to a week from today / checkout date" do
-      new_rental = Rental.new
-      expect(new_rental.due_date).must_equal new_rental.checkout_date + 7
-    end
-  end
+  #   it "sets due date to a week from today / checkout date" do
+  #     new_rental = Rental.new
+  #     expect(new_rental.due_date).must_equal new_rental.checkout_date + 7
+  #   end
+  # end
 end

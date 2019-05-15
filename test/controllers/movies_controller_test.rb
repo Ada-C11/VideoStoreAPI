@@ -73,14 +73,56 @@ describe MoviesController do
       body["title"].must_equal "Harry Potter and the Sorcerer's Stone"
     end
 
-    it "returns json even if movie is deleted" do 
+    it "returns json even if movie is deleted" do
       deleted_movie = movies(:deletedmovie)
       movie_id = deleted_movie.id
-      deleted_movie.destroy 
+      deleted_movie.destroy
 
       get movie_path(movie_id)
       must_respond_with :not_found
       expect(response.header["Content-Type"]).must_include "json"
     end
+  end
+
+  describe "create" do
+    let(:movie_data) {
+      {
+        title: "Movie, the Movie",
+        overview: "A movie about a movie.",
+        release_date: "2010-05-12",
+        inventory: 7,
+      }
+    }
+
+    it "creates a new movie given valid data" do
+      expect {
+        post movies_path, params: movie_data
+      }.must_change "Movie.count", 1
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+
+      movie = Movie.find(body["id"].to_i)
+
+      expect(movie.title).must_equal movie_data[:title]
+      must_respond_with :success
+    end
+
+    #   it "returns an error for invalid pet data" do
+    #     # arrange
+    #     pet_data["name"] = nil
+
+    #     expect {
+    #       post pets_path, params: {pet: pet_data}
+    #     }.wont_change "Pet.count"
+
+    #     body = JSON.parse(response.body)
+
+    #     expect(body).must_be_kind_of Hash
+    #     expect(body).must_include "errors"
+    #     expect(body["errors"]).must_include "name"
+    #     must_respond_with :bad_request
+    #   end
   end
 end

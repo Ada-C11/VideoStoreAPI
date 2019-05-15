@@ -14,23 +14,23 @@ class MoviesController < ApplicationController
     end
   end
 
-  # def create
-  #   movie = Movie.new(movie_params)
+  def create
+    movie = Movie.new(movie_params)
 
-  #   if movie.save
-  #     render status: :ok, json: { id: movie.id }
-  #   else
-  #     render status: :bad_request, json: { errors: movie.errors.messages }
-  #   end
-  # end
+    if movie.save
+      render status: :ok, json: {id: movie.id}
+    else
+      render status: :bad_request, json: {errors: movie.errors.messages}
+    end
+  end
 
   def zomg
     render json: {works: "it works!"}
   end
 
-  # private
+  private
 
-  # def movie_params
-  #   params.permit(:title, :overview, :release_date, :inventory)
-  # end
+  def movie_params
+    params.permit(:title, :overview, :release_date, :inventory)
+  end
 end
