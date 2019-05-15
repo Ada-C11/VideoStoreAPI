@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe RentalsController do
-<<<<<<< HEAD
   describe "checkin" do
     let(:customer) { customers(:customer_1) }
     let(:movie) { movies(:movie_1) }
@@ -55,24 +54,26 @@ describe RentalsController do
       expect(response["Content-Type"]).must_include "json"
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
-      expect(body["errors"]).must_equal "rental"=>["Rental not found for customer ID -1, and movie ID 485665370"]
-=======
+      expect(body["errors"]).must_equal "rental" => ["Rental not found for customer ID -1, and movie ID 485665370"]
+    end
+  end
+
   describe "checkout" do
     let(:rental_data) {
       {
         customer_id: (customers(:customer_1).id),
-        movie_id: (movies(:movie_2).id)
+        movie_id: (movies(:movie_2).id),
       }
     }
 
     it "creates a new rental given customer & movie IDs" do
       expect {
-      post checkout_path, params: rental_data
-    }.must_change "Rental.count", +1
+        post checkout_path, params: rental_data
+      }.must_change "Rental.count", +1
 
       must_respond_with :success
 
-      expect(response.header['Content-Type']).must_include 'json'
+      expect(response.header["Content-Type"]).must_include "json"
 
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
@@ -95,7 +96,7 @@ describe RentalsController do
 
       must_respond_with :bad_request
 
-      expect(response.header['Content-Type']).must_include 'json'
+      expect(response.header["Content-Type"]).must_include "json"
 
       body = JSON.parse(response.body)
 
@@ -114,14 +115,13 @@ describe RentalsController do
 
       must_respond_with :bad_request
 
-      expect(response.header['Content-Type']).must_include 'json'
+      expect(response.header["Content-Type"]).must_include "json"
 
       body = JSON.parse(response.body)
 
       expect(body).must_be_kind_of Hash
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "movie"
->>>>>>> a8fb87d7b6d875a67516980b4294cafbf56ce4ea
     end
   end
 end
