@@ -19,14 +19,14 @@ describe MoviesController do
       body.must_be_kind_of Array
     end
 
-    it "returns all of the pets" do
+    it "returns all of the movies" do
       get movies_path
 
       body = JSON.parse(response.body)
       body.length.must_equal Customer.count
     end
 
-    it "returns pets with exactly the required fields" do
+    it "returns movies with exactly the required fields" do
       keys = %w(id release_date title)
       get movies_path
       body = JSON.parse(response.body)

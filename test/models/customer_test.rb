@@ -38,6 +38,6 @@ describe Customer do
     end
   end
 
-  describe "custome methods" do
+  describe "custom methods" do
   end
 end
