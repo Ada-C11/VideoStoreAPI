@@ -20,6 +20,10 @@ describe RentalsController do
       customers(:one).reload
       expect(customers(:one).movies_checked_out_count).must_equal 1
 
+      movies(:one).reload
+      inventory = movies(:one).inventory
+      expect(movies(:one).available_inventory).must_equal inventory - 1
+
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body).must_include "id"

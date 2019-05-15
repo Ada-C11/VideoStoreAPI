@@ -10,7 +10,7 @@ describe MoviesController do
     it "returns 404 for a movie that doesn't exist" do
       get movie_path(-1)
       must_respond_with :error
-      expect(response.header['Content-Type']).must_include 'json'
+      expect(response.header["Content-Type"]).must_include "json"
     end
 
     it "returns an Hash" do
@@ -21,7 +21,7 @@ describe MoviesController do
     end
 
     it "returns the movie with exactly the required fields" do
-      keys = %w(id title release_date)
+      keys = %w(id title overview release_date inventory available_inventory)
       get movie_path(Movie.first.id)
       body = JSON.parse(response.body)
       body.keys.must_equal keys
@@ -65,7 +65,6 @@ describe MoviesController do
         overview: "The earth is flying around",
         release_date: Date.parse("2019-02-02"),
         inventory: 20,
-        available_inventory: 20,
       }
     }
 
@@ -73,6 +72,9 @@ describe MoviesController do
       expect {
         post movies_path, params: movie_data
       }.must_change "Movie.count", 1
+
+      movie = Movie.find_by(title: "Wandering Earth")
+      expect(movie.available_inventory).must_equal movie.inventory
 
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
