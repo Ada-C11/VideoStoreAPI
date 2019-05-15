@@ -29,7 +29,7 @@ describe CustomersController do
     end
 
     it "returns customers with exactly the required fields" do
-      keys = %w(address city name phone postal_code registered_at state)
+      keys = %w(address city name phone postal_code registered_at state id)
       get customers_path
       body = JSON.parse(response.body)
       body.each do |customer|
