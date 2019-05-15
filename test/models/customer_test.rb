@@ -42,5 +42,12 @@ describe Customer do
       second_rental.save
       expect(customer.movies_checked_out_count).must_equal 2
     end
+
+    it "returns 0 if there's no movie checked out" do
+      rentals.each do |rental|
+        rental.destroy
+      end
+      expect(customer.movies_checked_out_count).must_equal 0
+    end
   end
 end
