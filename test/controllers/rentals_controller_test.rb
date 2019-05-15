@@ -1,12 +1,13 @@
 require "test_helper"
 
 describe RentalsController do
+  let(:customer) { customers(:customer_1) }
+  let(:movie) { movies(:movie_1) }
+
   describe "checkin" do
-    let(:customer) { customers(:customer_1) }
-    let(:movie) { movies(:movie_1) }
     let(:check_in_params) {
-      { customer_id: customer.id,
-       movie_id: movie.id }
+    { customer_id: customer.id,
+        movie_id: movie.id }
     }
     it "will return ok, response body is json & hash" do
       post checkin_path, params: check_in_params
@@ -122,6 +123,25 @@ describe RentalsController do
       expect(body).must_be_kind_of Hash
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "movie"
+    end
+
+    it "will increase customer movies_checked_out_count" do
+      before_count = customer.movies_checked_out_count
+
+      post checkout_path, params: rental_data
+      customer.reload
+
+      expect(customer.movies_checked_out_count).must_equal before_count +1
+    end
+
+    it "will decrease movie available inventory" do
+      test_movie = movies(:movie_2)
+      before_count = test_movie.available_inventory
+
+      post checkout_path, params: rental_data
+      test_movie.reload
+
+      expect(test_movie.available_inventory).must_equal before_count -1
     end
   end
 end
