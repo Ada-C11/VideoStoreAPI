@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
     if movie
       render status: :ok, json: movie.as_json(only: [:title, :overview, :release_date, :inventory]).merge({ "available_inventory": movie.number_available })
     else
-      render status: :not_found, json: { errors: [id: "The movie you are looking for with id #{params[:id]}  was not found"] }
+      render status: :not_found, json: { errors: ["id": "The movie you are looking for with id #{params[:id]}  was not found"] }
     end
   end
 
