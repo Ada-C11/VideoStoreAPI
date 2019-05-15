@@ -47,6 +47,10 @@ describe MoviesController do
         post movies_path, params: movie_data 
       }.must_change "Movie.count", 1
 
+      must_respond_with :success
+
+      expect(response.header['Content-Type']).must_include 'json'
+
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body).must_include "id"
@@ -59,12 +63,14 @@ describe MoviesController do
         post movies_path, params: movie_data
       }.wont_change "Movie.count"
 
-      body = JSON.parse(response.body)
+      must_respond_with :bad_request
 
+      expect(response.header['Content-Type']).must_include 'json'
+
+      body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body).must_include "errors"
       expect(body["errors"]).must_include "title"
-      must_respond_with :bad_request
     end
   end
 end
