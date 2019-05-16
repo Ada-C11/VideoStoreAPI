@@ -1,13 +1,7 @@
 require "test_helper"
 
 describe CustomersController do
-  # it successfully sends back data, 200 ok
-
-  # error with error message (ex non existent customer)
-
   describe "index" do
-    # These tests are a little verbose - yours do not need to be
-    # this explicit.
     it "is a real working route" do
       get customers_path
       must_respond_with :success
