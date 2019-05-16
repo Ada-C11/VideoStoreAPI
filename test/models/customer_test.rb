@@ -22,4 +22,15 @@ describe Customer do
       expect(after_count).must_equal before_count + 1
     end
   end
+
+  describe "decrease_checked_out_count" do
+    it "decreases the customer checked_out_count by 1" do
+      before_count = valid_customer.movies_checked_out_count
+
+      valid_customer.decrease_checked_out_count
+      after_count = valid_customer.movies_checked_out_count
+
+      expect(after_count).must_equal before_count - 1
+    end
+  end
 end
