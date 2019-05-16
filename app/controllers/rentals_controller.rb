@@ -3,6 +3,17 @@ class RentalsController < ApplicationController
     movie = Movie.find_by(id: params[:movie_id])
     customer = Customer.find_by(id: params[:customer_id])
 
+    if movie.nil? && customer.nil?
+      render status: :not_found, json: { errors: ["Customer with id #{params[:customer_id]} was not found.", "Movie with id #{params[:movie_id]} was not found"] }
+      return
+    elsif movie.nil?
+      render status: :not_found, json: { errors: ["Movie with id #{params[:movie_id]} was not found."] }
+      return
+    elsif customer.nil?
+      render status: :not_found, json: { errors: ["Customer with id #{params[:customer_id]} was not found."] }
+      return
+    end
+
     # make sure it can find movie, movie as avail inventory, can find customer
 
     rental = Rental.new(check_out: DateTime.now, movie_id: movie.id, customer_id: customer.id, due_date: DateTime.now + 7)
