@@ -37,7 +37,6 @@ describe CustomersController do
     it "return 'no customer' message if there are no customers" do
       Customer.destroy_all
       get customers_path
-      # binding.pry
       must_respond_with :success
       expect(JSON.parse(response.body)["message"]).must_equal "There are currently no customers."
     end
