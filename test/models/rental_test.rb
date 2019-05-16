@@ -39,10 +39,11 @@ describe Rental do
   
   describe "Due Date" do
     it "sets a due date when a rental is created" do
-      params = {
-        movie_id: movies(:one).id,
-        customer_id: -1,
-      }
+      skip
+      # params = {
+      #   movie_id: movies(:one).id,
+      #   customer_id: -1,
+      # }
     end
   end
 end

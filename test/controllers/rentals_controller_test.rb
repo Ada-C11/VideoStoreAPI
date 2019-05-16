@@ -50,5 +50,26 @@ describe RentalsController do
       expect(body).must_include "customer_id"
       expect(body).must_include "movie_id"
     end
+    
+    it "displays errors if a rental can't be created" do
+      bad_data =  {
+        rental: {
+          movie_id: -5,
+          customer_id: customer.id,
+        }
+      }    
+      
+        expect {
+          post checkout_path, params: bad_data
+        }.wont_change "Rental.count"
+        
+        body = JSON.parse(response.body)
+      
+        expect(body).must_be_kind_of Hash
+        expect(body).must_include "errors"
+        expect(body["errors"]).must_include "movie"
+        
+        must_respond_with :bad_request
+    end
   end
 end

@@ -90,8 +90,6 @@ describe MoviesController do
       must_respond_with :success
     end
     
-    it "returns the movie's ID after it's created" do
-    end
   
     it "does not create a new movie, and returns BAD REQUEST if given bad data" do
       movie_data["title"] = nil
