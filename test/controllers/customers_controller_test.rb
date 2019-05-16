@@ -55,5 +55,12 @@ describe CustomersController do
         expect(customer.keys.length).must_equal keys.length
       end
     end
+
+    it "returns an empty array if there are no customers" do
+      Rental.destroy_all
+      Customer.destroy_all
+      get customers_path
+      expect(Customer.count).must_equal 0
+    end
   end
 end
