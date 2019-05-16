@@ -31,4 +31,15 @@ describe Movie do
       expect(empty_movie.available_inventory).must_equal 0
     end
   end
+
+  describe "increase_inventory" do
+    it "increases inventory by 1" do
+      before_inventory = valid_movie.available_inventory
+
+      valid_movie.increase_inventory
+      after_inventory = valid_movie.available_inventory
+
+      expect(after_inventory).must_equal before_inventory + 1
+    end
+  end
 end

@@ -11,6 +11,11 @@ class Movie < ApplicationRecord
     end
   end
 
+  def increase_inventory
+    self.available_inventory += 1
+    self.save
+  end
+
   private
 
   def set_available_inventory_default
