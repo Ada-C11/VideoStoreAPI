@@ -126,7 +126,7 @@ describe MoviesController do
       @movie_data["title"] = nil
 
       expect {
-        post movies_path, params: { movie: @movie_data }
+        post movies_path, params: @movie_data 
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)

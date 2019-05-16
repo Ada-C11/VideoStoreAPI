@@ -1,25 +1,29 @@
-require 'date'
+require "date"
 
 class RentalsController < ApplicationController
   def checkout
-    if rental_params[:customer_id] && rental_params[:movie_id]
-      movie = Movie.find_by(rental.movie_id)
-      rental = Rental.new(rental_params)
-      if rental.is_available? && movie 
-        rental.checkout_date = Date.today
-        rental.due_date = Date.today + 1.week
-        if rental.save
-          
-          movie.reduce_inventory
-          render json: rental.as_json(only: [:customer_id, :movie_id] ), status: :ok
-        else
-          render json: { ok: false, errors: rental.errors.messages },
-                status: :bad_request
-        end
-      else
-        render json: { ok: false, errors: rental.errors.messages },
-        status: :bad_request
-      end
+    # if rental_params[:customer_id] && rental_params[:movie_id]
+
+    rental = Rental.new(rental_params)
+    # binding.pry 
+    rental.checkout_date = Date.today
+    rental.due_date = Date.today + 1.week
+
+    movie = Movie.find_by(id: rental_params[:movie_id])
+
+    # binding.pry 
+    unless movie 
+      render json: { ok: false, errors: rental.errors.messages },
+             status: :bad_request
+      return
+    end
+
+    if rental.save
+      movie.reduce_inventory
+      render json: rental.as_json(only: [:customer_id, :movie_id]), status: :ok
+    else
+      render json: { ok: false, errors: rental.errors.messages },
+             status: :bad_request
     end
   end
 
@@ -30,14 +34,14 @@ class RentalsController < ApplicationController
       if rental.update(checkin_date: Date.today)
         movie = Movie.find(rental.movie_id)
         movie.increase_inventory
-        render json: rental.as_json(only: [:customer_id, :movie_id] ), status: :ok
+        render json: rental.as_json(only: [:customer_id, :movie_id]), status: :ok
       else
         render json: { ok: false, errors: rental.errors.messages },
-              status: :bad_request
+               status: :bad_request
       end
     else
-      render json: { ok: false, errors: { rental: ["Rental not found"] }},
-      status: :not_found
+      render json: { ok: false, errors: { rental: ["Rental not found"] } },
+             status: :not_found
     end
   end
 

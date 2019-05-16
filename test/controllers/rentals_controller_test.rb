@@ -1,9 +1,6 @@
 require "test_helper"
 
 describe RentalsController do
-  # it "must be a real test" do
-  #   flunk "Need real tests"
-  # end
 
   describe 'checkout' do
     before do 
@@ -26,15 +23,32 @@ describe RentalsController do
       expect(rental.customer_id).must_equal @rental_data[:customer_id]
       expect(rental.movie_id).must_equal @rental_data[:movie_id]
 
-
       must_respond_with :success
     end
 
-    it "returns a JSON with error for invalid rental data" do
-      @rental_data["movie_id"] = -1
+    it 'does returns error has if movie is unavailiable' do
+      movie = Movie.find_by(id: @rental_data[:movie_id])
+      movie.inventory = 0
+      movie.save 
 
       expect {
-        post checkout_path, params: { rental: @rental_data }
+        post checkout_path, params: @rental_data
+      }.wont_change "Rental.count"
+
+      body = JSON.parse(response.body)
+
+      expect(response.header["Content-Type"]).must_include "json"
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      
+      must_respond_with :bad_request
+    end 
+
+    it "returns a JSON with error for invalid rental data" do
+      @rental_data["customer_id"] = -1
+
+      expect {
+        post checkout_path, params: @rental_data
       }.wont_change "Rental.count"
 
       body = JSON.parse(response.body)
