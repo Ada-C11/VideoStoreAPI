@@ -14,7 +14,10 @@ class RentalsController < ApplicationController
       return
     end
 
-    # make sure it can find movie, movie as avail inventory, can find customer
+    unless movie.available_inventory > 0
+      render status: :precondition_failed, json: { errors: ["This movie is currently unavailable."] }
+      return
+    end
 
     rental = Rental.new(check_out: DateTime.now, movie_id: movie.id, customer_id: customer.id, due_date: DateTime.now + 7)
 

@@ -2,6 +2,7 @@ require "test_helper"
 
 describe RentalsController do
   let(:valid_movie) { movies(:blacksmith) }
+  let(:unavail_movie) { movies(:savior) }
   let(:valid_customer) { customers(:sarah) }
   describe "check_out" do
     it "should be able to create a rental with a valid customer and valid movie" do
@@ -41,6 +42,19 @@ describe RentalsController do
 
       expect { post check_out_path, params: rental_hash[:rental] }.wont_change "Rental.count"
       must_respond_with :not_found
+    end
+
+    it "will do something and not create a rental if there is no available inventory for specified movie" do
+      rental_hash = {
+        rental: {
+          customer_id: valid_customer.id,
+          movie_id: unavail_movie.id,
+        },
+      }
+
+      expect(unavail_movie.available_inventory).must_equal 0
+      expect { post check_out_path, params: rental_hash[:rental] }.wont_change "Rental.count"
+      must_respond_with :precondition_failed
     end
   end
   # it "should get check_out" do
