@@ -89,4 +89,47 @@ describe RentalsController do
       }.wont_change "Rental.count"
     end
   end
+
+  describe "check in and check out" do
+    let(:rental_params) {
+      {
+        customer_id: customers(:customer1).id,
+        movie_id: movies(:movie1).id,
+      }
+    }
+
+    it "changes movies checked out count when check out for customer" do
+      start_movies_count = customers(:customer1).movies_checked_out_count
+
+      post check_out_path(rental_params)
+      end_movies_count = Customer.find_by(id: customers(:customer1).id).movies_checked_out_count
+
+      expect(end_movies_count).must_equal start_movies_count + 1
+    end
+
+    it "changes movies checked out count when check in for customer" do
+      start_movies_count = customers(:customer1).movies_checked_out_count
+
+      post check_out_path(rental_params)
+      mid_movies_count = Customer.find_by(id: customers(:customer1).id).movies_checked_out_count
+      post check_in_path(rental_params)
+      end_movies_count = Customer.find_by(id: customers(:customer1).id).movies_checked_out_count
+
+      expect(mid_movies_count).must_equal start_movies_count + 1
+      expect(end_movies_count).must_equal start_movies_count
+    end
+
+    it "changes available inventory when check in and check out for movie" do
+      start_inventory = movies(:movie1).available_inventory
+
+      post check_out_path(rental_params)
+      mid_inventory = Movie.find_by(id: movies(:movie1).id).available_inventory
+      post check_in_path(rental_params)
+      end_inventory = Movie.find_by(id: movies(:movie1).id).available_inventory
+
+      expect(mid_inventory).must_equal start_inventory - 1
+      expect(end_inventory).must_equal start_inventory
+    end
+
+  end
 end
