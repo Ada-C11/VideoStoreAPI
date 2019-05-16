@@ -23,6 +23,7 @@ class RentalsController < ApplicationController
 
     if rental.save
       movie.decrease_inventory
+      customer.increase_checked_out_count
       render status: :ok, json: rental.as_json(only: [:id, :customer_id, :movie_id, :check_out, :due_date])
     else
       render json: { message: "No rental created" }
