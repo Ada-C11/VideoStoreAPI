@@ -89,4 +89,21 @@ describe Movie do
       expect(num_available).must_equal movie.inventory
     end
   end
+
+  describe "relations" do
+    let(:movie) { movies(:one) }
+
+    it "can have many rentals" do
+      num_rentals = movie.rentals.count
+
+      expect(num_rentals).must_equal 1
+    end
+
+    it "can have zero rentals" do
+      movie = movies(:three)
+      num_rentals = movie.rentals.count
+
+      expect(num_rentals).must_equal 0
+    end
+  end
 end

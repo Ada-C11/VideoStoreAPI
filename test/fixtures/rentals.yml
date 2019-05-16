@@ -8,8 +8,8 @@ one:
   status: "Checked Out"
 
 two:
-  movie_id: 2
-  customer_id: 2
+  movie: two
+  customer: two
   checkout: 2019-05-15
   due_date: 2019-05-22
   status: "Checked Out"
