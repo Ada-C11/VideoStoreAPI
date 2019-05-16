@@ -2,16 +2,12 @@ require "date"
 
 class RentalsController < ApplicationController
   def checkout
-    # if rental_params[:customer_id] && rental_params[:movie_id]
-
     rental = Rental.new(rental_params)
-    # binding.pry 
     rental.checkout_date = Date.today
     rental.due_date = Date.today + 1.week
 
     movie = Movie.find_by(id: rental_params[:movie_id])
 
-    # binding.pry 
     unless movie 
       render json: { ok: false, errors: rental.errors.messages },
              status: :bad_request

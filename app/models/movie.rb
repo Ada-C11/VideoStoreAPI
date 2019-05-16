@@ -20,7 +20,4 @@ class Movie < ApplicationRecord
     return self.update(inventory: self.inventory + 1)
   end
 
-  def is_available?
-    return self.available_inventory > 0 
-  end
 end
