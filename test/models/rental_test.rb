@@ -30,7 +30,7 @@ describe 'Rental' do
     it 'has a customer' do
       expect(rental.customer_id).must_equal customer.id 
       
-      customer = nil
+      rental.customer_id = nil
       expect(rental.valid?).must_equal false
 
     end 
@@ -38,9 +38,10 @@ describe 'Rental' do
     it 'has a movie' do
       expect(rental.movie_id).must_equal movie.id 
       
-      movie = nil
-      expect(rental.valid?).must_equal false
+      rental.movie_id = nil
 
+      # will raise a NoMethodError b/c can't run the is_availiable method on nil
+      expect{rental.valid?}.must_raise NoMethodError
     end
   end 
 
