@@ -71,6 +71,17 @@ describe RentalsController do
       expect { post rentals_checkout_path, params: rental_data }.wont_change "Rental.count"
       must_respond_with :forbidden
     end
+
+    it "due date is today + 7 days" do
+      movie = movies(:GreenMile)
+      customer = customers(:two)
+      rental_params = {movie_id: movie.id, customer_id: customer.id}
+      # binding.pry
+
+      post rentals_checkout_path, params: rental_params
+      rental = Rental.find_by(customer_id: customer.id, movie_id: movie.id)
+      rental.due_date.must_equal Date.today + 7
+    end
   end
 
   describe "checkin" do
