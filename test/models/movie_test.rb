@@ -31,7 +31,6 @@ describe Movie do
     rental = Rental.create!(
       customer_id: customer.id,
       movie_id: movie.id,
-      due_date: DateTime.now,
     )
     expect(rental.movie).must_be_kind_of Movie
     expect(rental.movie.id).must_equal movie.id

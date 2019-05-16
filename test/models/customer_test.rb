@@ -23,9 +23,8 @@ describe Customer do
     rental = Rental.create!(
       customer_id: customer.id,
       movie_id: movie.id,
-      due_date: DateTime.now,
     )
-    
+
     expect(rental.customer).must_be_kind_of Customer
     expect(rental.customer.id).must_equal customer.id
     expect(customer.rentals.count).must_equal (rental_count + 1)
