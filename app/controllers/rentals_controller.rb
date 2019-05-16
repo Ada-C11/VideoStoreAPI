@@ -5,7 +5,8 @@ class RentalsController < ApplicationController
     rental = Rental.new(check_out: DateTime.now, movie_id: movie.id, customer_id: customer.id, due_date: DateTime.now + 7)
 
     if rental.save
-      # Decrease Inventory by 1 (via helper method)
+      movie.decrease_inventory
+      render status: :ok, json: rental.as_json(only: [:id, :customer_id, :movie_id, :check_out, :due_date])
     else
       # Error message
     end
