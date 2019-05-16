@@ -51,7 +51,7 @@ class MoviesController < ApplicationController
     end
 
     def checkin
-        rental = Rental.find_by(movie_id: rental_params[movie.id], customer_id: rental_params[customer_id])
+        rental = Rental.find_by(movie_id: rental_params[:movie_id], customer_id: rental_params[:customer_id])
 
         rental.set_checkin_date
 
