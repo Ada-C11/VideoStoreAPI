@@ -7,14 +7,6 @@ describe Rental do
     it "must be valid given good data" do
       expect(rental.valid?).must_equal true
     end
-
-    it "requires due_date" do
-      required_fields = [:due_date]
-
-      rental.due_date = nil
-      expect(rental.valid?).must_equal false
-      rental.reload
-    end
     
     it "cannot be created with an invalid customer" do
       params = {
@@ -35,15 +27,22 @@ describe Rental do
       expect(rental.movie).wont_be_nil
       expect(rental.movie).must_be_kind_of Movie
     end
+    
+    it "throws an error if a movie is invalid" do
+      params = {
+        movie_id: 9999999999999999999999999999,
+        customer_id: 1,
+      }
+    end
   end
   
   describe "Due Date" do
-    it "sets a due date when a rental is created" do
-      skip
-      # params = {
-      #   movie_id: movies(:one).id,
-      #   customer_id: -1,
-      # }
+    it "is 7 days from the rental create date" do
+      rental = rentals(:three)
+      rental_date = rental.created_at
+
+      expect(rental.due_date).must_equal rental_date + 7.days
+      expect(rental.due_date).must_be_kind_of ActiveSupport::TimeWithZone   
     end
   end
 end

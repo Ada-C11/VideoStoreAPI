@@ -6,6 +6,6 @@ class Rental < ApplicationRecord
   validates :due_date, presence: true
   
   def due_date
-    DateTime.now + 7.days
+    self.created_at + 7.days
   end
 end
