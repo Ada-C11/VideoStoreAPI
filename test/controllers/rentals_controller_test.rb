@@ -90,22 +90,13 @@ describe RentalsController do
     end
   end
 
-  describe "check in and check out" do
+  describe "check in and check out inventory" do
     let(:rental_params) {
       {
         customer_id: customers(:customer1).id,
         movie_id: movies(:movie1).id,
       }
     }
-
-    it "changes movies checked out count when check out for customer" do
-      start_movies_count = customers(:customer1).movies_checked_out_count
-
-      post check_out_path(rental_params)
-      end_movies_count = Customer.find_by(id: customers(:customer1).id).movies_checked_out_count
-
-      expect(end_movies_count).must_equal start_movies_count + 1
-    end
 
     it "changes movies checked out count when check in for customer" do
       start_movies_count = customers(:customer1).movies_checked_out_count
