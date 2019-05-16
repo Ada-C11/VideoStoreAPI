@@ -34,6 +34,77 @@ describe MoviesController do
         movie.keys.sort.must_equal keys
       end
     end
+    it "sorts by name when given sort title query params" do
+      get "/movies?sort=title"
+
+      body = JSON.parse(response.body)
+      body.first["title"].must_equal "Good Will Hunting"
+    end
+
+    it "sorts by id when not given sort query params" do
+      Movie.destroy_all
+      movie1 = Movie.create(title: "Test 1", inventory: 1)
+      movie1.id = 1
+      movie1.save
+      movie2 = Movie.create(title: "Test 2", inventory: 2)
+      movie2.id = 2
+      movie2.save
+
+      get "/movies"
+
+      body = JSON.parse(response.body)
+      expect(body.first["title"]).must_equal "Test 1"
+      expect(body.first["id"]).must_equal 1
+    end
+
+    it "paginates the movie index" do
+      Movie.destroy_all
+      movie1 = Movie.create(title: "Test 1", inventory: 1)
+      movie1.id = 1
+      movie1.save
+      movie2 = Movie.create(title: "Test 2", inventory: 1)
+      movie2.id = 2
+      movie2.save
+
+      get "/movies?n=1&p=2"
+
+      body = JSON.parse(response.body)
+      expect(body.first["title"]).must_equal "Test 2"
+      expect(body.first["id"]).must_equal 2
+    end
+
+    it "paginates and sorts by title" do
+
+      get "/movies?sort=title&n=1&p=2"
+
+      body = JSON.parse(response.body)
+      expect(body.first["title"]).must_equal "Revolutionary Road"
+    end
+
+    it "returns an empty array if page in query is beyond content pages" do
+      get "/movies?n=1&p=4"
+
+      body = JSON.parse(response.body)
+      expect(body).must_equal []
+      body.must_be_kind_of Array
+    end
+
+    it "sorts by id if given invalid sort param" do
+
+      Movie.destroy_all
+      movie1 = Movie.create(title: "Test 1", inventory: 1)
+      movie1.id = 1
+      movie1.save
+      movie2 = Movie.create(title: "Test 2", inventory: 1)
+      movie2.id = 2
+      movie2.save
+
+      get "/movies?sort=cat"
+
+      body = JSON.parse(response.body)
+      expect(body.first["title"]).must_equal "Test 1"
+      expect(body.first["id"]).must_equal 1
+    end
   end
 
   describe "show" do

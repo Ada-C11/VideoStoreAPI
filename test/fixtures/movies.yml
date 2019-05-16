@@ -8,9 +8,9 @@ movie_one:
   available_inventory: 3
 
 movie_two:
-  title: 21 Jump Street
-  overview: Jonah Hill and Channing Tatum go undercover as high school students.
-  release_date: 2012-11-09
+  title: Saving Private Ryan
+  overview: Military movie.
+  release_date: 1998-11-09
   inventory: 2
   available_inventory: 2
 

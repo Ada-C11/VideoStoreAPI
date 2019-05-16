@@ -33,4 +33,22 @@ class RentalsController < ApplicationController
       render json: {ok: false, errors: "Rental not found"}, status: :bad_request
     end
   end
+
+  def overdue
+    rentals = Rental.all
+    overdue_rentals = []
+
+    rentals.each do |rental|
+        if rental.due_date < Date.today
+            movie = Movie.find_by(id: rental.movie_id)
+            customer = Customer.find_by(id: rental.customer_id)
+            postal_code = customer.postal_code
+            title = movie.title
+            name = customer.name
+            response = {:title => title, :name => name, :postal_code => postal_code}
+            render json: rental.as_json(only: [:response, :movie_id, :customer_id, :checkout_date, :due_date])
+        end
+    end
+    # render status: :ok, json: overdue_rentals.as_json(only: [:movie_id, :title, :customer_id, :postal_code, :name, :checkout_date, :due_date])
+  end
 end
