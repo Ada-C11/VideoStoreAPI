@@ -12,7 +12,7 @@ class RentalsController < ApplicationController
   
   def checkout
     rental = Rental.new(rental_params)
-    rental.due_date
+    rental.set_due_date
      
     if rental.save
       render json: { id: rental.id, movie_id: rental.movie.id, customer_id: rental.customer.id, due_date: rental.due_date }, status: :ok   

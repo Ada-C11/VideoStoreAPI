@@ -41,8 +41,8 @@ describe Rental do
       rental = rentals(:three)
       rental_date = rental.created_at
 
-      expect(rental.due_date).must_equal rental_date + 7.days
-      expect(rental.due_date).must_be_kind_of ActiveSupport::TimeWithZone   
+      expect(rental.set_due_date).must_equal rental_date + 7.days
+      expect(rental.set_due_date).must_be_kind_of ActiveSupport::TimeWithZone   
     end
   end
 end
