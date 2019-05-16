@@ -44,7 +44,7 @@ describe RentalsController do
       must_respond_with :not_found
     end
 
-    it "will do something and not create a rental if there is no available inventory for specified movie" do
+    it "responds with bad request if there is no available inventory for specified movie" do
       rental_hash = {
         rental: {
           customer_id: valid_customer.id,
