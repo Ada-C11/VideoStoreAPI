@@ -8,7 +8,6 @@ class Movie < ApplicationRecord
   validates :inventory, presence: true, numericality: { greater_than: -1 }
 
   def available_inventory
-    # inventory = Movie.find_by(inventory: inventory > -1)
     checked_out_movies = Rental.where(movie_id: self.id, currently_checked_out: true)
     avail_inventory = inventory - checked_out_movies.length
     return avail_inventory

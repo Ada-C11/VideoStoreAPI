@@ -11,4 +11,10 @@ class Rental < ApplicationRecord
     self.due_date = Date.today + 7
     self.currently_checked_out = true
   end
+
+  def set_checkin_date
+    self.checkin_date = Date.today
+    self.currently_checked_out = false
+  end
+  
 end
