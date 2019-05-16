@@ -7,8 +7,8 @@ class Rental < ApplicationRecord
 
 
   def set_checkout_date
-    self.rental.checkout_date = Date.today
-    self.rental.due_date = Date.today + 7
-    self.rental.currently_checked_out = true
+    self.checkout_date = Date.today
+    self.due_date = Date.today + 7
+    self.currently_checked_out = true
   end
 end

@@ -9,4 +9,9 @@ class Customer < ApplicationRecord
   validates :state, presence: true
   validates :postal_code, presence: true
   validates :phone, presence: true
+
+  def movies_checked_out_count
+    currently_rented = Rental.where(customer_id: self.id, currently_checked_out: true)
+    return currently_rented.length
+  end
 end
