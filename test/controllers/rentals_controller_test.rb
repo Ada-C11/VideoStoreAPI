@@ -74,9 +74,55 @@ describe RentalsController do
   end
 
   describe "checkin" do
-    it "should get checkin" do
-      post rentals_checkin_path
+    let(:rental_params) {
+      {
+        customer_id: customers(:one).id,
+        movie_id: movies(:GreenMile).id,
+      }
+    }
+    it "should checkin a movie with valid data" do
+      post rentals_checkout_path, params: rental_data
+      post rentals_checkin_path, params: rental_params
       must_respond_with :success
+    end
+
+    it "will return 204 if the customer doesn't exist" do
+      rental_params[:customer_id] = -1
+      post rentals_checkin_path, params: rental_params
+      must_respond_with :no_content
+    end
+
+    it "will return 204 if the movie doesn't exist" do
+      rental_params[:movie_id] = -1
+      post rentals_checkin_path, params: rental_params
+      must_respond_with :no_content
+    end
+
+    it "will return 204 if the rental doesn't exist" do
+      rental_params[:customer_id] = customers(:two).id
+      post rentals_checkin_path, params: rental_params
+      must_respond_with :no_content
+    end
+
+    it "updates the customer movies_checked_out_count" do
+      initial_checked_out_count = customers(:one).movies_checked_out_count
+
+      post rentals_checkin_path, params: rental_params
+      customers(:one).reload
+      customers(:one).movies_checked_out_count.must_equal initial_checked_out_count - 1
+    end
+
+    it "updates the movie's available_inventory" do
+      initial_movie_inventory = movies(:GreenMile).available_inventory
+      post rentals_checkin_path, params: rental_data
+      movies(:GreenMile).reload
+      movies(:GreenMile).available_inventory.must_equal initial_movie_inventory + 1
+    end
+
+    it "updates the rentals checked in date" do
+      post rentals_checkin_path, params: rental_data
+      rentals(:one).reload
+      rentals(:one).checked_in_date.must_equal Date.today
     end
   end
 end

@@ -8,7 +8,7 @@ class RentalsController < ApplicationController
       return
     end
 
-    if movie.available_inventory > 0 || movie.available_inventory == nil
+    if movie.available_inventory > 0
       rental = Rental.new(rental_params)
 
       if rental.save
@@ -31,8 +31,30 @@ class RentalsController < ApplicationController
   end
 
   def checkin
-    # change the inventory by +1
-    # update instance of rental with checked-in date
+    customer = Customer.find_by(id: params[:customer_id])
+    movie = Movie.find_by(id: params[:movie_id])
+    if !customer
+      render json: { error: "Customer id #{params[:customer_id]}not found" }, status: :no_content
+      return
+    end
+    if !movie
+      render json: { error: "Movie id #{params[:movie_id]} not found" }, status: :no_content
+      return
+    end
+    rental = Rental.find_by(customer_id: customer.id, movie_id: movie.id)
+    if !rental
+      render json: { error: "Rental not found" }, status: :no_content
+      return
+    end
+
+    rental.checked_in_date = Date.today
+    rental.save
+
+    existing_movie_count = customer.movies_checked_out_count
+    customer.update(movies_checked_out_count: existing_movie_count - 1)
+
+    current_movie_inventory = movie.available_inventory
+    movie.update(available_inventory: current_movie_inventory + 1)
   end
 
   private

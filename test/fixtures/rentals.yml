@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  movie: one
+  movie: GreenMile
   customer: one
   checkout_date: 2019-05-15
   due_date: 2019-05-15
