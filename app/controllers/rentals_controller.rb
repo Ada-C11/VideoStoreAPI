@@ -31,6 +31,10 @@ class RentalsController < ApplicationController
   end
 
   def checkin
+    # begin
+    #   Rental.return(customer_id, movie_id)
+    # rescue Rental::CheckinError => exception
+    # end
     customer = Customer.find_by(id: params[:customer_id])
     movie = Movie.find_by(id: params[:movie_id])
     if !customer
@@ -55,6 +59,8 @@ class RentalsController < ApplicationController
 
     current_movie_inventory = movie.available_inventory
     movie.update(available_inventory: current_movie_inventory + 1)
+    render json: { id: rental.id, message: "checked-in successful" }, status: :ok
+
   end
 
   private
