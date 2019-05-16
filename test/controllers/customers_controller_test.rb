@@ -38,7 +38,7 @@ describe CustomersController do
 
     it "returns customers with exactly the required fields" do 
       # Arrange
-      keys = %w(id name registered_at postal_code phone)
+      keys = %w(id name registered_at postal_code phone movies_checked_out_count)
 
       # Act
       get customers_path
