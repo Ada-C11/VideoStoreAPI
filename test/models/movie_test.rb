@@ -2,6 +2,7 @@ require "test_helper"
 
 describe Movie do
   let(:movie) { movies(:movie2) }
+  let(:customer) { customers(:customer2) }
   let(:rental1) { rentals(:rental1) }
   let(:rental2) { rentals(:rental2) }
 
@@ -70,6 +71,18 @@ describe Movie do
 
   describe "custom methods" do
     describe "available_inventory" do
+      it "returns the available inventory for a movie" do
+        rental_params = {
+          customer_id: customers(:customer1).id,
+          movie_id: movies(:movie1).id,
+        }
+
+        available = movie.available_inventory
+        inventory = movie.inventory
+
+        expect(inventory).must_equal 2
+        expect(available).must_equal 1
+      end
     end
   end
 end
