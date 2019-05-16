@@ -67,5 +67,15 @@ describe RentalsController do
         expect(rental.return_date).wont_equal nil
         must_respond_with :success
       end
+ 
+      it "returns error if trying to check in without a check out" do
+        post check_in_path, params: rental_data
+      
+        body = JSON.parse(response.body)
+        expect(body).must_be_kind_of Hash
+        expect(body).must_include "messages"
+        must_respond_with :bad_request          
+      end
+ 
     end
 end
