@@ -7,9 +7,10 @@ class Customer < ApplicationRecord
 
   def movies_checked_out_count
     checkouts = []
-    Rental.all.each do |rental|
-      if rental.customer_id == self.id && rental.checkin_date.nil?
-      checkouts << rental
+
+    self.rentals.each do |rental|
+      if rental.checkin_date.nil?
+        checkouts << rental
       end
     end
 
