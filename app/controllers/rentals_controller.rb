@@ -1,14 +1,17 @@
 class RentalsController < ApplicationController
   def check_out
-    movie = Movie.find_by(id: params[:movie][:id])
-    customer = Customer.find_by(id: params[:customer][:id])
+    movie = Movie.find_by(id: params[:movie_id])
+    customer = Customer.find_by(id: params[:customer_id])
+
+    # make sure it can find movie, movie as avail inventory, can find customer
+
     rental = Rental.new(check_out: DateTime.now, movie_id: movie.id, customer_id: customer.id, due_date: DateTime.now + 7)
 
     if rental.save
       movie.decrease_inventory
       render status: :ok, json: rental.as_json(only: [:id, :customer_id, :movie_id, :check_out, :due_date])
     else
-      # Error message
+      render json: { message: "No rental created" }
     end
   end
 

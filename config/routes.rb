@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :show, :create]
   resources :customers, only: [:index]
 
-  post "rentals/check_out", to: "rentals#check_out", as: "check_out"
+  post "rentals/check-out", to: "rentals#check_out", as: "check_out"
 
   # post /rentals/check-out <==== customer id, movie id
   # post /rentals/check-in <==== customer id, movie id
