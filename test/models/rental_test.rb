@@ -27,13 +27,6 @@ describe Rental do
       expect(rental.movie).wont_be_nil
       expect(rental.movie).must_be_kind_of Movie
     end
-    
-    it "throws an error if a movie is invalid" do
-      params = {
-        movie_id: 9999999999999999999999999999,
-        customer_id: 1,
-      }
-    end
   end
   
   describe "Due Date" do
@@ -43,6 +36,17 @@ describe Rental do
 
       expect(rental.set_due_date).must_equal rental_date + 7.days
       expect(rental.set_due_date).must_be_kind_of ActiveSupport::TimeWithZone   
+    end
+    
+    it "does not set a due date for an invalid rental" do
+      params = {
+        movie_id: 9999999999999999999999999999,
+        customer_id: 1,
+      }
+      
+      rental = Rental.create(params)
+      
+      expect(rental.due_date).must_be_nil
     end
   end
 end
