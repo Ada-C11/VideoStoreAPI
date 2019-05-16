@@ -17,7 +17,7 @@ class RentalsController < ApplicationController
       render status: :ok, json: { id: rental.id }
     else
       render json: { ok: false, messages: ["Rental not found"] },
-        status: :not_found
+        status: :bad_request
     end
   end
 
