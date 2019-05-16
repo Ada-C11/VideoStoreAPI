@@ -5,7 +5,7 @@ class RentalsController < ApplicationController
     if rental
       render json: {id: rental.id, movie_id: rental.movie.id, customer_id: rental.customer.id}, status: :ok
     else
-      render json: {errors: {rental: ["Rental not found for customer #{rental_params[:customer_id]}, and movie #{rental_params[:movie_id]}"]}},
+      render json: [{errors: {rental: ["Rental not found for customer #{rental_params[:customer_id]}, and movie #{rental_params[:movie_id]}"]}}],
              status: :not_found
     end
   end
@@ -15,9 +15,9 @@ class RentalsController < ApplicationController
     rental.set_due_date
      
     if rental.save
-      render json: { id: rental.id, movie_id: rental.movie.id, customer_id: rental.customer.id, due_date: rental.due_date }, status: :ok   
+      render json: [{ id: rental.id, movie_id: rental.movie.id, customer_id: rental.customer.id, due_date: rental.due_date }], status: :ok   
     else
-      render json: { errors: rental.errors.messages },
+      render json: [{ errors: rental.errors.messages }],
         status: :bad_request
     end 
   end

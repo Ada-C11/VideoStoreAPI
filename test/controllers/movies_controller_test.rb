@@ -59,7 +59,7 @@ describe MoviesController do
 
       body = JSON.parse(response.body)
 
-      expect(body["error"]).must_equal "Unable to find movie"
+      expect(body[0]["error"]).must_equal "Unable to find movie"
     end
   end
 
@@ -84,14 +84,14 @@ describe MoviesController do
     }
     it "can create a new movie using good data" do
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.must_change "Movie.count", +1
 
       body = JSON.parse(response.body)
-      expect(body).must_be_kind_of Hash
-      expect(body).must_include "id"
+      expect(body).must_be_kind_of Array
+      expect(body[0]).must_include "id"
 
-      movie = Movie.find(body["id"].to_i)
+      movie = Movie.find(body[0]["id"].to_i)
 
       expect(movie.title).must_equal movie_data[:title]
       expect(movie.available_inventory).must_equal movie.inventory
@@ -100,14 +100,14 @@ describe MoviesController do
 
     it "can set specific available inventory" do
       expect {
-        post movies_path, params: {movie: avail_movie_data}
+        post movies_path, params: avail_movie_data
       }.must_change "Movie.count", +1
 
       body = JSON.parse(response.body)
-      expect(body).must_be_kind_of Hash
-      expect(body).must_include "id"
+      expect(body).must_be_kind_of Array
+      expect(body[0]).must_include "id"
 
-      movie = Movie.find(body["id"].to_i)
+      movie = Movie.find(body[0]["id"].to_i)
 
       expect(movie.title).must_equal movie_data[:title]
       expect(movie.available_inventory).must_equal avail_movie_data[:available_inventory]
@@ -118,14 +118,14 @@ describe MoviesController do
       movie_data["title"] = nil
 
       expect {
-        post movies_path, params: {movie: movie_data}
+        post movies_path, params: movie_data
       }.wont_change "Movie.count"
 
       body = JSON.parse(response.body)
 
-      expect(body).must_be_kind_of Hash
-      expect(body).must_include "errors"
-      expect(body["errors"]).must_include "title"
+      expect(body).must_be_kind_of Array
+      expect(body[0]).must_include "errors"
+      expect(body[0]["errors"].keys).must_include "title"
       must_respond_with :bad_request
     end
   end

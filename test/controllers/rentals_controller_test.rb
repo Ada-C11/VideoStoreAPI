@@ -34,9 +34,9 @@ describe RentalsController do
       }
       post checkin_path, params: {rental: bad_data}
       body = JSON.parse(response.body)
-      expect(body).must_be_kind_of Hash
-      expect(body).must_include "errors"
-      expect(body["errors"]).must_include "rental"
+      expect(body).must_be_kind_of Array
+      expect(body[0]).must_include "errors"
+      expect(body[0]["errors"]).must_include "rental"
       must_respond_with :not_found
 
       describe "Checkout" do
