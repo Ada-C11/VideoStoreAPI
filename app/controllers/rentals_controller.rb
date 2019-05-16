@@ -1,3 +1,5 @@
+require "pry"
+
 class RentalsController < ApplicationController
   def checkout
     rental = Rental.new(rental_params)
@@ -7,7 +9,7 @@ class RentalsController < ApplicationController
     if movie.available_inventory > 0
       rental.due_date = Date.today + 7
       if rental.save
-        render json: { rental_id: rental.id }, status: :ok
+        render json: {rental_id: rental.id}, status: :ok
         customer.movies_checked_out_count += 1
         movie.available_inventory -= 1
       else
@@ -19,13 +21,15 @@ class RentalsController < ApplicationController
   end
 
   def checkin
-    customer = find_customer
-    movie = find_movie
-    rental = Rental.find_by(id: params[:customer_id, :movie_id])
+    customer = Customer.find_by(id: rental_params[:customer_id])
+    movie = Movie.find_by(id: rental_params[:movie_id])
+    rental = Rental.find_by(customer_id: rental_params[:customer_id], movie_id: rental_params[:movie_id])
+
     customer.movies_checked_out_count -= 1
     movie.available_inventory += 1
+    binding.pry
     if rental.save
-      render json: { id: rental.id }, status: :ok
+      render json: {id: rental.id}, status: :ok
     end
   end
 
@@ -33,13 +37,5 @@ class RentalsController < ApplicationController
 
   def rental_params
     params.permit(:customer_id, :movie_id)
-  end
-
-  def find_customer
-    return Customer.find_by(id: rental_params[:customer_id])
-  end
-
-  def find_movie
-    return Movie.find_by(id: rental_params[:movie_id])
   end
 end
