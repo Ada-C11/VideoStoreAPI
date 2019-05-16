@@ -2,8 +2,12 @@ class RentalsController < ApplicationController
   def checkout
     rental = Rental.new(customer_id: params[:customer_id], movie_id: params[:movie_id])
     movie = Movie.find_by(id: params[:movie_id])
+    customer = Customer.find_by(id: params[:customer_id])
     rental.checkout_date = Date.today
     rental.due_date = Date.today + 7
+    rental.title = movie.title
+    rental.name = customer.name
+    postal_code = customer.postal_code
     if movie.available_inventory == 0
       render json: {ok: false, errors: "Movie is out of stock"}, status: :bad_request
     elsif rental.save
@@ -39,15 +43,9 @@ class RentalsController < ApplicationController
     overdue_rentals = []
 
     rentals.each do |rental|
-        if rental.due_date < Date.today
-            movie = Movie.find_by(id: rental.movie_id)
-            customer = Customer.find_by(id: rental.customer_id)
-            postal_code = customer.postal_code
-            title = movie.title
-            name = customer.name
-            response = {:title => title, :name => name, :postal_code => postal_code}
-            render json: rental.as_json(only: [:response, :movie_id, :customer_id, :checkout_date, :due_date])
-        end
+      if rental.due_date < Date.today
+        render json: rental.as_json(only: [:customer_id, :name, :postal_code, :movie_id, :title, :checkout_date, :due_date])
+      end
     end
     # render status: :ok, json: overdue_rentals.as_json(only: [:movie_id, :title, :customer_id, :postal_code, :name, :checkout_date, :due_date])
   end
