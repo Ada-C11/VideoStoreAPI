@@ -80,6 +80,7 @@ describe RentalsController do
         movie_id: movies(:GreenMile).id,
       }
     }
+
     it "should checkin a movie with valid data" do
       post rentals_checkout_path, params: rental_data
       post rentals_checkin_path, params: rental_params
@@ -123,6 +124,25 @@ describe RentalsController do
       post rentals_checkin_path, params: rental_data
       rentals(:one).reload
       rentals(:one).checked_in_date.must_equal Date.today
+    end
+
+    it "returns json" do
+      post rentals_checkin_path, params: rental_params
+      must_respond_with :success
+      expect(response.header["Content-Type"]).must_include "json"
+    end
+
+    it "returns a hash" do
+      post rentals_checkin_path, params: rental_params
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+    end
+
+    it "returns rental record with the fields required to be included in the json" do
+      keys = %w(id message)
+      post rentals_checkin_path, params: rental_params
+      body = JSON.parse(response.body)
+      body.keys.must_equal keys
     end
   end
 end

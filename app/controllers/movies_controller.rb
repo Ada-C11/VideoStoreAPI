@@ -5,6 +5,8 @@ class MoviesController < ApplicationController
       render json: movies.as_json(except: [:created_at, :updated_at]), status: :ok
     else
       render json: {message: "There are currently no movies."}
+      # Another syntax, below, returns a different data structure (hash with ok: true as one key-value pair and pet: pets.as... as another key-value pair; this second key-value pair is the same as what's returned above - an array of hashes)
+      # render json: {ok: true, pet: pets.as_json(except: [:created_at, :updated_at])}
     end
   end
 
