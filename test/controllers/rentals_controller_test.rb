@@ -82,6 +82,17 @@ describe RentalsController do
       rental = Rental.find_by(customer_id: customer.id, movie_id: movie.id)
       rental.due_date.must_equal Date.today + 7
     end
+
+    it "checkout_date is today" do
+      movie = movies(:GreenMile)
+      customer = customers(:two)
+      rental_params = {movie_id: movie.id, customer_id: customer.id}
+      # binding.pry
+
+      post rentals_checkout_path, params: rental_params
+      rental = Rental.find_by(customer_id: customer.id, movie_id: movie.id)
+      rental.checkout_date.must_equal Date.today
+    end
   end
 
   describe "checkin" do
