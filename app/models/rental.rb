@@ -5,6 +5,6 @@ class Rental < ApplicationRecord
   validates_associated :customer, :movie
   
   def set_due_date
-    self.created_at + 7.days  
+    self.due_date = self.created_at + 7.days  
   end
 end

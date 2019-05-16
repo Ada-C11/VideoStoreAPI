@@ -12,9 +12,9 @@ class RentalsController < ApplicationController
   
   def checkout
     rental = Rental.new(rental_params)
-    rental.set_due_date
-     
+  
     if rental.save
+      rental.set_due_date
       render json: [{ id: rental.id, movie_id: rental.movie.id, customer_id: rental.customer.id, due_date: rental.due_date }], status: :ok   
     else
       render json: [{ errors: rental.errors.messages }],
@@ -25,6 +25,6 @@ class RentalsController < ApplicationController
   
   private
     def rental_params
-      params.require(:rental).permit(:movie_id, :customer_id, :due_date)
+      params.require(:rental).permit(:movie_id, :customer_id)
     end
 end
