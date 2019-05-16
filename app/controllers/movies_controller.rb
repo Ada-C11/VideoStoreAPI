@@ -38,15 +38,15 @@ class MoviesController < ApplicationController
         rental = Rental.new(rental_params)
 
         # find movie
-        movie_id = params[:movie_id]
-        movie = Movie.find_by(id: movie_id)
+        # movie_id = params[:movie_id]
+        movie = Movie.find_by(id: params[:movie_id])
         
         puts "VmVmVmVmVmVmVmVmVmVmVm"
         puts "#{movie}"
 
         # decrease movie inventory
-        movie.update(inventory: movie.inventory - 1)
-        rental.update(checkout_date: Date.today, due_date: Date.today + 7, currently_checked_out: true)
+        movie.available_inventory
+        rental.set_checkout_date
 
         # save rental
         if rental.save
@@ -60,29 +60,29 @@ class MoviesController < ApplicationController
         end
     end
 
-    def checkin
-        # rental = Rental.find_by(movie_id: rental_params[movie.id], customer_id: rental_params[customer_id])
+    # def checkin
+    #     # rental = Rental.find_by(movie_id: rental_params[movie.id], customer_id: rental_params[customer_id])
 
-        # create a new rental
-        rental = Rental.new(rental_params)
+    #     # create a new rental
+    #     rental = Rental.new(rental_params)
 
-        # find movie
-        movie_id = params[:movie_id]
-        movie = Movie.find_by(id: movie_id)
+    #     # find movie
+    #     movie_id = params[:movie_id]
+    #     movie = Movie.find_by(id: movie_id)
 
-        movie.update(inventory: movie.inventory + 1)
-        rental.update(checkout_date: nil, due_date: nil, currently_checked_out: false)
+    #     movie.update(inventory: movie.inventory + 1)
+    #     rental.update(checkout_date: nil, due_date: nil, currently_checked_out: false)
 
-        if rental.save
-            render json: rental.as_json(only: [:movie_id, :customer_id]), status: :ok
-        else
-            render json: {
-                    ok: false,
-                    errors: rental.erros.messages,
-                },
-                status: :bad_request
-        end
-    end
+    #     if rental.save
+    #         render json: rental.as_json(only: [:movie_id, :customer_id]), status: :ok
+    #     else
+    #         render json: {
+    #                 ok: false,
+    #                 errors: rental.erros.messages,
+    #             },
+    #             status: :bad_request
+    #     end
+    # end
 
     private
 
