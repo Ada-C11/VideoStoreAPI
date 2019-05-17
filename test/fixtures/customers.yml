@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Bita"
+  registered_at: 2019-05-14 14:20:52
+  address: "123 Street St"
+  city: "Seattle"
+  state: "WA"
+  postal_code: "98103"
+  phone: "206-555-5555"
+  movies_checked_out_count: 0
+
+two:
+  name: "Alex"
+  registered_at: 2019-05-14 14:20:52
+  address: "456 Street Lane"
+  city: "Seattle"
+  state: "WA"
+  postal_code: "98117"
+  phone: "415-555-5555"
+  movies_checked_out_count: 0

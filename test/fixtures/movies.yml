@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: "It"
+  overview: "a creepy clown scares some kids"
+  release_date: "2017"
+  inventory: 5
+  available_inventory: 5
+
+two:
+  title: "Hot Fuzz"
+  overview: "a big time London police officer moves to a small town"
+  release_date: "2007"
+  inventory: 3
+  available_inventory: 3
+
