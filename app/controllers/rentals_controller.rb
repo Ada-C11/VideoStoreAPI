@@ -25,11 +25,14 @@ class RentalsController < ApplicationController
     movie = Movie.find_by(id: rental_params[:movie_id])
     rental = Rental.find_by(customer_id: rental_params[:customer_id], movie_id: rental_params[:movie_id])
 
-    customer.movies_checked_out_count -= 1
-    movie.available_inventory += 1
-    binding.pry
-    if rental.save
+    if rental
+      rental.movie.available_inventory += 1
+      rental.movie.save
+      rental.customer.movies_checked_out_count -= 1
+      rental.customer.save
       render json: {id: rental.id}, status: :ok
+    else
+      render json: {errors: ["Rental could not be located"]}, status: :not_found
     end
   end
 
