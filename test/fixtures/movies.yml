@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  title: This is a Film
+  release_date: 2004-06-05
+  overview: This is a film. You probably haven't seen it.
+  inventory: 12
+  available_inventory: 12
+
+two:
+  title: This Too is a Film
+  release_date: 2005-05-02
+  overview: You probably haven't seen this one either.
+  inventory: 8
+  available_inventory: 7
+

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+joe:
+  name: "Joe"
+  registered_at: 2019-05-14
+  address: "5 Main St"  
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  phone: MyString
+  movies_checked_out_count: 1
+
+carly:
+  name: "Carly"
+  registered_at: 2019-05-14
+  address: MyString
+  city: MyString
+  state: MyString
+  postal_code: MyString
+  phone: MyString
+  movies_checked_out_count: 1
