@@ -3,22 +3,24 @@ require "pry"
 class RentalsController < ApplicationController
   def checkout
     movie = Movie.find_by(id: rental_params[:movie_id])
+
     if !movie
-      render json: { "errors": { "movie": ["Movie not found."] } }, status: :bad_request
+      render json: { "errors": { "movie": ["Movie not found"] } }, status: :bad_request
     else
       customer = Customer.find_by(id: rental_params[:customer_id])
       if !customer
-        render json: { "errors": { "customer": ["Customer not found."] } }, status: :bad_request
+        render json: { "errors": { "customer": ["Customer not found"] } }, status: :bad_request
       else
         checkout_date = Date.today
         due_date = checkout_date + 7
-        rental = Rental.new(customer_id: customer.id, checkout_date: checkout_date, due_date: due_date, movie_id: movie.id)
+        rental = Rental.new(customer: customer, checkout_date: checkout_date, due_date: due_date, movie: movie)
 
         if rental.movie.available_inventory > 0
           if rental.save
+            rental.movie.available_inventory -= 1
             customer.movies_checked_out_count += 1
-            movie.available_inventory -= 1
-            if !rental.save
+            customer.save
+            if !rental.movie.save
               render json: { "errors": { "movie": rental.movie.errors.messages } }, status: :bad_request
             else
               render json: rental.as_json(only: [:id]), status: :ok

@@ -3,7 +3,7 @@ class Movie < ApplicationRecord
   validates :inventory, presence: true
   has_many :rentals
 
-  after_initialize do |movie|
+  after_create do |movie|
     movie.available_inventory = movie.inventory
     movie.save
   end
