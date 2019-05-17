@@ -7,7 +7,7 @@ class Rental < ApplicationRecord
   validate :is_available?
 
   def is_available?
-    errors.add(:movie, "availiable quantity must be more than 0") unless movie.available_inventory > 0 
+    errors.add(:movie, "available quantity must be more than 0") unless movie.available_inventory > 0 
   end
 
 end

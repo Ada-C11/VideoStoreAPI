@@ -20,8 +20,8 @@ describe Customer do
   end
 
   describe "custom methods" do
-    it "returns 0 for checked out count" do
-      expect(customer.movies_checked_out_count).must_equal 0
+    it "returns checked out count" do
+      expect(customer.movies_checked_out_count).must_equal 1
     end
   end
 end
