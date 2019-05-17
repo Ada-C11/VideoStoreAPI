@@ -1,7 +1,5 @@
 class RentalsController < ApplicationController
   def checkout
-    # change the inventory by -1, add update action to movie
-    # create an instance of Rental, with today's date in checkout column and due date defined as today + 7 days
     movie = Movie.find_by(id: params[:movie_id])
     if movie == nil
       render json: { error: "Movie was not found in database or no movie id was provided." }, status: :no_content
@@ -17,8 +15,6 @@ class RentalsController < ApplicationController
         render json: { id: rental.id }, status: :ok
 
         rental.checkout_update_customer_movie(customer, movie)
-        # find customer; update movies_checked_out_count column
-        # find movie; update available_inventory
       else
         render json: { error: rental.errors.messages }, status: :bad_request
       end
