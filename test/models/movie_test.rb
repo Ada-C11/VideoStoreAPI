@@ -60,18 +60,32 @@ describe Movie do
     end
   end
 
-  describe "Custom Methods" do
+  describe "Custom Method - checkout" do
     it "decreases movie's available inventory when checkout" do
       start_count = movie.available_inventory
       Movie.checkout_inventory(movie)
 
       expect(movie.available_inventory).must_equal start_count - 1
     end
+
+    it "returns false if there is no available invenoty " do
+      movie.available_inventory = 0
+      expect(Movie.checkout_inventory(movie)).must_equal false
+    end
+  end
+
+  describe "Custom Method - checkin" do
     it "increases movie's available inventory when checkin" do
       start_count = movie.available_inventory
       Movie.checkin_inventory(movie, customer)
 
       expect(movie.available_inventory).must_equal start_count + 1
+    end
+
+    it "returns false if there is no associated movie checked out" do
+      movie.available_inventory = movie.inventory
+      customer.movies_checked_out_count = 0
+      expect(Movie.checkin_inventory(movie, customer)).must_equal false
     end
   end
 end
