@@ -6,6 +6,9 @@ describe RentalsController do
       {
         customer_id: customers(:customer_two).id,
         movie_id: movies(:movie_one).id,
+        name: customers(:customer_two).name,
+        title: movies(:movie_one).title,
+        postal_code: customers(:customer_two).postal_code,
       }
     }
 
@@ -99,7 +102,7 @@ describe RentalsController do
         movie_id: movies(:movie_one).id,
       }
     }
- 
+
     it "it returns an error if rental is not found" do
       rental_data["customer_id"] = customers(:customer_two).id
       expect {
@@ -122,6 +125,37 @@ describe RentalsController do
       customer.reload
 
       expect(customer.movies_checked_out_count).must_equal 1
+    end
+  end
+
+  describe "overdue" do
+    it "finds movies that are overdue" do
+      rental = rentals(:rental_one)
+      get overdue_path
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Array
+      expect(body[0]["customer_id"]).must_equal rental.customer_id
+    end
+
+    it "returns an array if there are rentals, but no overdues" do
+      rental = rentals(:rental_one)
+      rental.destroy
+
+      get overdue_path
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Array
+    end
+
+    it "returns a hash if there are no renals (and no overdues)" do
+      Rental.destroy_all
+
+      get overdue_path
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
     end
   end
 end
