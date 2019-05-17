@@ -96,5 +96,50 @@ describe MoviesController do
       must_respond_with :bad_request
 
     end
+
+    describe 'checkin' do
+      let(:movie) {Movie.first }
+
+      let(:existing_rental_data) {
+      {
+        customer_id: Customer.first.id,
+        movie_id: Movie.first.id,
+      }
+    }
+
+      it 'Successfully checks in a movie' do
+        expect {
+        post checkout_path(existing_rental_data)
+      }.must_change "Rental.count", +1
+
+       expect {
+        post checkin_path(existing_rental_data)
+      }.wont_change "Rental.count"
+
+       must_respond_with :success
+
+        body = JSON.parse(response.body)
+        expect(body).must_be_kind_of Hash
+        expect(body).must_include "id"
+      end
+
+      it 'wont check in an invalid movie' do
+
+        invalid_rental_data = {
+        customer_id: Customer.first.id,
+        movie_id: nil
+      }
+
+        expect{
+          post checkout_path(invalid_rental_data)
+        }.wont_change "Rental.count", 1
+
+        body = JSON.parse(response.body)
+        expect(body).must_be_kind_of Hash
+        expect(body).must_include "errors"
+        expect(body["errors"]).must_equal "movie"=>["must exist"], "movie_id"=>["can't be blank"]
+        must_respond_with :bad_request
+      end
+    end
   end
 end
