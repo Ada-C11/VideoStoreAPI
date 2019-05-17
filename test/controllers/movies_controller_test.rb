@@ -52,7 +52,7 @@ describe MoviesController do
 
   describe "show" do
     it "returns a movie that is valid" do
-      keys = %w(inventory overview release_date title )
+      keys = %w(available_inventory inventory overview release_date title )
       get movie_path(movies(:aladdin).id)
 
       body = JSON.parse(response.body)

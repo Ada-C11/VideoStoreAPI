@@ -5,15 +5,18 @@ aladdin:
   overview: great movie
   release_date: 2019-05-14
   inventory: 2
+  available_inventory: 2
 
 pocahontas:
   title: pocahontas
   overview: awesome movie
   release_date: 2019-05-14
   inventory: 1
+  available_inventory: 1
 
 pinnochio:
   title: pinnochio
   overview: sweet movie
   release_date: 2019-05-14
   inventory: 0
+  available_inventory: 0 

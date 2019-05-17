@@ -8,6 +8,7 @@ steph:
   state: washington
   postal_code: 98104
   phone: 1234567890
+  movies_checked_out_count: 0
 
 chantal:
   name: chantal
@@ -17,3 +18,4 @@ chantal:
   state: washington
   postal_code: 98104
   phone: 1234567890
+  movies_checked_out_count: 0

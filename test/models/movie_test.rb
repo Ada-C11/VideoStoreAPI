@@ -30,4 +30,10 @@ describe Movie do
       expect(movie).wont_be :valid?
     end
   end
+
+  describe "available inventory" do
+    it "returns movies available inventory" do
+      expect(movie.available_inventory).must_equal 2
+    end
+  end
 end
