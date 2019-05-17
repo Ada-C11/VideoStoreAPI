@@ -2,21 +2,34 @@ require "pry"
 
 class RentalsController < ApplicationController
   def checkout
-    rental = Rental.new(rental_params)
-    customer = find_customer
-    movie = find_movie
-
-    if movie.available_inventory > 0
-      rental.due_date = Date.today + 7
-      if rental.save
-        render json: {rental_id: rental.id}, status: :ok
-        customer.movies_checked_out_count += 1
-        movie.available_inventory -= 1
-      else
-        render_error(:bad_request, rental.errors.messages)
-      end
+    movie = Movie.find_by(id: rental_params[:movie_id])
+    if !movie
+      render json: { "errors": { "movie": ["Movie not found."] } }, status: :bad_request
     else
-      render_error(:forbidden, "Not in stock.")
+      customer = Customer.find_by(id: rental_params[:customer_id])
+      if !customer
+        render json: { "errors": { "customer": ["Customer not found."] } }, status: :bad_request
+      else
+        checkout_date = Date.today
+        due_date = checkout_date + 7
+        rental = Rental.new(customer_id: customer.id, checkout_date: checkout_date, due_date: due_date, movie_id: movie.id)
+
+        if rental.movie.available_inventory > 0
+          if rental.save
+            customer.movies_checked_out_count += 1
+            movie.available_inventory -= 1
+            if !rental.save
+              render json: { "errors": { "movie": rental.movie.errors.messages } }, status: :bad_request
+            else
+              render json: rental.as_json(only: [:id]), status: :ok
+            end
+          else
+            render json: { "errors": { "movie": rental.errors.messages } }, status: :bad_request
+          end
+        else
+          render json: { "errors": { "movie": ["#{movie.title} is out of stock"] } }, status: :bad_request
+        end
+      end
     end
   end
 
@@ -29,10 +42,10 @@ class RentalsController < ApplicationController
     movie.available_inventory += 1
     binding.pry
     if rental.save
-      render json: {id: rental.id}, status: :ok
+      render json: { id: rental.id }, status: :ok
     end
   end
-
+  
   private
 
   def rental_params
