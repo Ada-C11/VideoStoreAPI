@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+donald:
+  name: Customer Donald
+  registered_at: 2019-05-14 12:51:17
+  address: 123 Sesame St
+  city: Wonderworld
+  state: Idaho
+  postal_code: "12345"
+  phone: "0987654321"
+
+two:
+  name: Daisy
+  registered_at: 2019-05-14 12:51:17
+  address: 321 Walnut St
+  city: Otherworld
+  state: Montana
+  postal_code: "88888"
+  phone: "3334445555"
