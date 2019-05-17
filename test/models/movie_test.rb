@@ -6,6 +6,13 @@ describe Movie do
       movie = movies(:pride)
       expect(movie).must_respond_to :customers
     end
+
+    it "has a rental" do
+      movie = movies(:pride)
+      rental = Rental.new(movie_id: Movie.first.id, customer_id: Customer.first.id)
+      
+      expect(movie).must_respond_to :rentals
+    end
   end
 
   describe 'validations' do

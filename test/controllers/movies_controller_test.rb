@@ -1,8 +1,8 @@
 require "test_helper"
 
 describe MoviesController do
-  describe 'index' do
-    it 'succeeds when there are movies' do
+  describe "index" do
+    it "succeeds when there are movies" do
       get movies_path
 
       must_respond_with :success
@@ -19,7 +19,7 @@ describe MoviesController do
       body.must_be_kind_of Array
     end
     
-    it 'succeeds when there are no movies' do
+    it "succeeds when there are no movies" do
       Movie.all do |movie|
         movie.destroy
       end
@@ -39,7 +39,7 @@ describe MoviesController do
     end
   end
 
-  describe 'show' do
+  describe "show" do
     it "returns a 404 status code if the movie doesn't exist" do
       invalid_movie_id = 2947927
 
@@ -108,7 +108,7 @@ describe MoviesController do
       }
     }
     
-    it "will return a success message for checkout" do
+    it "will return a success message for checkout and decrease movie inventory" do
       movie_inventory = movie.inventory
 
       expect{
@@ -122,6 +122,8 @@ describe MoviesController do
       rental = Rental.find_by(rental_data)
       
       expect(rental.movie.available_inventory).must_equal movie_inventory - 1
+
+      must_respond_with :success
     end
 
     it "will return an error for an invalid checkout" do
