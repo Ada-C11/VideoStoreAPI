@@ -5,7 +5,7 @@ class RentalsController < ApplicationController
 
   def checkout
     unless Movie.checkout_inventory(@movie)
-      render json: {errors: ["There are no copies of movie #{@movie.id} avaibale"]}, status: :bad_request
+      render json: {errors: ["There are no copies of movie #{@movie.id} available"]}, status: :bad_request
       return
     end
 
