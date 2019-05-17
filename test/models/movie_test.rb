@@ -35,4 +35,6 @@ describe Movie do
       movie.errors.messages.must_include :inventory
     end
   end
+
+
 end
