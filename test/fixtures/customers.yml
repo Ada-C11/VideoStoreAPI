@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+shelley:
+  name: Shelley Rocha
+  address: 292-5216 Ipsum Rd
+  city: Hillsboro
+  state: OR
+  postal_code: 24309
+  phone: (322) 510-8695
+  registered_at: 2019-05-14 13:18:14
+
+
+
+curran:
+  name: Curran Stout
+  address: 658-1540 Erat Rd.
+  city: San Francisco
+  state: California
+  postal_code: 94267
+  phone: (908) 949-6758
+  registered_at: 2019-05-14 13:18:14
+

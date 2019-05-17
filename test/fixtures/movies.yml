@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+test:
+  title: Test Movie
+  overview: This is a test movie
+  release_date: 2019-05-14 13:18:14
+  inventory: 1
+
+other_test:
+  title: Other Test Movie
+  overview: This is also a test movie
+  release_date: 2019-05-14 13:18:14
+  inventory: 5
