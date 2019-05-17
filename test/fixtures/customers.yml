@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+myriam:
+  name: Myriam
+  registered_at: 2019-05-14 13:49:15
+  address: 123 Ada St
+  city: Seattle
+  state: WA
+  postal_code: 55555
+  phone: 555
+
+evelynn:
+  name: Evelynn
+  registered_at: 2019-05-14 13:49:15
+  address: 123 Lovelace St
+  city: Seattle
+  state: WA
+  postal_code: 55555
+  phone: 123

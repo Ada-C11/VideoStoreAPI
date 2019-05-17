@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+lucky:
+  title: Lucky Number Sleven
+  overview: Great movie
+  release_date: 2019-05-14
+  inventory: 5
+
+lion_king:
+  title: The Lion King
+  overview: Everything the light touches shall be yours.
+  release_date: 2019-05-14
+  inventory: 10
