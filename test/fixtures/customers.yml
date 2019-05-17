@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+jose:
+  name: Jose
+  registered_at: 2019-05-14 11:55:21
+  address: 1234 W 1st st
+  city: Boston
+  state: MA
+  postal_code: 98234
+  phone: 1234567890
+
+skyler:
+  name: Skyler
+  registered_at: 2019-05-14 11:55:21
+  address: 543 2nd ave
+  city: Seattle
+  state: WA
+  postal_code: 98105
+  phone: 9876543210

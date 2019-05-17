@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+movie_one:
+  title: Karate Kid
+  overview: Learn's how to become an honorable young man
+  release_date: 1985-05-14
+  inventory: 10
+  available_inventory: 10
+
+movie_two:
+  title: Love and Basketball
+  overview: Love and stuff
+  release_date: 1995-05-11
+  inventory: 5
+  available_inventory: 4
+
+unavailable_movie:
+  title: All Checked Out
+  overview: You can't rent me
+  release_date: 2019-05-10
+  inventory: 2
+  available_inventory: 0
+
