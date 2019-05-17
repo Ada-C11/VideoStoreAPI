@@ -39,6 +39,7 @@ class MoviesController < ApplicationController
         rental.set_checkout_date
 
         checkout_successful = rental.save
+
         if checkout_successful
             render json: rental.as_json(only: [:id]), status: :ok
         else
@@ -56,6 +57,7 @@ class MoviesController < ApplicationController
         rental.set_checkin_date
 
         checkin_successful = rental.save
+
         if checkin_successful
             render json: rental.as_json(only: [:id]), status: :ok
         else
@@ -64,6 +66,7 @@ class MoviesController < ApplicationController
             errors: rental.errors.messages,
             },
             status: :bad_request
+            return
         end
     end
 

@@ -12,6 +12,7 @@ describe Rental do
       invalid_rental = rental.valid?
 
       expect(invalid_rental).must_equal false
+      rental.errors.messages.must_include :customer_id
     end
 
     it "requires a movie_id" do
@@ -19,6 +20,7 @@ describe Rental do
 
       invalid_rental = rental.valid?
       expect(invalid_rental).must_equal false
+      rental.errors.messages.must_include :movie_id
       
     end
   end
@@ -38,12 +40,12 @@ describe Rental do
       it "will set the checkout dates" do
         expect(rental.set_checkout_date).must_equal true
         expect(rental.checkout_date).must_equal Date.today
-        expect(rental.due_date).must_equal Date.today + 7
+        expect(rental.due_date).must_equal Date.today + 7.days
         expect(rental.currently_checked_out).must_equal true
       end
 
       it "will set the checkin date" do
-        expect(rental.set_checkin_date).must_equal false
+        expect(rental.set_checkin_date).must_equal true
         expect(rental.checkin_date).must_equal Date.today
         expect(rental.currently_checked_out).must_equal false
       end
