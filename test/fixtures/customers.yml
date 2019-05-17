@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+hana:
+  name: Hana
+  registered_at: 2019-05-14 13:38:53
+  address: 123 Fake St
+  city: Seattle
+  state: WA
+  postal_code: 98103
+  phone: (555) 555-5555
+
+jessica:
+  name: Jessica
+  registered_at: 2019-05-14 13:38:53
+  address: 456 Faux Ave
+  city: Boston
+  state: MA
+  postal_code: 01451
+  phone: (131) 313-1313
