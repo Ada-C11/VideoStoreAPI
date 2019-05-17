@@ -26,7 +26,7 @@ describe CustomersController do
     end
 
     it "returns customer with the fields required to be included in the json" do
-      keys = ["id", "name", "registered_at", "address", "city", "state", "postal_code", "phone"]
+      keys = ["id", "name", "registered_at", "address", "city", "state", "postal_code", "phone", "movies_checked_out_count"]
       get customers_path
       body = JSON.parse(response.body)
       body.each do |customer|

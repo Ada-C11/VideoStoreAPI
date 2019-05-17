@@ -25,7 +25,8 @@ describe MoviesController do
     end
 
     it "returns movie with the fields required to be included in the json" do
-      keys = %w(id title overview release_date inventory)
+      # THIS TEST IS DUPLICATED IN THE SHOW TESTS VERBATIM; DELTE ONE?
+      keys = %w(id title overview release_date inventory available_inventory)
       get movies_path
       body = JSON.parse(response.body)
       body.each do |movie|
@@ -64,7 +65,7 @@ describe MoviesController do
     end
 
     it "returns movie with the fields required to be included in the json" do
-      keys = %w(id title overview release_date inventory)
+      keys = %w(id title overview release_date inventory available_inventory)
       get movie_path(@this_movie)
       body = JSON.parse(response.body)
       body.keys.must_equal keys
