@@ -75,7 +75,7 @@ describe RentalsController do
     it "due date is today + 7 days" do
       movie = movies(:GreenMile)
       customer = customers(:two)
-      rental_params = {movie_id: movie.id, customer_id: customer.id}
+      rental_params = { movie_id: movie.id, customer_id: customer.id }
       # binding.pry
 
       post rentals_checkout_path, params: rental_params
@@ -86,7 +86,7 @@ describe RentalsController do
     it "checkout_date is today" do
       movie = movies(:GreenMile)
       customer = customers(:two)
-      rental_params = {movie_id: movie.id, customer_id: customer.id}
+      rental_params = { movie_id: movie.id, customer_id: customer.id }
       # binding.pry
 
       post rentals_checkout_path, params: rental_params
@@ -121,7 +121,7 @@ describe RentalsController do
       must_respond_with :no_content
     end
 
-    it "will return 204 if the rental doesn't exist" do
+    it "will return checkin error if the rental doesn't exist" do
       rental_params[:customer_id] = customers(:two).id
       post rentals_checkin_path, params: rental_params
       must_respond_with :no_content
