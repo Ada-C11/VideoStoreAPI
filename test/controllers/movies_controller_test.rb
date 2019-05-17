@@ -142,4 +142,48 @@ describe MoviesController do
       end
     end
   end
+
+  describe "checkout method" do
+    let(:movie) {Movie.first }
+
+    let(:rental_data) {
+      {
+        movie_id: Movie.first.id,
+        customer_id: Customer.first.id,
+      }
+    }
+    
+    it "will return a success message for checkout" do
+      movie_inventory = movie.inventory
+
+      expect{
+        post checkout_path(rental_data)
+      }.must_change "Rental.count", 1
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+
+      rental = Rental.find_by(rental_data)
+      
+      expect(rental.movie.available_inventory).must_equal movie_inventory - 1
+    end
+
+    it "will return an error for an invalid checkout" do
+      invalid_rental_data = {
+        customer_id: Customer.first.id,
+        movie_id: nil
+      }
+
+      expect{
+        post checkout_path(invalid_rental_data)
+      }.wont_change "Rental.count", 1
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      expect(body["errors"]).must_equal "movie"=>["must exist"], "movie_id"=>["can't be blank"]
+      must_respond_with :bad_request
+    end
+  end
 end
