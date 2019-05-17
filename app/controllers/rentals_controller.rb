@@ -13,7 +13,6 @@ class RentalsController < ApplicationController
       rental.checkout_date = Date.today
       rental.due_date = Date.today + 7
       if rental.save
-        p rental
         customer = Customer.find_by(id: params[:customer_id])
         render json: {id: rental.id}, status: :ok
         existing_movie_count = customer.movies_checked_out_count

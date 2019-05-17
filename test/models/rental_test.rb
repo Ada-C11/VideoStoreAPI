@@ -2,32 +2,12 @@ require "test_helper"
 require "pry"
 
 describe Rental do
-  let(:rental) { Rental.new }
-
   describe "validations" do
-    #   # NOTE: THESE TESTS ARE DUPLICATED IN THE CONTROLLER TESTS, AND THEY DON'T WORK HERE. RENTALS_CHECKOUT_PATH IS UNDEFINED VARIABLE OR METHOD
-    # it "due date is today + 7 days" do
-
-    #   movie = movies(:GreenMile)
-    #   customer = customers(:two)
-    #   rental_params = {movie_id: movie.id, customer_id: customer.id}
-    #   # binding.pry
-
-    #   post rentals_checkout_path, params: rental_params
-    #   rental = Rental.find_by(customer_id: customer.id, movie_id: movie.id)
-    #   rental.due_date.must_equal Date.today + 7
-    # end
-
-    # it "checkout_date is today" do
-    #   movie = movies(:GreenMile)
-    #   customer = customers(:two)
-    #   rental_params = {movie_id: movie.id, customer_id: customer.id}
-    #   # binding.pry
-
-    #   post rentals_checkout_path, params: rental_params
-    #   rental = Rental.find_by(customer_id: customer.id, movie_id: movie.id)
-    #   rental.checkout_date.must_equal Date.today
-    # end
+    it "must be a valid rental" do
+      rental = Rental.new(customer_id: customers(:one).id, movie_id: movies(:two).id)
+      rental.save
+      rental.valid?.must_equal true
+    end
   end
 
   describe "relations" do
