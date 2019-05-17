@@ -35,6 +35,18 @@ class RentalsController < ApplicationController
   def check_in
     movie = Movie.find_by(id: params[:movie_id])
     customer = Customer.find_by(id: params[:customer_id])
+
+    if movie.nil? && customer.nil?
+      render status: :not_found, json: { errors: ["Customer with id #{params[:customer_id]} was not found.", "Movie with id #{params[:movie_id]} was not found"] }
+      return
+    elsif movie.nil?
+      render status: :not_found, json: { errors: ["Movie with id #{params[:movie_id]} was not found."] }
+      return
+    elsif customer.nil?
+      render status: :not_found, json: { errors: ["Customer with id #{params[:customer_id]} was not found."] }
+      return
+    end
+
     rental = Rental.where(customer_id: customer.id, movie_id: movie.id).order(due_date: :asc).first
 
     unless rental
@@ -45,9 +57,9 @@ class RentalsController < ApplicationController
     rental.check_in = DateTime.now
 
     if rental.save
-      # binding.pry
       movie.increase_inventory
       customer.decrease_checked_out_count
+      render status: :ok, json: { message: "Check-in successful!" }
     else
       render status: :bad_request, json: { errors: rental.errors.messages }
     end

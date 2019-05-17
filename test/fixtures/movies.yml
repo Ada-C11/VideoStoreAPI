@@ -13,3 +13,10 @@ savior:
   release_date: 2010-11-05
   inventory: 1
   available_inventory: 0
+
+treasure:
+  title: "Treasures of Ruby on Rails"
+  overview: "Something about R on R"
+  release_date: 2010-11-05
+  inventory: 5
+  available_inventory: 5

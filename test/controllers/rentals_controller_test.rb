@@ -87,5 +87,41 @@ describe RentalsController do
       expect(after_checkin_movie.available_inventory).must_equal before_checkin_inventory + 1
       expect(after_checkin_movies_count).must_equal before_checkin_movies_count - 1
     end
+
+    it "returns not_found if it can't find a rental's customer" do
+      rental_hash = {
+        rental: {
+          customer_id: Customer.all.last.id + 1,
+          movie_id: valid_movie.id,
+        },
+      }
+
+      expect { post check_in_path, params: rental_hash[:rental] }.wont_change "Rental.count"
+      must_respond_with :not_found
+    end
+
+    it "returns not_found if it can't find a rental's movie" do
+      rental_hash = {
+        rental: {
+          customer_id: valid_customer.id,
+          movie_id: "bogus id",
+        },
+      }
+
+      expect { post check_in_path, params: rental_hash[:rental] }.wont_change "Rental.count"
+      must_respond_with :not_found
+    end
+
+    it "returns not found if it can't find a rental" do
+      rental_hash = {
+        rental: {
+          customer_id: valid_customer.id,
+          movie_id: movies(:treasure).id,
+        },
+      }
+
+      expect { post check_in_path, params: rental_hash[:rental] }.wont_change "Rental.count"
+      must_respond_with :not_found
+    end
   end
 end
