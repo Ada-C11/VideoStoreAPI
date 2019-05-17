@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+bob:
+  name: Bob McPhee
+  registered_at: 2019-05-14 14:00:19
+  address: Bob's address
+  city: Seattle
+  state: WA
+  postal_code: 98100
+  phone: 206-111-1111
+  movies_checked_out_count: 1
+
+sarah:
+  name: Sarah McPhee
+  registered_at: 2019-05-14 14:00:19
+  address: Sarah's address
+  city: Seattle
+  state: WA
+  postal_code: 98100
+  phone: 206-111-2222
+  movies_checked_out_count: 1
+
