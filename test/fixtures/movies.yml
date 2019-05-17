@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+GreenMile:
+  title: The Green Mile
+  overview: Great movie, tearjerker.
+  release_date: 2000-05-05
+  inventory: 15
+  available_inventory: 13
+
+two:
+  title: MyString
+  overview: MyString
+  release_date: MyString
+  available_inventory: 0
