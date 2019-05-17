@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+steph:
+  name: steph
+  registered_at: 2019-05-14 13:20:43
+  address: 123 cool road
+  city: seattle
+  state: washington
+  postal_code: 98104
+  phone: 1234567890
+  movies_checked_out_count: 0
+
+chantal:
+  name: chantal
+  registered_at: 2019-05-14 13:20:43
+  address: 345 awesome road
+  city: seattle
+  state: washington
+  postal_code: 98104
+  phone: 1234567890
+  movies_checked_out_count: 0

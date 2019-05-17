@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movie: aladdin
+  customer: chantal
+  checkout_date: 2019-05-14
+  return_date: 2019-05-17
+
+two:
+  movie: pocahontas
+  customer: steph
+  checkout_date: 2019-05-14
+  return_date: 2019-05-17
