@@ -35,11 +35,24 @@ describe RentalsController do
       expect(rental.due_date).must_equal cur_date + 7
     end
 
-    it "returns an error if given an invalid movie or customer id" do
+    it "returns an error if given an invalid movie id" do
       rental_info[:movie_id] = "invalid"
 
       expect {
         post checkout_path, params: {rental: rental_info}
+      }.wont_change "Rental.count"
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "errors"
+      must_respond_with :not_found
+    end
+    it "returns an error if given an invalid customer id" do
+      rental_info[:customer_id] = "invalid"
+
+      expect {
+        post checkout_path, params: { rental: rental_info }
       }.wont_change "Rental.count"
 
       body = JSON.parse(response.body)
