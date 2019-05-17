@@ -1,3 +1,5 @@
+require "pry"
+
 class RentalsController < ApplicationController
   def check_out
     movie = Movie.find_by(id: params[:movie_id])
@@ -31,17 +33,23 @@ class RentalsController < ApplicationController
   end
 
   def check_in
-    movie = Movie.find_by(id: params[:movie][:id])
-    customer = Customer.find_by(id: params[:customer][:id])
-    rental = Rental.where(customer_id: customer.id, movie_id: movie.id)
+    movie = Movie.find_by(id: params[:movie_id])
+    customer = Customer.find_by(id: params[:customer_id])
+    rental = Rental.where(customer_id: customer.id, movie_id: movie.id).order(due_date: :asc).first
 
-    # rental.update(check_in: DateTime.now )
+    unless rental
+      render status: :not_found, json: { errors: ["Rental not found.  Please check your movie and customer ID again."] }
+      return
+    end
 
-    #if successful
-    # Increase Inventory by 1 (via helper method)
-    #else
-    # Error message
-    #end
+    rental.check_in = DateTime.now
 
+    if rental.save
+      # binding.pry
+      movie.increase_inventory
+      customer.decrease_checked_out_count
+    else
+      render status: :bad_request, json: { errors: rental.errors.messages }
+    end
   end
 end

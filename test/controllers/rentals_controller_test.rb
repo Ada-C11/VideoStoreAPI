@@ -1,9 +1,11 @@
 require "test_helper"
+require "pry"
 
 describe RentalsController do
   let(:valid_movie) { movies(:blacksmith) }
   let(:unavail_movie) { movies(:savior) }
   let(:valid_customer) { customers(:sarah) }
+  let(:valid_rental) { rentals(:rental_one) }
   describe "check_out" do
     it "should be able to create a rental with a valid customer and valid movie" do
       before_rental = valid_movie.available_inventory
@@ -57,14 +59,33 @@ describe RentalsController do
       must_respond_with :precondition_failed
     end
   end
-  # it "should get check_out" do
-  #   get rentals_check_out_url
-  #   value(response).must_be :success?
-  # end
 
-  # it "should get check_in" do
-  #   get rentals_check_in_url
-  #   value(response).must_be :success?
-  # end
+  describe "check_in" do
+    before do
+      @rental_hash = {
+        rental: {
+          customer_id: valid_customer.id,
+          movie_id: valid_movie.id,
+        },
+      }
 
+      post check_out_path, params: @rental_hash[:rental]
+    end
+    it "should be able to update a rental with a valid customer and valid movie" do
+      rental = Rental.where(customer_id: valid_customer.id, movie_id: valid_movie.id).order(due_date: :asc).first
+
+      before_checkin_inventory = Movie.find_by(id: valid_movie.id).available_inventory
+      before_checkin_movies_count = Customer.find_by(id: valid_customer.id).movies_checked_out_count
+
+      expect { post check_in_path, params: @rental_hash[:rental] }.wont_change "Rental.count"
+
+      rental.reload
+      after_checkin_movie = Movie.find_by(id: rental.movie_id)
+      after_checkin_movies_count = Customer.find_by(id: valid_customer.id).movies_checked_out_count
+
+      expect(rental.check_in).must_be_kind_of ActiveSupport::TimeWithZone
+      expect(after_checkin_movie.available_inventory).must_equal before_checkin_inventory + 1
+      expect(after_checkin_movies_count).must_equal before_checkin_movies_count - 1
+    end
+  end
 end
