@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+faiza: 
+  name: Faiza Ahsan
+  registered_at: Wed, 29 Apr 2019 07:54:14 -0700
+  address: 123 Street
+  city: City
+  state: State
+  postal_code: 12345
+  phone: 123-456-7890
+
+roslyn:
+  name: Rosalyn Anuseh
+  registered_at: Friday, 1 May 2019 07:54:14 -0700
+  address: 456 Road
+  city: City
+  state: State
+  postal_code: 54321
+  phone: 098-765-4321
+
