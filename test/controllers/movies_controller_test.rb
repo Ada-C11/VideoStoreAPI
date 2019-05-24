@@ -133,7 +133,7 @@ describe MoviesController do
       {
         title: "Titanic",
         overview: "Romantic & sad",
-        release_date: 1997 - 12 - 19,
+        release_date: 1997-12-19,
         inventory: 10,
       }
     }
