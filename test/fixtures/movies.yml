@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+movie_one:
+  title: Good Will Hunting
+  overview: Matt Damon and Robin Williams in Boston.
+  release_date: 1997-08-10
+  inventory: 3
+  available_inventory: 3
+
+movie_two:
+  title: Saving Private Ryan
+  overview: Military movie.
+  release_date: 1998-11-09
+  inventory: 2
+  available_inventory: 2
+
+movie_three:
+  title: Revolutionary Road 
+  overview: Good and sad 
+  release_date: 2005-10-01
+  inventory: 2
+  available_inventory: 0
