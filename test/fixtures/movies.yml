@@ -1,0 +1,36 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+wild:
+  title: Wild Hearts Can't Be Broken
+  overview: A young girl follows her dreams of being a horse diver despite setback
+  release_date: 1991-05-24
+  inventory: 5
+  available_inventory: 5
+
+oliver:
+  title: Oliver and Company
+  overview: A band of misfit dogs forge a friendship with a kitten
+  release_date: 1988-11-18
+  inventory: 1
+  available_inventory: 1
+
+harvey:
+  title: Harvey
+  overview: The story of a man and his tall invisible rabbit friend named Harvey
+  release_date: 1950-10-13
+  inventory: 0
+  available_inventory: 0
+
+will:
+  title: Good Will Hunting
+  overview: Troubled young man struggles to accept that he is a genius and stop being a butthead
+  release_date: 1997-12-05
+  inventory: 3
+  available_inventory: 3
+
+stranger:
+  title: Stranger than Fiction
+  overview: Will Ferrell is funny in a different way
+  release_date: 2006-11-10
+  inventory: 3
+  available_inventory: 3
